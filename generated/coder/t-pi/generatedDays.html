@@ -1,0 +1,1714 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Aoc 2021: t-pi</title>
+    <meta charset="UTF-8">
+<meta name="google-site-verification" content="JZ7jk3duxzxHDLuOHKPxc-uoz0JPlSBLeaAxh3wGn9Q" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Just for fun">
+    <meta name="author" content="Ralf D. Müller">
+    <meta name="keywords" content="aoc">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../../css/asciidoctor.css" rel="stylesheet">
+    <link href="../../../css/base.css" rel="stylesheet">
+    <link href="../../../css/prettify.css" rel="stylesheet">
+      <link href="../../../css/retro.css" rel="stylesheet">
+      <style>
+      @media only screen and (min-width:768px){
+          #toctitle{font-size:1.375em}
+          #toc.toc{margin-top:0!important;background-color:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #efefed;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto; padding-top: 60px;}
+          #toc.toc #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+          #toc.toc>ul{font-size:.9em;margin-bottom:0}
+          #toc.toc ul ul{margin-left:0;padding-left:1em}
+          #toc.toc ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+          body.toc2{ padding-left: 15.5em;padding-right:0; width: 100% !important;}
+          body.toc2 div#wrap div.content {width: auto !important;}
+          #toc.toc{width:15em; padding-top: 60px;}
+      }
+      @media only screen and (min-width:1280px){
+          body.toc2{ padding-left: 20.5em;padding-right:0; width: 100% !important;}
+          body.toc2 div#wrap div.content {width: auto !important;}
+          #toc.toc{width:20em; padding-top: 60px;}
+          #toc.toc #toctitle{font-size:1.375em}
+          #toc.toc>ul{font-size:.95em}
+          #toc.toc ul ul{padding-left:1.25em}
+      }
+      body {
+          overflow-y: scroll;
+      }
+      html, body {
+          font-size: 1.06rem;
+      }
+      body.toc2{ overflow-x: auto}
+      #toc.toc ul {
+          padding-inline-start: 0;
+      }
+      :target::before {
+          content: "";
+          display: block;
+          height: 60px; /* fixed header height*/
+          margin: -60px 0 0; /* negative fixed header height */
+      }
+      .navbar {
+          background-image: url(/aoc-2021/images/treeback.png);
+          background-size: contain;
+          background-repeat: repeat-x;
+          border-bottom: 0;
+          padding-bottom: 20px;
+          background-color: transparent;
+          box-shadow: none;
+      }
+      html {
+          background: url(/aoc-2021/images/snowback.png) no-repeat center center fixed;
+          -webkit-background-size: cover;
+          -moz-background-size: cover;
+          -o-background-size: cover;
+          background-size: cover;
+      }
+
+      </style>
+      <script>
+          //smart redirectg
+          if (document.location.href.includes("netlify")) {
+              document.location.href=document.location.href.replace("aoc-2021.netlify.app/","doctoolchain.org/aoc-2021/");
+          }
+      </script>
+<!-- /aoc-2021/ -->
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+      <link rel="apple-touch-icon" sizes="180x180" href="/aoc-2021//apple-touch-icon.png">
+      <link rel="icon" type="image/png" sizes="32x32" href="/aoc-2021//favicon-32x32.png">
+      <link rel="icon" type="image/png" sizes="16x16" href="/aoc-2021//favicon-16x16.png">
+      <link rel="manifest" href="/aoc-2021//site.webmanifest">
+      <link rel="mask-icon" href="/aoc-2021//safari-pinned-tab.svg" color="#5bbad5">
+      <meta name="msapplication-TileColor" content="#da532c">
+      <meta name="theme-color" content="#ffffff">
+  </head>
+
+<body onload="prettyPrint()" class="toc2 toc-left" >
+<div id="wrap">
+
+	
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../../../">AoC-2021</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+              
+                
+                  <li><a href="../../../rules/">Rules</a></li>
+                
+              
+                
+                  <li><a href="../../../solutions/">Solutions</a></li>
+                
+              
+                
+                  <li><a href="../../../about/">About</a></li>
+                
+              
+          </ul>
+            <!-- tag::search[] -->
+            <form class="navbar-form navbar-right" action="https://google.de/search" style="border: none;">
+                <div class="form-group">
+                    <input type="hidden" name="q" value="site:aoc-2021.netlify.com">
+                    <input type="text" name="q" class="form-control" id="search">
+                    <button type="submit" class="btn btn-default hidden-sm ">Find</button>
+                </div>
+            </form>
+            <!-- end::search[] -->
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+	<div class="container content">
+	<p><div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_t_pi">t-pi</a>
+<ul class="sectlevel2">
+<li><a href="#_about_me">About me</a></li>
+<li><a href="#_day_00_python">Day 00: python</a>
+<ul class="sectlevel3">
+<li><a href="#_python">Python</a></li>
+</ul>
+</li>
+<li><a href="#_day_01_python">Day 01: python</a>
+<ul class="sectlevel3">
+<li><a href="#_aoc21_01_sonar_sweep">AoC21-01: Sonar Sweep</a>
+<ul class="sectlevel4">
+<li><a href="#_info">Info</a></li>
+<li><a href="#_howto">HowTo</a></li>
+<li><a href="#_learned_today">Learned today</a></li>
+<li><a href="#_source">Source</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_day_02_python">Day 02: python</a>
+<ul class="sectlevel3">
+<li><a href="#_aoc21_02_dive">AoC21-02: Dive!</a>
+<ul class="sectlevel4">
+<li><a href="#_info_2">Info</a></li>
+<li><a href="#_howto_2">HowTo</a></li>
+<li><a href="#_learned_today_2">Learned today</a></li>
+<li><a href="#_source_2">Source</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_day_03_python">Day 03: python</a>
+<ul class="sectlevel3">
+<li><a href="#_aoc21_03_binary_diagnostic">AoC21-03: Binary Diagnostic</a>
+<ul class="sectlevel4">
+<li><a href="#_info_3">Info</a></li>
+<li><a href="#_howto_3">HowTo</a></li>
+<li><a href="#_learned_today_3">Learned today</a></li>
+<li><a href="#_source_3">Source</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_day_04_python">Day 04: python</a>
+<ul class="sectlevel3">
+<li><a href="#_aoc21_04_giant_squid">AoC21-04: Giant Squid</a>
+<ul class="sectlevel4">
+<li><a href="#_info_4">Info</a></li>
+<li><a href="#_howto_4">HowTo</a></li>
+<li><a href="#_learned_today_4">Learned today</a></li>
+<li><a href="#_source_4">Source</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_day_05_python">Day 05: python</a>
+<ul class="sectlevel3">
+<li><a href="#_aoc21_05_hydrothermal_venture">AoC21-05: Hydrothermal Venture</a>
+<ul class="sectlevel4">
+<li><a href="#_info_5">Info</a></li>
+<li><a href="#_howto_5">HowTo</a></li>
+<li><a href="#_learned_today_5">Learned today</a></li>
+<li><a href="#_source_5">Source</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_day_06_python">Day 06: python</a>
+<ul class="sectlevel3">
+<li><a href="#_aoc21_06_lanternfish">AoC21-06: Lanternfish</a>
+<ul class="sectlevel4">
+<li><a href="#_info_6">Info</a></li>
+<li><a href="#_howto_6">HowTo</a></li>
+<li><a href="#_learned_today_6">Learned today</a></li>
+<li><a href="#_source_6">Source</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_day_07_python">Day 07: python</a>
+<ul class="sectlevel3">
+<li><a href="#_aoc21_07_the_treachery_of_whales">AoC21-07: The Treachery of Whales</a>
+<ul class="sectlevel4">
+<li><a href="#_info_7">Info</a></li>
+<li><a href="#_howto_7">HowTo</a></li>
+<li><a href="#_learned_today_7">Learned today</a></li>
+<li><a href="#_source_7">Source</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_day_08_python">Day 08: python</a>
+<ul class="sectlevel3">
+<li><a href="#_aoc21_08_seven_segment_search">AoC21-08: Seven Segment Search</a>
+<ul class="sectlevel4">
+<li><a href="#_info_8">Info</a></li>
+<li><a href="#_howto_8">HowTo</a></li>
+<li><a href="#_learned_today_8">Learned today</a></li>
+<li><a href="#_source_8">Source</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_day_09_python">Day 09: python</a>
+<ul class="sectlevel3">
+<li><a href="#_aoc21_09_smoke_basin">AoC21-09: Smoke Basin</a>
+<ul class="sectlevel4">
+<li><a href="#_info_9">Info</a></li>
+<li><a href="#_howto_9">HowTo</a></li>
+<li><a href="#_learned_today_9">Learned today</a></li>
+<li><a href="#_source_9">Source</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_day_10_python">Day 10: python</a>
+<ul class="sectlevel3">
+<li><a href="#_aoc21_10_syntax_scoring">AoC21-10: Syntax Scoring</a>
+<ul class="sectlevel4">
+<li><a href="#_info_10">Info</a></li>
+<li><a href="#_howto_10">HowTo</a></li>
+<li><a href="#_learned_today_10">Learned today</a></li>
+<li><a href="#_source_10">Source</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_day_11_python">Day 11: python</a>
+<ul class="sectlevel3">
+<li><a href="#_aoc21_11_dumbo_octopus">AoC21-11: Dumbo Octopus</a>
+<ul class="sectlevel4">
+<li><a href="#_info_11">Info</a></li>
+<li><a href="#_howto_11">HowTo</a></li>
+<li><a href="#_learned_today_11">Learned today</a></li>
+<li><a href="#_source_11">Source</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="sect1">
+<h2 id="_t_pi"><a class="anchor" href="#_t_pi"></a><a class="link" href="#_t_pi">t-pi</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 83.3334%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="image"><img src="https://avatars3.githubusercontent.com/u/33703265?v=4" alt="33703265?v=4" width="100px"></span></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><strong>t-pi</strong><br>
+T. Pirk<br>
+Github: <a href="https://github.com/t-pi">t-pi</a><br>
+Twitter: <a href="https://twitter.com/ti_31415">ti_31415</a></p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="_about_me"><a class="anchor" href="#_about_me"></a><a class="link" href="#_about_me">About me</a></h3>
+<div class="paragraph">
+<p>Still in just for fun, not for pro code&#8230;&#8203; :)</p>
+</div>
+<a id="day00" />
+</div>
+<div class="sect2">
+<h3 id="_day_00_python"><a class="anchor" href="#_day_00_python"></a><a class="link" href="#_day_00_python">Day 00: python</a></h3>
+<div class="paragraph">
+<p>Hello world for Advent of Code 2021</p>
+</div>
+<div class="sect3">
+<h4 id="_python"><a class="anchor" href="#_python"></a><a class="link" href="#_python">Python</a></h4>
+<div class="paragraph">
+<p>Second year - even less time 🙄
+Let&#8217;s see&#8230;&#8203;</p>
+</div>
+<div class="paragraph">
+<p>Run the solution with <code>python solution.py</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-python" data-lang="python">print("Hello AoC 2021")</code></pre>
+</div>
+</div>
+<a id="day01" />
+</div>
+</div>
+<div class="sect2">
+<h3 id="_day_01_python"><a class="anchor" href="#_day_01_python"></a><a class="link" href="#_day_01_python">Day 01: python</a></h3>
+<style>
+    ul p, ol p, ul>li p, ol>li p {
+        line-height: 1.2;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+</style>
+<div class="sect3">
+<h4 id="_aoc21_01_sonar_sweep"><a class="anchor" href="#_aoc21_01_sonar_sweep"></a><a class="link" href="#_aoc21_01_sonar_sweep">AoC21-01: Sonar Sweep</a></h4>
+<div class="paragraph">
+<p><a href="https://adventofcode.com/2021/day/1" class="bare">https://adventofcode.com/2021/day/1</a></p>
+</div>
+<div class="sect4">
+<h5 id="_info"><a class="anchor" href="#_info"></a><a class="link" href="#_info">Info</a></h5>
+<div class="paragraph">
+<p>Sweep list</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_howto"><a class="anchor" href="#_howto"></a><a class="link" href="#_howto">HowTo</a></h5>
+<div class="paragraph">
+<p>Data is read from the file 'input&lt;two-digit-day&gt;.txt' line by line.
+List compare for <strong>.
+Sliding window compare for *</strong>.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_learned_today"><a class="anchor" href="#_learned_today"></a><a class="link" href="#_learned_today">Learned today</a></h5>
+
+</div>
+<div class="sect4">
+<h5 id="_source"><a class="anchor" href="#_source"></a><a class="link" href="#_source">Source</a></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-python" data-lang="python"># see description.adoc
+
+from pprint import pprint
+
+
+def read_daily_input(filename):
+    ''' Read lines from file with given input name
+        cast to daily required type and return list '''
+    with open(filename) as input_file:
+        local_list = input_file.readlines()
+        return_list = [int(item.strip()) for item in local_list]
+        return return_list
+
+
+def preprocess_input(daily_list):
+    ''' not needed today
+    '''
+    pass
+
+
+
+def main():
+    daily_list = read_daily_input('input01.txt')
+    sum1 = 0
+    previous_item = -1
+    for item in daily_list:
+        if (previous_item &gt;= 0):
+            if (previous_item &lt; item):
+                sum1 += 1
+        previous_item = item
+
+    star1 = sum1
+    print(f"Result (*): {star1}")
+
+    sum2 = 0
+    previous_window = -1
+    for i in range(len(daily_list)-2):
+        current_window = sum(daily_list[i:i+3])
+        if (previous_window &gt;= 0):
+            if (previous_window &lt; current_window):
+                sum2 += 1
+        previous_window = current_window
+
+    star2 = sum2
+    print(f"Result (**): {star2}")
+
+
+
+if __name__ == "__main__":
+    main()</code></pre>
+</div>
+</div>
+<a id="day02" />
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_day_02_python"><a class="anchor" href="#_day_02_python"></a><a class="link" href="#_day_02_python">Day 02: python</a></h3>
+<style>
+    ul p, ol p, ul>li p, ol>li p {
+        line-height: 1.2;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+</style>
+<div class="sect3">
+<h4 id="_aoc21_02_dive"><a class="anchor" href="#_aoc21_02_dive"></a><a class="link" href="#_aoc21_02_dive">AoC21-02: Dive!</a></h4>
+<div class="paragraph">
+<p><a href="https://adventofcode.com/2021/day/2" class="bare">https://adventofcode.com/2021/day/2</a></p>
+</div>
+<div class="sect4">
+<h5 id="_info_2"><a class="anchor" href="#_info_2"></a><a class="link" href="#_info_2">Info</a></h5>
+<div class="paragraph">
+<p>Calculate coordinates</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_howto_2"><a class="anchor" href="#_howto_2"></a><a class="link" href="#_howto_2">HowTo</a></h5>
+<div class="paragraph">
+<p>Data is read from the file 'input&lt;two-digit-day&gt;.txt' line by line.
+Simple tracking of depth and position for <strong>.
+Add aim and the corresponding change for depth calculation for *</strong>.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_learned_today_2"><a class="anchor" href="#_learned_today_2"></a><a class="link" href="#_learned_today_2">Learned today</a></h5>
+<div class="paragraph">
+<p>"Wer lesen kann, ist klar im Vorteil&#8230;&#8203;" 🙄
+(-&#8594; Reading helps 😁)</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_source_2"><a class="anchor" href="#_source_2"></a><a class="link" href="#_source_2">Source</a></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-python" data-lang="python"># see description.adoc
+
+from pprint import pprint
+
+
+def read_daily_input(filename):
+    ''' Read lines from file with given input name
+        cast to daily required type and return list '''
+    with open(filename) as input_file:
+        local_list = input_file.readlines()
+        return_list = [item.strip() for item in local_list]
+        return return_list
+
+
+def preprocess_input(daily_list):
+    ''' not needed today
+    '''
+    pass
+
+
+
+def main():
+    daily_list = read_daily_input('input02.txt')
+    depth = 0
+    position = 0
+    for item in daily_list:
+        command, parameter = item.split()
+        parameter_input = int(parameter)
+        if (command == 'down'):
+            depth += parameter_input
+        elif (command == 'up'):
+            depth -= parameter_input
+        elif (command == 'forward'):
+            position += parameter_input
+        if (depth &lt; 0):
+            print('jump!')
+    star1 = depth * position
+    print(f"Result (*): {star1}")
+
+    depth = 0
+    position = 0
+    aim = 0
+    for item in daily_list:
+        command, parameter = item.split()
+        parameter_input = int(parameter)
+        if (command == 'down'):
+            aim += parameter_input
+        elif (command == 'up'):
+            aim -= parameter_input
+        elif (command == 'forward'):
+            position += parameter_input
+            depth += aim*parameter_input
+        if (depth &lt; 0):
+            print('jump, jump!')
+    star2 = depth * position
+    print(f"Result (**): {star2}")
+
+
+
+if __name__ == "__main__":
+    main()</code></pre>
+</div>
+</div>
+<a id="day03" />
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_day_03_python"><a class="anchor" href="#_day_03_python"></a><a class="link" href="#_day_03_python">Day 03: python</a></h3>
+<style>
+    ul p, ol p, ul>li p, ol>li p {
+        line-height: 1.2;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+</style>
+<div class="sect3">
+<h4 id="_aoc21_03_binary_diagnostic"><a class="anchor" href="#_aoc21_03_binary_diagnostic"></a><a class="link" href="#_aoc21_03_binary_diagnostic">AoC21-03: Binary Diagnostic</a></h4>
+<div class="paragraph">
+<p><a href="https://adventofcode.com/2021/day/3" class="bare">https://adventofcode.com/2021/day/3</a></p>
+</div>
+<div class="sect4">
+<h5 id="_info_3"><a class="anchor" href="#_info_3"></a><a class="link" href="#_info_3">Info</a></h5>
+<div class="paragraph">
+<p>Check health of sub.
+<strong>: Get max_count('0'/'1') and min_count in transposed input list and multiply the two (decimal) numbers
+*</strong>: Filter input list from (recalculated) max/min_counts to single element and multiply</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_howto_3"><a class="anchor" href="#_howto_3"></a><a class="link" href="#_howto_3">HowTo</a></h5>
+<div class="paragraph">
+<p>Data is read from the file 'input&lt;two-digit-day&gt;.txt' line by line.
+Transpose list.
+Get most common bit-status per (transposed) position.
+<strong>: Invert binary and multiply
+*</strong>: Filter list and iterate</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_learned_today_3"><a class="anchor" href="#_learned_today_3"></a><a class="link" href="#_learned_today_3">Learned today</a></h5>
+<div class="paragraph">
+<p>Took me too long to clear out the algo&#8230;&#8203; 🙄</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_source_3"><a class="anchor" href="#_source_3"></a><a class="link" href="#_source_3">Source</a></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-python" data-lang="python"># see description.adoc
+
+from pprint import pprint
+
+
+def read_daily_input(filename):
+    ''' Read lines from file with given input name
+        cast to daily required type and return list '''
+    with open(filename) as input_file:
+        local_list = input_file.readlines()
+        return_list = [item.strip() for item in local_list]
+        return return_list
+
+
+def transpose_input(daily_list):
+    ''' Transpose list for analysis
+    '''
+    item_length = len(daily_list[0])
+    pos_list = [''] * item_length;
+    for item in daily_list:
+        for i in range(item_length):
+            pos_list[i] = pos_list[i] + item[i]
+    return pos_list
+
+
+def get_most_common_value(transposed_list):
+    ''' Return binary number strings with most common value (0 or 1)
+        per transposed list index
+    '''
+    most_common = ""
+    number_length = len(transposed_list)
+    pos_count = [0] * number_length
+    max_count = len(transposed_list[0])
+    for i in range(number_length):
+        pos_count[i] = transposed_list[i].count('1')
+        most_common = most_common + ('1' if (pos_count[i] &gt;= (max_count - pos_count[i])) else '0')
+    return most_common
+
+
+def main():
+    daily_list = read_daily_input('input03.txt')
+    power_list = transpose_input(daily_list)
+    gamma = get_most_common_value(power_list)
+    epsilon = ''.join(['1' if i == '0' else '0'
+                     for i in gamma])
+    print(gamma, epsilon)
+    star1 = int(gamma, base=2) * int(epsilon, base=2)
+    print(f"Result (*): {star1}")
+
+    co2_list = daily_list.copy()
+    i = 0
+    while ((len(co2_list) &gt; 1) &amp; (i &lt; len(co2_list[0]))):
+        co2_transposed_list = transpose_input(co2_list)
+        gamma_co2 = get_most_common_value(co2_transposed_list)
+        co2_list = list(filter(lambda co2_value: co2_value[i] == gamma_co2[i], co2_list))
+        i += 1
+
+    oxy_list = daily_list.copy()
+    i = 0
+    while ((len(oxy_list) &gt; 1) &amp; (i &lt; len(oxy_list[0]))):
+        oxy_transposed_list = transpose_input(oxy_list)
+        epsilon_oxy = ''.join(['1' if i == '0' else '0'
+                            for i in get_most_common_value(oxy_transposed_list)])
+        oxy_list = list(filter(lambda oxy_value: oxy_value[i] == epsilon_oxy[i], oxy_list))
+        i += 1
+
+    print(co2_list, oxy_list)
+    star2 = int(co2_list[0], base=2) * int(oxy_list[0], base=2)
+    print(f"Result (**): {star2}")
+
+
+
+if __name__ == "__main__":
+    main()</code></pre>
+</div>
+</div>
+<a id="day04" />
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_day_04_python"><a class="anchor" href="#_day_04_python"></a><a class="link" href="#_day_04_python">Day 04: python</a></h3>
+<style>
+    ul p, ol p, ul>li p, ol>li p {
+        line-height: 1.2;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+</style>
+<div class="sect3">
+<h4 id="_aoc21_04_giant_squid"><a class="anchor" href="#_aoc21_04_giant_squid"></a><a class="link" href="#_aoc21_04_giant_squid">AoC21-04: Giant Squid</a></h4>
+<div class="paragraph">
+<p><a href="https://adventofcode.com/2021/day/4" class="bare">https://adventofcode.com/2021/day/4</a></p>
+</div>
+<div class="sect4">
+<h5 id="_info_4"><a class="anchor" href="#_info_4"></a><a class="link" href="#_info_4">Info</a></h5>
+<div class="paragraph">
+<p>Play bingo with giant squid attached to sub
+*: Win (checksum from first board to bingo)
+*: Loose (checksum from last board to bingo)
+Checksum: All unmarked numbers of winning bingo field * last number to complete row/column</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_howto_4"><a class="anchor" href="#_howto_4"></a><a class="link" href="#_howto_4">HowTo</a></h5>
+<div class="paragraph">
+<p>Data is read from the file 'input&lt;two-digit-day&gt;.txt' line by line and prepocessed into bingo_numbers and bingo_fields.
+Separate functions to mark a number in a field and to check for complete row/col and calculation of checksum.
+Marking is done by substracting 100 from field (max 99) and later checking for &lt;0.
+Iterate trough numbers and fields.
+Note first winning board.
+Have index of winning boards, calculate checksum of all newly winning boards and note last one.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_learned_today_4"><a class="anchor" href="#_learned_today_4"></a><a class="link" href="#_learned_today_4">Learned today</a></h5>
+<div class="paragraph">
+<p>Got back somewhat into multi-dim lists and some list comprehension - although not everything worked as expected. Yet :)</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_source_4"><a class="anchor" href="#_source_4"></a><a class="link" href="#_source_4">Source</a></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-python" data-lang="python"># see description.adoc
+
+from os import linesep
+from pprint import pprint
+
+
+def read_daily_input(filename):
+    ''' Read lines from file with given input name
+        cast to daily required type and return list
+    '''
+    with open(filename) as input_file:
+        local_list = input_file.readlines()
+        local_list = [item.strip() for item in local_list]
+        bingo_numbers = [int(num) for num in local_list[0].split(',')]
+        bingo_fields = list()
+        bingo_field = list()
+        for item in local_list[2:]:
+            field_line = [int(num) for num in item.split()]
+            if (len(field_line) == 0):
+                bingo_fields.append(bingo_field)
+                bingo_field = list()
+            else:
+                bingo_field.append(field_line)
+        return bingo_numbers, bingo_fields
+
+
+def transpose_list(input_list):
+    ''' Transpose list for analysis
+    '''
+    item_length = len(input_list[0])
+    transposed_list = [[] for i in range(item_length)]
+    for item in input_list:
+        for i in range(item_length):
+            transposed_list[i].append(item[i])
+    return transposed_list
+
+
+def check_bingo_field(bingo_field):
+    ''' Check single bingo field for full row or full column of negative values
+        Returns sum of positive values (unmarked), else 0
+    '''
+    bingo = False
+    bingo_result = 0
+    bingo_columns = transpose_list(bingo_field)
+    for bingo_line in bingo_field+bingo_columns:
+        if (all(elem &lt; 0 for elem in bingo_line)):
+            bingo = True
+    if bingo:
+        for bingo_line in bingo_field:
+            for elem in bingo_line:
+                bingo_result += elem if elem &gt; 0 else 0
+    return bingo_result
+
+
+def mark_bingo_field(bingo_field, new_number):
+    ''' Marks numbers in bingo_field by subtracting 100 (max bingo value = 99)
+        Returns marked bingo_field
+    '''
+    for i_row in range(len(bingo_field)):
+        for i_col in range(len(bingo_field[i_row])):
+            if (bingo_field[i_row][i_col] == new_number):
+                bingo_field[i_row][i_col] -= 100
+    return bingo_field
+
+
+def main():
+    bingo_numbers, bingo_fields = read_daily_input('input04.txt')
+    pprint(bingo_numbers)
+    pprint(bingo_fields)
+    star1 = 0
+    star2 = 0
+    have_won = [False] * len(bingo_fields)
+    for num in bingo_numbers:
+        for i, bingo_field in enumerate(bingo_fields):
+            bingo_field = mark_bingo_field(bingo_field, num)
+            checksum = check_bingo_field(bingo_field)
+            if (checksum &gt; 0):
+                if (star1 == 0):
+                    star1 = num * check_bingo_field(bingo_field)
+                    print(num, checksum, star1)
+                if not have_won[i]:
+                    star2 = num * check_bingo_field(bingo_field)
+                    print(i, num, checksum, star2)
+                have_won[i] = True
+    print(f"Result (*): {star1}")
+    print(f"Result (**): {star2}")
+
+
+if __name__ == "__main__":
+    main()</code></pre>
+</div>
+</div>
+<a id="day05" />
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_day_05_python"><a class="anchor" href="#_day_05_python"></a><a class="link" href="#_day_05_python">Day 05: python</a></h3>
+<style>
+    ul p, ol p, ul>li p, ol>li p {
+        line-height: 1.2;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+</style>
+<div class="sect3">
+<h4 id="_aoc21_05_hydrothermal_venture"><a class="anchor" href="#_aoc21_05_hydrothermal_venture"></a><a class="link" href="#_aoc21_05_hydrothermal_venture">AoC21-05: Hydrothermal Venture</a></h4>
+<div class="paragraph">
+<p><a href="https://adventofcode.com/2021/day/5" class="bare">https://adventofcode.com/2021/day/5</a></p>
+</div>
+<div class="sect4">
+<h5 id="_info_5"><a class="anchor" href="#_info_5"></a><a class="link" href="#_info_5">Info</a></h5>
+<div class="paragraph">
+<p>Avoid hydrothermal ventline clouds
+<strong>: Find hot-spots on grid with &gt;1 lines crossing, consider only vertical &amp; horizontal lines
+*</strong>: Find hot-spots including diagonal lines (45° only)
+Return number of hot-spots on 1000x1000 grid</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_howto_5"><a class="anchor" href="#_howto_5"></a><a class="link" href="#_howto_5">HowTo</a></h5>
+<div class="paragraph">
+<p>Data is read from the file 'input&lt;two-digit-day&gt;.txt' line by line and prepocessed -&#8594; list of list with two coordinates (set of x,y).
+<strong>: check if horizontal or vertical, then add +1 to grid. Increase hot-spot count when grid point equals 2.
+*</strong>: add second loop to additionally process horizontal lines and increase count accordingly.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_learned_today_5"><a class="anchor" href="#_learned_today_5"></a><a class="link" href="#_learned_today_5">Learned today</a></h5>
+<div class="paragraph">
+<p>Quite straightforward, just a few small traps wrt. processing order of hor/vert lines vs. diagonal lines</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_source_5"><a class="anchor" href="#_source_5"></a><a class="link" href="#_source_5">Source</a></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-python" data-lang="python"># see description.adoc
+
+from os import linesep
+from pprint import pprint
+
+
+def read_daily_input(filename):
+    ''' Read lines from file with given input name
+        cast to daily required type and return list
+    '''
+    with open(filename) as input_file:
+        local_list = input_file.readlines()
+        local_list = [item.strip() for item in local_list]
+        return_list = list()
+        for item in local_list:
+            start_str, stop_str = item.split("-&gt;")
+            start = tuple(int(elem) for elem in start_str.split(','))
+            stop = tuple(int(elem) for elem in stop_str.split(','))
+            return_list.append([start, stop])
+        return return_list
+
+
+def transpose_list(input_list):
+    ''' Transpose list for analysis
+    '''
+    item_length = len(input_list[0])
+    transposed_list = [[] for i in range(item_length)]
+    for item in input_list:
+        for i in range(item_length):
+            transposed_list[i].append(item[i])
+    return transposed_list
+
+def generate_field(line_list):
+    ''' Generate 2D field from coordinate list
+        star1: only horizontal &amp; vertical lines are considered
+    '''
+    my_field = [[0 for i in range(1000)] for j in range(1000)]
+    mine_count1 = 0
+    mine_count2 = 0
+    for line in line_list:
+        x1, y1 = line[0]
+        x2, y2 = line[1]
+        if ((x1 == x2) | (y1 == y2)):
+            for x in range(min(x1, x2), max(x1, x2)+1):
+                for y in range(min(y1, y2), max(y1, y2)+1):
+                    my_field[x][y] += 1
+                    if (my_field[x][y] == 2):
+                            mine_count1 += 1
+    mine_count2 = mine_count1
+    for line in line_list:
+        x1, y1 = line[0]
+        x2, y2 = line[1]
+        if ((x1 == x2) | (y1 == y2)):
+            continue
+        x = x1
+        dx = -1 if x1&gt;x2 else 1
+        y = y1
+        dy = -1 if y1&gt;y2 else 1
+        while(x!=(x2+dx)):
+            my_field[x][y] += 1
+            if (my_field[x][y] == 2):
+                mine_count2 += 1
+            x += dx
+            y += dy
+    return my_field, mine_count1, mine_count2
+
+
+def main():
+    daily_list = read_daily_input('input05.txt')
+    line_field, star1, star2 = generate_field(daily_list)
+    print(f"Result (*): {star1}")
+    print(f"Result (**): {star2}")
+
+
+if __name__ == "__main__":
+    main()</code></pre>
+</div>
+</div>
+<a id="day06" />
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_day_06_python"><a class="anchor" href="#_day_06_python"></a><a class="link" href="#_day_06_python">Day 06: python</a></h3>
+<style>
+    ul p, ol p, ul>li p, ol>li p {
+        line-height: 1.2;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+</style>
+<div class="sect3">
+<h4 id="_aoc21_06_lanternfish"><a class="anchor" href="#_aoc21_06_lanternfish"></a><a class="link" href="#_aoc21_06_lanternfish">AoC21-06: Lanternfish</a></h4>
+<div class="paragraph">
+<p><a href="https://adventofcode.com/2021/day/6" class="bare">https://adventofcode.com/2021/day/6</a></p>
+</div>
+<div class="sect4">
+<h5 id="_info_6"><a class="anchor" href="#_info_6"></a><a class="link" href="#_info_6">Info</a></h5>
+<div class="paragraph">
+<p>Calculate exp. growth of lanternfish
+<strong>: After 80 days
+*</strong>: After 256 days</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_howto_6"><a class="anchor" href="#_howto_6"></a><a class="link" href="#_howto_6">HowTo</a></h5>
+<div class="paragraph">
+<p>Data is read from the file 'input&lt;two-digit-day&gt;.txt' line by line (one line today&#8230;&#8203;) and prepocessed.
+Being wary of the mentioned exp. growth, I choose a list with bins for every counter state, i.e. 10 fish with timer "3" -&#8594; list[3] = 10.
+Then one iteration was just to manage bin "0" (1x to "9", 1x added to "7") and shift afterwards all bins &gt;1 down one bin.
+Glad I did for star 2 😅</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_learned_today_6"><a class="anchor" href="#_learned_today_6"></a><a class="link" href="#_learned_today_6">Learned today</a></h5>
+<div class="paragraph">
+<p>Exp. growth does not always have to be scary.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_source_6"><a class="anchor" href="#_source_6"></a><a class="link" href="#_source_6">Source</a></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-python" data-lang="python"># see description.adoc
+
+from pprint import pprint
+
+
+def read_daily_input(filename):
+    ''' Read lines from file with given input name
+        cast to daily required type and return list
+    '''
+    with open(filename) as input_file:
+        local_list = [item.strip() for item in input_file.readlines()]
+        numbers_list = [int(elem) for elem in local_list[0].split(',')]
+        return_list = [numbers_list.count(i) for i in range(10)]
+        return return_list
+
+
+def iterate_one_day(fishcount_list):
+    ''' Decrease counters by 1, spawn new 8's by 0
+        Return new list
+    '''
+    fishcount_list[9] = fishcount_list[0]
+    fishcount_list[7] += fishcount_list[0]
+    for i in range(1, len(fishcount_list)):
+        fishcount_list[i-1] = fishcount_list[i]
+    fishcount_list[9] = 0
+    return fishcount_list
+
+
+def main():
+    daily_list = read_daily_input('input06.txt')
+    pprint(daily_list)
+    for i in range(80):
+        daily_list = iterate_one_day(daily_list)
+        print(i+1, daily_list)
+    star1 = sum(daily_list)
+    print(f"Result (*): {star1}")
+    for i in range(256-80):
+        daily_list = iterate_one_day(daily_list)
+        print(i+1, daily_list)
+    star2 = sum(daily_list)
+    print(f"Result (**): {star2}")
+
+
+if __name__ == "__main__":
+    main()</code></pre>
+</div>
+</div>
+<a id="day07" />
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_day_07_python"><a class="anchor" href="#_day_07_python"></a><a class="link" href="#_day_07_python">Day 07: python</a></h3>
+<style>
+    ul p, ol p, ul>li p, ol>li p {
+        line-height: 1.2;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+</style>
+<div class="sect3">
+<h4 id="_aoc21_07_the_treachery_of_whales"><a class="anchor" href="#_aoc21_07_the_treachery_of_whales"></a><a class="link" href="#_aoc21_07_the_treachery_of_whales">AoC21-07: The Treachery of Whales</a></h4>
+<div class="paragraph">
+<p><a href="https://adventofcode.com/2021/day/7" class="bare">https://adventofcode.com/2021/day/7</a></p>
+</div>
+<div class="sect4">
+<h5 id="_info_7"><a class="anchor" href="#_info_7"></a><a class="link" href="#_info_7">Info</a></h5>
+<div class="paragraph">
+<p>Align crab subs horizontally at single position with minimum fuel to escape the whale.
+* Star1 (<strong>): Linear fuel consumption with distance
+* Star2 (</strong>*): Fuel consumption increases linearly with distance (1:1 + 2:2 + 3:3 + &#8230;&#8203;)</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_howto_7"><a class="anchor" href="#_howto_7"></a><a class="link" href="#_howto_7">HowTo</a></h5>
+<div class="paragraph">
+<p>Data is read from the file 'input&lt;two-digit-day&gt;.txt' line by line (one long line today&#8230;&#8203;) and prepocessed.
+* Two functions:
+ * First star to calculate the sum of the differences
+ * Second star to calculate the sum of the sums of (difference range + 1), to account for increasing fuel need</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_learned_today_7"><a class="anchor" href="#_learned_today_7"></a><a class="link" href="#_learned_today_7">Learned today</a></h5>
+<div class="paragraph">
+<p>Basic algebra: had to recheck the formula to sum first n integers :)</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_source_7"><a class="anchor" href="#_source_7"></a><a class="link" href="#_source_7">Source</a></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-python" data-lang="python"># see description.adoc
+
+from pprint import pprint
+
+def read_daily_input(filename):
+    ''' Read lines from file with given input name
+        cast to daily required type and return list
+    '''
+    with open(filename) as input_file:
+        local_list = [item.strip() for item in input_file.readlines()]
+        return_list = [int(elem) for elem in local_list[0].split(',')]
+        return return_list
+
+
+def align_on_position_lin_fuel(crab_positions, align_position):
+    ''' Compute fuel needed to align crab's positions on align_position,
+        star1: linear fuel need with distance
+        Return amount of fuel (1 per position in-/decrement)
+    '''
+    max_pos = max(crab_positions)
+    if (align_position &gt; max_pos):
+        return 0
+    fuel_needed = [abs(crab_positions[i]-align_position) for i in range(len(crab_positions))]
+    return sum(fuel_needed)
+
+
+def align_on_position_inc_fuel(crab_positions, align_position):
+    ''' Compute fuel needed to align crab's positions on align_position,
+        star2: growing fuel need per distance with higher distance (1:1 + 2:2 + 3:3 + ...)
+        Return amount of fuel (1 per position in-/decrement)
+    '''
+    max_pos = max(crab_positions)
+    if (align_position &gt; max_pos):
+        return 0
+    fuel_needed = [sum(range(abs(crab_positions[i]-align_position)+1)) for i in range(len(crab_positions))]
+    return sum(fuel_needed)
+
+
+def main():
+    daily_list = read_daily_input('input07.txt')
+    max_pos = max(daily_list)
+    min_fuel = sum(daily_list)
+    for i in range(max_pos):
+        pos_fuel = align_on_position_lin_fuel(daily_list, i)
+        if (pos_fuel == 0):
+            continue
+        if (pos_fuel &lt; min_fuel):
+            min_fuel = pos_fuel
+            print(i, min_fuel)
+            star1 = min_fuel
+    print(f"Result (*): {star1}")
+    min_fuel = sum(daily_list)*sum(daily_list)
+    for i in range(max_pos):
+        pos_fuel = align_on_position_inc_fuel(daily_list, i)
+        if (pos_fuel == 0):
+            continue
+        if (pos_fuel &lt; min_fuel):
+            min_fuel = pos_fuel
+            print(i, min_fuel)
+            star2 = min_fuel
+    print(f"Result (*): {star1}")
+    print(f"Result (**): {star2}")
+
+
+if __name__ == "__main__":
+    main()</code></pre>
+</div>
+</div>
+<a id="day08" />
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_day_08_python"><a class="anchor" href="#_day_08_python"></a><a class="link" href="#_day_08_python">Day 08: python</a></h3>
+<style>
+    ul p, ol p, ul>li p, ol>li p {
+        line-height: 1.2;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+</style>
+<div class="sect3">
+<h4 id="_aoc21_08_seven_segment_search"><a class="anchor" href="#_aoc21_08_seven_segment_search"></a><a class="link" href="#_aoc21_08_seven_segment_search">AoC21-08: Seven Segment Search</a></h4>
+<div class="paragraph">
+<p><a href="https://adventofcode.com/2021/day/8" class="bare">https://adventofcode.com/2021/day/8</a></p>
+</div>
+<div class="sect4">
+<h5 id="_info_8"><a class="anchor" href="#_info_8"></a><a class="link" href="#_info_8">Info</a></h5>
+<div class="paragraph">
+<p>Interpret garbled seven segment display with two data structures (input | output)
+* Star1 (<strong>): Identify easy digits by counting only output digits with uniquely identifiable length (1, 4, 7, 8)
+* Star2 (</strong>*): Identify all digits and construct single output number from digits. Sum all output numbers</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_howto_8"><a class="anchor" href="#_howto_8"></a><a class="link" href="#_howto_8">HowTo</a></h5>
+<div class="paragraph">
+<p>Data is read from the file 'input&lt;two-digit-day&gt;.txt' line by line and prepocessed into list of (input | output) lines
+* Star1: Just check output digits for length and count the uniquely identifiable digits
+* Star2:
+ * Identify ambiguous digits by checking for containing segments from 'one' resp. segments from 'four' without 'one' ("crochet")
+ * Construct string number output digit by digit
+ * Return int(result)</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_learned_today_8"><a class="anchor" href="#_learned_today_8"></a><a class="link" href="#_learned_today_8">Learned today</a></h5>
+<div class="paragraph">
+<p>Had to sort out the identification of digits on paper for lean solution. Long live the pencil! 😁</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_source_8"><a class="anchor" href="#_source_8"></a><a class="link" href="#_source_8">Source</a></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-python" data-lang="python"># see description.adoc
+
+import io
+from pprint import pprint
+
+def read_daily_input(filename):
+    ''' Read lines from file with given input name
+        cast to daily required type and return list
+    '''
+    with open(filename) as input_file:
+        local_list = [item.strip() for item in input_file.readlines()]
+        digit_list = [digit for digit in (elem.split() for elem in local_list)]
+        return digit_list
+
+
+def identify_output_number(io_line):
+    ''' Parse digits to identify the numbers
+        Use 'one' and ('four' minus 'one') as distinguishing feature for 5 and 6 active segments
+        Return output number as int
+    '''
+    len_line = [len(digit) for digit in io_line]
+    digit_presence = [len_line.count(i) for i in range(7)]
+    # print(digit_presence)
+    one = list(next(obj for obj in io_line if len(obj) == 2))
+    four = list(next(obj for obj in io_line if len(obj) == 4))
+    crochet = [seg for seg in four if seg not in one]
+    # print(one, four, crochet)
+    output = False
+    result = ''
+    for digit in io_line:
+        brightness = len(digit)
+        if (brightness == 1):
+            output = True
+            continue
+        if output:
+            if (brightness == 2):
+                result += '1'
+            if (brightness == 3):
+                result += '7'
+            if (brightness == 4):
+                result += '4'
+            if (brightness == 7):
+                result += '8'
+            if (brightness == 5): # 2, 3 or 5
+                if (all(seg in digit for seg in one)):
+                    result += '3'
+                elif (all(seg in digit for seg in crochet)):
+                    result += '5'
+                else:
+                    result += '2'
+            if (brightness == 6): # 0, 6 or 9
+                if (not all(seg in digit for seg in crochet)):
+                    result += '0'
+                elif (all(seg in digit for seg in one)):
+                    result += '9'
+                else:
+                    result += '6'
+    return int(result)
+
+
+def main():
+    daily_list = read_daily_input('input08.txt')
+    easy_digits = 0
+    for line in daily_list:
+        output = False
+        for digit in line:
+            brightness = len(digit)
+            if (brightness == 1):
+                output = True
+            if output:
+                if ((brightness == 2) | (brightness == 3) | (brightness == 4) | (brightness == 7)):
+                    easy_digits += 1
+    star1 = easy_digits
+    print(f"Result (*): {star1}")
+    sum_output = 0
+    for line in daily_list:
+        sum_output += identify_output_number(line)
+    star2 = sum_output
+    print(f"Result (**): {star2}")
+
+
+if __name__ == "__main__":
+    main()</code></pre>
+</div>
+</div>
+<a id="day09" />
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_day_09_python"><a class="anchor" href="#_day_09_python"></a><a class="link" href="#_day_09_python">Day 09: python</a></h3>
+<style>
+    ul p, ol p, ul>li p, ol>li p {
+        line-height: 1.2;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+</style>
+<div class="sect3">
+<h4 id="_aoc21_09_smoke_basin"><a class="anchor" href="#_aoc21_09_smoke_basin"></a><a class="link" href="#_aoc21_09_smoke_basin">AoC21-09: Smoke Basin</a></h4>
+<div class="paragraph">
+<p><a href="https://adventofcode.com/2021/day/9" class="bare">https://adventofcode.com/2021/day/9</a></p>
+</div>
+<div class="sect4">
+<h5 id="_info_9"><a class="anchor" href="#_info_9"></a><a class="link" href="#_info_9">Info</a></h5>
+<div class="paragraph">
+<p>Determine 2D minima in cave floor (height: 0 .. 9)</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Star1 (*): Consider adjacent (l, r, t, b, no diagonals) fields</p>
+</li>
+<li>
+<p>Star2 (**): Fill minima up to height 8 and determine size (extension in positions) of basin. Multiply 3 largest basins.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_howto_9"><a class="anchor" href="#_howto_9"></a><a class="link" href="#_howto_9">HowTo</a></h5>
+<div class="paragraph">
+<p>Data is read from the file 'input&lt;two-digit-day&gt;.txt' line by line and prepocessed into 2d int list</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Star1: Straightforward, check for lower adjacent field for every position. Just make sure to have the comparisons right 🙄</p>
+</li>
+<li>
+<p>Star2: Take recursive approach comparable to floodfill (thanks @rdmueller for the pointer in Slack 😅). Don&#8217;t forget to mark visited positions&#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_learned_today_9"><a class="anchor" href="#_learned_today_9"></a><a class="link" href="#_learned_today_9">Learned today</a></h5>
+<div class="paragraph">
+<p>No easy hacking with head full of booster aftereffects&#8230;&#8203;</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_source_9"><a class="anchor" href="#_source_9"></a><a class="link" href="#_source_9">Source</a></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-python" data-lang="python"># see description.adoc
+
+from pprint import pprint
+
+def read_daily_input(filename):
+    ''' Read lines from file with given input name
+        cast to daily required type and return list
+    '''
+    with open(filename) as input_file:
+        local_list = [item.strip() for item in input_file.readlines()]
+        return_list = [[int(digit) for digit in list(line)] for line in local_list]
+        return return_list
+
+
+def check_adjacent_for_minimum(height_map, x, y):
+    ''' Checks adjacent positions for lower values, consider boundary
+        x: row, y: col
+        Returns 0 if no minimum, else height value + 1
+    '''
+    if (x&gt;=len(height_map)):
+        return 0
+    if (y&gt;=len(height_map[0])):
+        return 0
+    min_value = True
+    nominal_value = height_map[x][y]
+    if (x!=0):
+        if (height_map[x-1][y] &lt;= nominal_value):
+            min_value = False
+    if (x!=len(height_map)-1):
+        if (height_map[x+1][y] &lt;= nominal_value):
+            min_value = False
+    if (y!=0):
+        if (height_map[x][y-1] &lt;= nominal_value):
+            min_value = False
+    if (y!=len(height_map[0])-1):
+        if (height_map[x][y+1] &lt;= nominal_value):
+            min_value = False
+    return (nominal_value+1) if min_value else 0
+
+
+def fill_basin_recursive(height_map, min_x, min_y):
+    ''' Get basin size for a minimum coordinate
+        Returns basin size (number of places)
+    '''
+    dx = len(height_map)
+    dy = len(height_map[0])
+    basin_size = 0
+    def fill(x,y):
+        if (height_map[x][y] == 9): # 9 = limit of basin
+            return
+        if (height_map[x][y] == -1): # -1 = already visited
+            return
+        nonlocal basin_size
+        basin_size += 1
+        height_map[x][y] = -1
+        if (x!=0):
+            fill(x-1, y)
+        if (x!=len(height_map)-1):
+            fill(x+1, y)
+        if (y!=0):
+            fill(x, y-1)
+        if (y!=len(height_map[0])-1):
+            fill(x, y+1)
+    fill(min_x,min_y)
+    return basin_size
+
+
+def main():
+    daily_list = read_daily_input('input09.txt')
+    sum_mins = 0
+    basins = []
+    for x in range(len(daily_list)):
+        for y in range(len(daily_list[0])):
+            valley_value = check_adjacent_for_minimum(daily_list, x, y)
+            if (valley_value &gt; 0):
+                sum_mins += valley_value
+                basins.append(fill_basin_recursive(daily_list, x, y))
+    star1 = sum_mins
+    print(f"Result (*): {star1}")
+    print(basins)
+    prod_basins = 1
+    for i in range(3):
+        max_basin = max(basins)
+        prod_basins *= max_basin
+        basins.remove(max_basin)
+    star2 = prod_basins
+    print(f"Result (**): {star2}")
+
+
+if __name__ == "__main__":
+    main()</code></pre>
+</div>
+</div>
+<a id="day10" />
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_day_10_python"><a class="anchor" href="#_day_10_python"></a><a class="link" href="#_day_10_python">Day 10: python</a></h3>
+<style>
+    ul p, ol p, ul>li p, ol>li p {
+        line-height: 1.2;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+</style>
+<div class="sect3">
+<h4 id="_aoc21_10_syntax_scoring"><a class="anchor" href="#_aoc21_10_syntax_scoring"></a><a class="link" href="#_aoc21_10_syntax_scoring">AoC21-10: Syntax Scoring</a></h4>
+<div class="paragraph">
+<p><a href="https://adventofcode.com/2021/day/10" class="bare">https://adventofcode.com/2021/day/10</a></p>
+</div>
+<div class="sect4">
+<h5 id="_info_10"><a class="anchor" href="#_info_10"></a><a class="link" href="#_info_10">Info</a></h5>
+<div class="paragraph">
+<p>Navigation Subsystem on the fritz: Find corrupt data</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Star1 (*): Find closing brackets (of four kinds ([{&lt;&gt;}])) with no opening counterpart (corrupt lines) and calculate score</p>
+</li>
+<li>
+<p>Star2 (**): Discard corrupt lines and calculate scores for <em>incomplete</em> lines and take middle score of result list</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_howto_10"><a class="anchor" href="#_howto_10"></a><a class="link" href="#_howto_10">HowTo</a></h5>
+<div class="paragraph">
+<p>Data is read from the file 'input&lt;two-digit-day&gt;.txt' line by line and prepocessed into list of strings.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Star1: Clean each line from completed pairs until line length stays constant. Then check for any remaining closing bracket and use that to calculate score</p>
+</li>
+<li>
+<p>Star2: Use cleaned lines from Star1 and iterate from back to forth through chars to calculate score</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_learned_today_10"><a class="anchor" href="#_learned_today_10"></a><a class="link" href="#_learned_today_10">Learned today</a></h5>
+<div class="paragraph">
+<p>Simple counting of brackets was not enough for part1, I had to switch to actually considering opening and closing brackets. I&#8217;m glad that removing full pairs worked rather well - also for part2.</p>
+</div>
+<div class="paragraph">
+<p>But of course I fell once more for the "middle position" in a list, with the index starting with 0&#8230;&#8203; 🙄</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_source_10"><a class="anchor" href="#_source_10"></a><a class="link" href="#_source_10">Source</a></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-python" data-lang="python"># see description.adoc
+
+import io
+from pprint import pprint
+
+def read_daily_input(filename):
+    ''' Read lines from file with given input name
+        cast to daily required type and return list
+    '''
+    with open(filename) as input_file:
+        local_list = [item.strip() for item in input_file.readlines()]
+        return local_list
+
+
+def parse_brackets(command_line):
+    ''' parse bracket types and throw return upon incorrect closing type
+        Return values:
+        ): 3 points.
+        ]: 57 points.
+        }: 1197 points.
+        &gt;: 25137 points.
+        else 0
+    '''
+    old_len = len(command_line)+1
+    while old_len &gt; len(command_line):
+        old_len = len(command_line)
+        command_line = command_line.replace("()", "")
+        command_line = command_line.replace("[]", "")
+        command_line = command_line.replace("{}", "")
+        command_line = command_line.replace("&lt;&gt;", "")
+    bracket_pos = [command_line.find(c) for c in [')',']','}','&gt;']]
+    bracket_pos = [999 if item == -1 else item for item in bracket_pos]
+    min_pos = min(bracket_pos)
+    if (all(elem == min_pos for elem in bracket_pos)):
+        return 0, command_line
+    if (bracket_pos.index(min_pos) == 0):
+        return 3, command_line
+    elif (bracket_pos.index(min_pos) == 1):
+        return 57, command_line
+    elif (bracket_pos.index(min_pos) == 2):
+        return 1197, command_line
+    elif (bracket_pos.index(min_pos) == 3):
+        return 25137, command_line
+    return 0, command_line
+
+
+def count_brackets(command_line):
+    ''' count bracket types from back to forth and calculate score
+        ): 1 points.
+        ]: 2 points.
+        }: 3 points.
+        &gt;: 4 points.
+    '''
+    score = 0
+    for i in range(len(command_line)-1, -1, -1):
+        c = command_line[i]
+        if (c == '('):
+            score = score*5 + 1
+        elif (c == '['):
+            score = score*5 + 2
+        elif (c == '{'):
+            score = score*5 + 3
+        elif (c == '&lt;'):
+            score = score*5 + 4
+    return score
+
+
+def main():
+    daily_list = read_daily_input('input10.txt')
+    syntax_sum = 0
+    incomplete_lines = []
+    for line in daily_list:
+        syntax_value, parsed_line = parse_brackets(line)
+        if (syntax_value == 0):
+            incomplete_lines.append(parsed_line)
+        else:
+            syntax_sum += syntax_value
+    star1 = syntax_sum
+    print(f"Result (*): {star1}")
+    scores = []
+    for line in incomplete_lines:
+        scores.append(count_brackets(line))
+    scores.sort()
+    star2 = scores[round(len(scores)/2)-1]
+    print(f"Result (**): {star2}")
+
+
+if __name__ == "__main__":
+    main()</code></pre>
+</div>
+</div>
+<a id="day11" />
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_day_11_python"><a class="anchor" href="#_day_11_python"></a><a class="link" href="#_day_11_python">Day 11: python</a></h3>
+<style>
+    ul p, ol p, ul>li p, ol>li p {
+        line-height: 1.2;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+</style>
+<div class="sect3">
+<h4 id="_aoc21_11_dumbo_octopus"><a class="anchor" href="#_aoc21_11_dumbo_octopus"></a><a class="link" href="#_aoc21_11_dumbo_octopus">AoC21-11: Dumbo Octopus</a></h4>
+<div class="paragraph">
+<p><a href="https://adventofcode.com/2021/day/11" class="bare">https://adventofcode.com/2021/day/11</a></p>
+</div>
+<div class="sect4">
+<h5 id="_info_11"><a class="anchor" href="#_info_11"></a><a class="link" href="#_info_11">Info</a></h5>
+<div class="paragraph">
+<p>Christmas lights had to be switched off for bioluminescently flashing dumbo octopus'. Navigate by the flashing from the squids.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Star1 (*): Squids gain 1 energy per step, flash at energy level &gt;9 and also charge adjacent 8 squids, which might then also flash in single step. Calculate number of flashes in 100 steps.</p>
+</li>
+<li>
+<p>Star2 (**): Iterate squid game further until all squids flash together first time in a single step.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_howto_11"><a class="anchor" href="#_howto_11"></a><a class="link" href="#_howto_11">HowTo</a></h5>
+<div class="paragraph">
+<p>Data is read from the file 'input&lt;two-digit-day&gt;.txt' line by line and prepocessed into list of ints.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Star1: Iterate single step. Small array, no need for recursion. Spread flash to adjacents and mark flashed as 0. Important: Stick to 0 level after flashing.</p>
+</li>
+<li>
+<p>Star2: Continue iterations until first time flash count equals all squids.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_learned_today_11"><a class="anchor" href="#_learned_today_11"></a><a class="link" href="#_learned_today_11">Learned today</a></h5>
+<div class="paragraph">
+<p>Straightforward. Some hiccups like count step as 195 or 196, but all manageable with the test input :)</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_source_11"><a class="anchor" href="#_source_11"></a><a class="link" href="#_source_11">Source</a></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-python" data-lang="python"># see description.adoc
+
+import io
+from pprint import pprint
+
+def read_daily_input(filename):
+    ''' Read lines from file with given input name
+        cast to daily required type and return list
+    '''
+    with open(filename) as input_file:
+        local_list = [item.strip() for item in input_file.readlines()]
+        return_list = [[int(digit) for digit in line] for line in local_list]
+        return return_list
+
+
+def do_single_step(energy_levels):
+    ''' Iterate energy levels through single step
+        Return new energy_levels, number of flashes (energy levels &gt;9), bool if flash count equals all squids
+    '''
+    flashes = 0
+    depth = len(energy_levels)
+    width = len(energy_levels[0])
+    energy_levels = [[energy+1 for energy in line] for line in energy_levels]
+    old_flashes = -1
+    while (flashes &gt; old_flashes):
+        old_flashes = flashes
+        for x in range(depth):
+            for y in range(width):
+                if (energy_levels[x][y]&gt;9):
+                    flashes +=1
+                    energy_levels[x][y] = 0
+                    adjacents = [(x-1,y+1),(x,y+1),(x+1,y+1),(x-1,y),(x+1,y),(x-1,y-1),(x,y-1),(x+1,y-1)]
+                    for adj in adjacents:
+                        if ((0 &lt;= adj[0] &lt; depth) and (0 &lt;= adj[1] &lt; width)):
+                            if (energy_levels[adj[0]][adj[1]] != 0):
+                                energy_levels[adj[0]][adj[1]] += 1
+    return energy_levels, flashes, flashes == depth*width
+
+
+def main():
+    daily_list = read_daily_input('input11.txt')
+    sum_flashes = 0
+    star2 = 0
+    for i in range(100):
+        daily_list, flash_count, is_sync = do_single_step(daily_list)
+        sum_flashes += flash_count
+        if (is_sync and (star2 == 0)):
+            star2 = i+1
+    star1 = sum_flashes
+    print(f"Result (*): {star1}")
+    if (star2 == 0):
+        i = 100
+        is_sync = False
+        while not is_sync:
+            daily_list, flash_count, is_sync = do_single_step(daily_list)
+            i += 1
+        star2 = i
+    print(f"Result (**): {star2}")
+
+
+if __name__ == "__main__":
+    main()</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div></p>
+
+	</div>
+
+</div>
+<div id="push"></div>
+</div>
+
+
+    <div id="footer">
+      <div class="container">
+          <p class="muted credit">&copy; 2021 | Mixed with Bootstrap v3.1.1 | generated with <a href="https://doctoolchain.org">docToolchain</a> | Baked with JBake v2.6.4</p>
+      </div>
+    </div>
+    
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="../../../js/bootstrap.min.js"></script>
+    <script src="../../../js/prettify.js"></script>
+    
+
+
+</body>
+</html>

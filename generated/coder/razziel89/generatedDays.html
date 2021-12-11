@@ -1,0 +1,3077 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Aoc 2021: razziel89</title>
+    <meta charset="UTF-8">
+<meta name="google-site-verification" content="JZ7jk3duxzxHDLuOHKPxc-uoz0JPlSBLeaAxh3wGn9Q" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Just for fun">
+    <meta name="author" content="Ralf D. Müller">
+    <meta name="keywords" content="aoc">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../../css/asciidoctor.css" rel="stylesheet">
+    <link href="../../../css/base.css" rel="stylesheet">
+    <link href="../../../css/prettify.css" rel="stylesheet">
+      <link href="../../../css/retro.css" rel="stylesheet">
+      <style>
+      @media only screen and (min-width:768px){
+          #toctitle{font-size:1.375em}
+          #toc.toc{margin-top:0!important;background-color:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #efefed;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto; padding-top: 60px;}
+          #toc.toc #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+          #toc.toc>ul{font-size:.9em;margin-bottom:0}
+          #toc.toc ul ul{margin-left:0;padding-left:1em}
+          #toc.toc ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+          body.toc2{ padding-left: 15.5em;padding-right:0; width: 100% !important;}
+          body.toc2 div#wrap div.content {width: auto !important;}
+          #toc.toc{width:15em; padding-top: 60px;}
+      }
+      @media only screen and (min-width:1280px){
+          body.toc2{ padding-left: 20.5em;padding-right:0; width: 100% !important;}
+          body.toc2 div#wrap div.content {width: auto !important;}
+          #toc.toc{width:20em; padding-top: 60px;}
+          #toc.toc #toctitle{font-size:1.375em}
+          #toc.toc>ul{font-size:.95em}
+          #toc.toc ul ul{padding-left:1.25em}
+      }
+      body {
+          overflow-y: scroll;
+      }
+      html, body {
+          font-size: 1.06rem;
+      }
+      body.toc2{ overflow-x: auto}
+      #toc.toc ul {
+          padding-inline-start: 0;
+      }
+      :target::before {
+          content: "";
+          display: block;
+          height: 60px; /* fixed header height*/
+          margin: -60px 0 0; /* negative fixed header height */
+      }
+      .navbar {
+          background-image: url(/aoc-2021/images/treeback.png);
+          background-size: contain;
+          background-repeat: repeat-x;
+          border-bottom: 0;
+          padding-bottom: 20px;
+          background-color: transparent;
+          box-shadow: none;
+      }
+      html {
+          background: url(/aoc-2021/images/snowback.png) no-repeat center center fixed;
+          -webkit-background-size: cover;
+          -moz-background-size: cover;
+          -o-background-size: cover;
+          background-size: cover;
+      }
+
+      </style>
+      <script>
+          //smart redirectg
+          if (document.location.href.includes("netlify")) {
+              document.location.href=document.location.href.replace("aoc-2021.netlify.app/","doctoolchain.org/aoc-2021/");
+          }
+      </script>
+<!-- /aoc-2021/ -->
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+      <link rel="apple-touch-icon" sizes="180x180" href="/aoc-2021//apple-touch-icon.png">
+      <link rel="icon" type="image/png" sizes="32x32" href="/aoc-2021//favicon-32x32.png">
+      <link rel="icon" type="image/png" sizes="16x16" href="/aoc-2021//favicon-16x16.png">
+      <link rel="manifest" href="/aoc-2021//site.webmanifest">
+      <link rel="mask-icon" href="/aoc-2021//safari-pinned-tab.svg" color="#5bbad5">
+      <meta name="msapplication-TileColor" content="#da532c">
+      <meta name="theme-color" content="#ffffff">
+  </head>
+
+<body onload="prettyPrint()" class="toc2 toc-left" >
+<div id="wrap">
+
+	
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../../../">AoC-2021</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+              
+                
+                  <li><a href="../../../rules/">Rules</a></li>
+                
+              
+                
+                  <li><a href="../../../solutions/">Solutions</a></li>
+                
+              
+                
+                  <li><a href="../../../about/">About</a></li>
+                
+              
+          </ul>
+            <!-- tag::search[] -->
+            <form class="navbar-form navbar-right" action="https://google.de/search" style="border: none;">
+                <div class="form-group">
+                    <input type="hidden" name="q" value="site:aoc-2021.netlify.com">
+                    <input type="text" name="q" class="form-control" id="search">
+                    <button type="submit" class="btn btn-default hidden-sm ">Find</button>
+                </div>
+            </form>
+            <!-- end::search[] -->
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+	<div class="container content">
+	<p><div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_razziel89">razziel89</a>
+<ul class="sectlevel2">
+<li><a href="#_about_me">About me</a></li>
+<li><a href="#_day_01_go">Day 01: go</a>
+<ul class="sectlevel3">
+<li><a href="#_day_01_sonar_sweep">Day 01: Sonar Sweep</a>
+<ul class="sectlevel4">
+<li><a href="#_oveview">Oveview</a></li>
+<li><a href="#_how_to_run">How to run</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_day_02_go">Day 02: go</a>
+<ul class="sectlevel3">
+<li><a href="#_day_02_dive">Day 02: Dive</a>
+<ul class="sectlevel4">
+<li><a href="#_oveview_2">Oveview</a></li>
+<li><a href="#_how_to_run_2">How to run</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_day_03_go">Day 03: go</a>
+<ul class="sectlevel3">
+<li><a href="#_day_03_binary_diagnostic">Day 03: Binary Diagnostic</a>
+<ul class="sectlevel4">
+<li><a href="#_oveview_3">Oveview</a></li>
+<li><a href="#_how_to_run_3">How to run</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_day_04_go">Day 04: go</a>
+<ul class="sectlevel3">
+<li><a href="#_day_04_giant_squid">Day 04: Giant Squid</a>
+<ul class="sectlevel4">
+<li><a href="#_oveview_4">Oveview</a></li>
+<li><a href="#_how_to_run_4">How to run</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_day_05_go">Day 05: go</a>
+<ul class="sectlevel3">
+<li><a href="#_day_05_thermal_vents">Day 05: Thermal Vents</a>
+<ul class="sectlevel4">
+<li><a href="#_oveview_5">Oveview</a></li>
+<li><a href="#_how_to_run_5">How to run</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_day_06_go">Day 06: go</a>
+<ul class="sectlevel3">
+<li><a href="#_day_06_lanternfish">Day 06: Lanternfish</a>
+<ul class="sectlevel4">
+<li><a href="#_oveview_6">Oveview</a></li>
+<li><a href="#_how_to_run_6">How to run</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_day_07_go">Day 07: go</a>
+<ul class="sectlevel3">
+<li><a href="#_day_07_the_treachery_of_whales">Day 07: The Treachery of Whales</a>
+<ul class="sectlevel4">
+<li><a href="#_oveview_7">Oveview</a></li>
+<li><a href="#_how_to_run_7">How to run</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_day_08_go">Day 08: go</a>
+<ul class="sectlevel3">
+<li><a href="#_day_08_seven_segment_search">Day 08: Seven Segment Search</a>
+<ul class="sectlevel4">
+<li><a href="#_oveview_8">Oveview</a></li>
+<li><a href="#_how_to_run_8">How to run</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_day_08_bash">Day 08: bash</a>
+<ul class="sectlevel3">
+<li><a href="#_day_08_seven_segment_search_2">Day 08: Seven Segment Search</a></li>
+</ul>
+</li>
+<li><a href="#_day_09_go">Day 09: go</a>
+<ul class="sectlevel3">
+<li><a href="#_day_09_smoke_basin">Day 09: Smoke Basin</a>
+<ul class="sectlevel4">
+<li><a href="#_oveview_9">Oveview</a></li>
+<li><a href="#_how_to_run_9">How to run</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_day_10_go">Day 10: go</a>
+<ul class="sectlevel3">
+<li><a href="#_day_10_syntax_scoring">Day 10: Syntax Scoring</a>
+<ul class="sectlevel4">
+<li><a href="#_oveview_10">Oveview</a></li>
+<li><a href="#_how_to_run_10">How to run</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_day_11_go">Day 11: go</a>
+<ul class="sectlevel3">
+<li><a href="#_day_11_dumbo_octopus">Day 11: Dumbo Octopus</a>
+<ul class="sectlevel4">
+<li><a href="#_oveview_11">Oveview</a></li>
+<li><a href="#_how_to_run_11">How to run</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="sect1">
+<h2 id="_razziel89"><a class="anchor" href="#_razziel89"></a><a class="link" href="#_razziel89">razziel89</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 83.3334%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="image"><img src="https://avatars.githubusercontent.com/u/10134766?v=4" alt="10134766?v=4"></span></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><strong>razziel89</strong><br>
+<span class="icon"><i class="fa fa-github"></i></span>: <a href="https://github.com/razziel89">razziel89</a></p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="_about_me"><a class="anchor" href="#_about_me"></a><a class="link" href="#_about_me">About me</a></h3>
+<div class="paragraph">
+<p>Nothing here yet. Update your profile at <a href="https://github.com/docToolchain/aoc-2021/blob/master/profiles/razziel89.adoc">/profiles/razziel89.adoc</a></p>
+</div>
+<a id="day01" />
+</div>
+<div class="sect2">
+<h3 id="_day_01_go"><a class="anchor" href="#_day_01_go"></a><a class="link" href="#_day_01_go">Day 01: go</a></h3>
+<div class="sect3">
+<h4 id="_day_01_sonar_sweep"><a class="anchor" href="#_day_01_sonar_sweep"></a><a class="link" href="#_day_01_sonar_sweep">Day 01: Sonar Sweep</a></h4>
+<div class="paragraph">
+<p>This is my implementation for the sonar sweep puzzle.
+It is implemented in Golang.
+I will try to start out developing in a modular way, hoping to re-use much of
+one implementation for the next one.</p>
+</div>
+<div class="sect4">
+<h5 id="_oveview"><a class="anchor" href="#_oveview"></a><a class="link" href="#_oveview">Oveview</a></h5>
+<div class="paragraph">
+<p>This solution contains a <code>solution.go</code>, which defines the main executable.
+There is also a <code>utils.go</code>, which is currently where all helper functions that
+might be re-used later on reside.
+It will likely be split into several modules over the course of this year&#8217;s AOC.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight linenums"><code class="language-go" data-lang="go">func main() {
+	windowSize := defaultWindowSize
+	if windowFromEnv, err := strconv.Atoi(os.Getenv(windowEnvVarName)); err == nil {
+		log.Printf("Using window size %d from env var %s.", windowFromEnv, windowEnvVarName)
+		windowSize = windowFromEnv
+	}
+	depths, err := ReadLinesAsInts()
+	if err != nil {
+		log.Fatalf("cannot read depth values from stdin due to %v", err.Error())
+	}
+	if len(depths) &lt; windowSize {
+		log.Fatalf("cannot process fewer numbers than %d but got %d", windowSize, len(depths))
+	}
+	depthsWithoutNoise := SlidingWindow(depths, windowSize, Sum)
+	increments := CountIncrements(depthsWithoutNoise)
+	fmt.Printf("Counted %d increments.\n", increments)
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight linenums"><code class="language-go" data-lang="go">// Sum computes the sum of all values in an int slice. This is a possible reduction function for
+// SlidingWindow.
+func Sum(vals []int) int {
+	result := 0
+	for _, val := range vals {
+		result += val
+	}
+	return result
+}
+
+// SlidingWindow converts an int slice into one that results from applying a reduction function to
+// each sliding window of size `size`.
+func SlidingWindow(sli []int, size int, reductionFn func([]int) int) []int {
+	result := make([]int, 0, len(sli)-size+1)
+	for startIdx := range sli[:len(sli)-size+1] {
+		window := sli[startIdx : startIdx+size]
+		windowSum := reductionFn(window)
+		result = append(result, windowSum)
+	}
+	return result
+}
+
+// CountIncrements counts how often an int in an int slice is larger than its predecessor.
+func CountIncrements(sli []int) int {
+	var increments int
+	if len(sli) == 0 {
+		return 0
+	}
+	last := sli[0]
+	for _, val := range sli[1:] {
+		if val &gt; last {
+			increments++
+		}
+		last = val
+	}
+	return increments
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>There are currently no tests.
+I will add them as needed to simplify debugging for more complex puzzles.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_how_to_run"><a class="anchor" href="#_how_to_run"></a><a class="link" href="#_how_to_run">How to run</a></h5>
+<div class="paragraph">
+<p>Assuming the required input is in a file <code>input.dat</code>, you only need to execute
+<code>cat input.dat | go run .</code> to run the solution.</p>
+</div>
+<a id="day02" />
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_day_02_go"><a class="anchor" href="#_day_02_go"></a><a class="link" href="#_day_02_go">Day 02: go</a></h3>
+<div class="sect3">
+<h4 id="_day_02_dive"><a class="anchor" href="#_day_02_dive"></a><a class="link" href="#_day_02_dive">Day 02: Dive</a></h4>
+<div class="paragraph">
+<p>This is my implementation for the second round of the dive puzzle.</p>
+</div>
+<div class="sect4">
+<h5 id="_oveview_2"><a class="anchor" href="#_oveview_2"></a><a class="link" href="#_oveview_2">Oveview</a></h5>
+<div class="paragraph">
+<p>This solution contains a <code>solution.go</code>, which defines the main executable.
+There is also a <code>utils.go</code>, which is currently where all helper functions that
+might be re-used later on reside.
+There is also a <code>vec.go</code>, which contains specifications and manipulation
+for the submarine&#8217;s movement and positioning.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight linenums"><code class="language-go" data-lang="go">func main() {
+	movements, err := ReadLinesAsStates()
+	if err != nil {
+		log.Fatalf("cannot read movement values from stdin due to %v", err.Error())
+	}
+	pos := State{Disp: 0, Depth: 0, Aim: 0}
+	for _, mov := range movements {
+		pos = pos.Displace(mov)
+	}
+	fmt.Printf("Area under total movement is %d\n", pos.Area())
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight linenums"><code class="language-go" data-lang="go">// TokensInInstruction specifies how many token are needed to describe one movement.
+const TokensInInstruction = 2
+
+// StateFromString converts an instructions string to a movement.
+func StateFromString(str string) (State, error) {
+	splitStr := strings.Fields(str)
+	if len(splitStr) != TokensInInstruction {
+		return State{}, fmt.Errorf("wrong number %d of tokens in '%s'", len(splitStr), str)
+	}
+	unit, ok := Units[splitStr[0]]
+	if !ok {
+		return State{}, fmt.Errorf("cannot understand %s as unit vector name", splitStr[0])
+	}
+	repeats, err := strconv.Atoi(splitStr[1])
+	if err != nil {
+		return State{}, fmt.Errorf("cannot convert repeats in %s to int: %s", str, err.Error())
+	}
+	return unit.Mul(repeats), nil
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight linenums"><code class="language-go" data-lang="go">// This file contains vector manipulation routines. All of the methods here always return a new
+// vector, they never modify the original.
+
+// DepthT describes the depth. To avoid intermingling depth and displacement, they are separate
+// types.
+type DepthT int
+
+// DispT describes the depth. To avoid intermingling depth and displacement, they are separate
+// types.
+type DispT int
+
+// AimT describes the aim.
+type AimT int
+
+// State describes the subs overall state, i.e. position and aim. It has depth, displacement, and
+// aim.
+type State struct {
+	Depth DepthT
+	Disp  DispT
+	Aim   AimT
+}
+
+// Units contains unit vectors and name assignments.
+var Units = map[string]State{
+	"up": State{
+		Depth: 0,
+		Disp:  0,
+		Aim:   -1,
+	},
+	"down": State{
+		Depth: 0,
+		Disp:  0,
+		Aim:   +1,
+	},
+	"forward": State{
+		// The depth change implicitly depends on the current aim.
+		Depth: +1,
+		Disp:  +1,
+		Aim:   0,
+	},
+}
+
+// Displace Displaces one vector by the distance specified by another. This takes the current aim
+// into account. The new aim does not influence the depth change.
+func (s State) Displace(delta State) State {
+	result := State{
+		Depth: s.Depth + delta.Depth*DepthT(s.Aim),
+		Disp:  s.Disp + delta.Disp,
+		Aim:   s.Aim + delta.Aim,
+	}
+	return result
+}
+
+// Mul multiplies each component of a vector with a number.
+func (s State) Mul(factor int) State {
+	result := State{
+		Depth: DepthT(factor) * s.Depth,
+		Disp:  DispT(factor) * s.Disp,
+		Aim:   AimT(factor) * s.Aim,
+	}
+	return result
+}
+
+// Inv inverts a vector.
+func (s State) Inv() State {
+	return s.Mul(-1)
+}
+
+// Sub subtracts a vector's data from another one's.
+func (s State) Sub(delta State) State {
+	return s.Displace(delta.Inv())
+}
+
+// Area returns the area spanned by a vector. The aim does not matter for this compuation.
+func (s State) Area() int {
+	return int(s.Depth) * int(s.Disp)
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>There are currently no tests.
+I will add them as needed to simplify debugging for more complex puzzles.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_how_to_run_2"><a class="anchor" href="#_how_to_run_2"></a><a class="link" href="#_how_to_run_2">How to run</a></h5>
+<div class="paragraph">
+<p>Assuming the required input is in a file <code>input.dat</code>, you only need to execute
+<code>cat input.dat | go run .</code> to run the solution.</p>
+</div>
+<a id="day03" />
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_day_03_go"><a class="anchor" href="#_day_03_go"></a><a class="link" href="#_day_03_go">Day 03: go</a></h3>
+<div class="sect3">
+<h4 id="_day_03_binary_diagnostic"><a class="anchor" href="#_day_03_binary_diagnostic"></a><a class="link" href="#_day_03_binary_diagnostic">Day 03: Binary Diagnostic</a></h4>
+<div class="paragraph">
+<p>This is my implementation for the second round of the binary diagnostic puzzle.</p>
+</div>
+<div class="sect4">
+<h5 id="_oveview_3"><a class="anchor" href="#_oveview_3"></a><a class="link" href="#_oveview_3">Oveview</a></h5>
+<div class="paragraph">
+<p>This solution contains a <code>solution.go</code>, which defines the main executable.
+There is also a <code>utils.go</code>, which is currently where all helper functions that
+might be re-used later on reside.
+There is also a <code>set.go</code>, which contains specifications of a string set that
+also knows how often individual entries have been added to it.</p>
+</div>
+<div class="paragraph">
+<p><code>solution.go</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight linenums"><code class="language-go" data-lang="go">const (
+	base = 2
+)
+
+func filterForGenerator(sli []string, set CountingSet) []bool {
+	filter := set.MostCommon("1")
+	return FilterBy(sli, filter)
+}
+
+func filterForScrubber(sli []string, set CountingSet) []bool {
+	filter := set.LeastCommon("0")
+	return FilterBy(sli, filter)
+}
+
+// This function fatals if an error is detected.
+func mustConvertBinarySliceToInt(sli []string) int {
+	str := strings.Join(sli, "")
+	return mustConvertBinaryToInt(str)
+}
+
+// This function fatals if an error is detected.
+func mustConvertBinaryToInt(str string) int {
+	val, err := strconv.ParseInt(str, base, 0)
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+	return int(val)
+}
+
+//nolint: funlen
+func main() {
+	// Read input.
+	binaryNumsAsStrings, err := ReadLines()
+	if err != nil {
+		log.Fatalf("cannot read binary numbers from stdin due to %v", err.Error())
+	}
+	if len(binaryNumsAsStrings) == 0 {
+		log.Fatal("no input provided")
+	}
+	counts, err := CountTokens(binaryNumsAsStrings)
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+
+	// First part.
+	epsilonSli := make([]string, 0, len(counts))
+	gammaSli := make([]string, 0, len(counts))
+	// Map the least common and most common operators to the obtained counting sets.
+	for _, sli := range counts {
+		// Epsilon
+		newEpsilonDigit := sli.LeastCommon("0")
+		epsilonSli = append(epsilonSli, newEpsilonDigit)
+		// Gamma
+		newGammaDigit := sli.MostCommon("1")
+		gammaSli = append(gammaSli, newGammaDigit)
+	}
+	epsilon := mustConvertBinarySliceToInt(epsilonSli)
+	gamma := mustConvertBinarySliceToInt(gammaSli)
+	fmt.Printf("Counts are %v\n", counts)
+	fmt.Printf("Gamma is %v and %d\n", gammaSli, gamma)
+	fmt.Printf("Epsilon is %v and %d\n", epsilonSli, epsilon)
+	fmt.Printf("Product of both numbers is %d\n", epsilon*gamma)
+
+	// Second part. Here comes the fun.
+	generatorRatingStr, err := FilterCounts(binaryNumsAsStrings, filterForGenerator)
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+	scrubberRatingStr, err := FilterCounts(binaryNumsAsStrings, filterForScrubber)
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+	generatorRating := mustConvertBinaryToInt(generatorRatingStr)
+	scrubberRating := mustConvertBinaryToInt(scrubberRatingStr)
+	fmt.Printf("Generator rating is %d\n", generatorRating)
+	fmt.Printf("Scrubber rating is %d\n", scrubberRating)
+	fmt.Printf("Product of both ratings is %d\n", generatorRating*scrubberRating)
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>utils.go</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight linenums"><code class="language-go" data-lang="go">// CountTokens counts the tokens at each position of each string and returns one CountingSet per
+// position. All strings must be of equal length.
+func CountTokens(input []string) ([]CountingSet, error) {
+	if len(input) == 0 {
+		return []CountingSet{}, fmt.Errorf("empty string slice obtained")
+	}
+	length := len(input[0])
+	for idx, str := range input {
+		if len(str) != length {
+			err := fmt.Errorf("string '%s' of unexpected length at index %d, expected %d got %d",
+				str, idx+1, length, len(str),
+			)
+			return []CountingSet{}, err
+		}
+	}
+	result := make([]CountingSet, length)
+	for idx := range result {
+		result[idx] = make(CountingSet)
+	}
+	for _, str := range input {
+		for idx, char := range str {
+			err := result[idx].Add(string(char))
+			if err != nil {
+				return []CountingSet{}, err
+			}
+		}
+	}
+	return result, nil
+}
+
+// Function sliceByIndex returns a slice of length-one strings that have been taken from the given
+// index of each slice. An error is returned if a string in the slice is too short. This would be
+// very easy in, say, NumPy, but it requires iteration in plain Go.
+func sliceByIndex(sli []string, idx int) ([]string, error) {
+	reqLength := idx + 1
+	result := make([]string, 0, len(sli))
+	for _, str := range sli {
+		if len(str) &lt; reqLength {
+			err := fmt.Errorf(
+				"entry '%s' too short, need at least %d but got %d",
+				str, reqLength, len(str),
+			)
+			return []string{}, err
+		}
+		result = append(result, string(str[idx]))
+	}
+	return result, nil
+}
+
+// FilterFunc is a type needed to filter counts out. Based on values in a counting set, it
+// determines which entries of a string slice to keep. For each value to keep, the resulting boolean
+// array contains true, false otherwise.
+type FilterFunc = func([]string, CountingSet) []bool
+
+// FilterBy contains true in the resulting boolean array for every entry in sli that is equal to
+// filter.
+func FilterBy(sli []string, filter string) []bool {
+	// The initial value of a boolean array is all false. Thus, only set those to true we wish to
+	// keep.
+	result := make([]bool, len(sli))
+	for idx, val := range sli {
+		if val == filter {
+			result[idx] = true
+		}
+	}
+	return result
+}
+
+// FilterCounts filters out inputs that are assigned true by filterFunc until exactly one remains.
+// If none remains at the end, an error is returned.
+func FilterCounts(inputs []string, filterFunc FilterFunc) (string, error) {
+	allGoneErr := fmt.Errorf("everything was filtered out")
+	copied := make([]string, len(inputs))
+	_ = copy(copied, inputs)
+	for idx := 0; len(copied) &gt; 1; idx++ {
+		counts, err := CountTokens(copied)
+		if err != nil {
+			return "", err
+		}
+		if len(counts) &lt; idx+1 {
+			return "", allGoneErr
+		}
+		sliced, err := sliceByIndex(copied, idx)
+		if err != nil {
+			return "", err
+		}
+		filtered := filterFunc(sliced, counts[idx])
+		newCopy := make([]string, 0, len(filtered))
+		for idx, include := range filtered {
+			if include {
+				newCopy = append(newCopy, copied[idx])
+			}
+		}
+		copied = newCopy
+	}
+	if len(copied) == 0 {
+		return "", allGoneErr
+	}
+	return copied[0], nil
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>set.go</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight linenums"><code class="language-go" data-lang="go">// CountingSet is a set that also knows how often each element has been added. It does support
+// non-empty strings only.
+type CountingSet map[string]int
+
+// Add adds an entry to the set. The empty string is not supported!
+func (c *CountingSet) Add(entry string) error {
+	if len(entry) == 0 {
+		return fmt.Errorf("empty string not supported in counting set")
+	}
+	// We don't have to handle non-existing values here since Go returns the zero value (0 for
+	// integers) for such entries.
+	(*c)[entry] = (*c)[entry] + 1
+	return nil
+}
+
+// Count determines how often an entry has been added to the set.
+func (c *CountingSet) Count(entry string) int {
+	return (*c)[entry]
+}
+
+// RemoveAll removes all counts for a specific key.
+func (c *CountingSet) RemoveAll(entry string) {
+	delete(*c, entry)
+}
+
+// MostCommon determines the most common entry in the set. If the set is empty, this returns the
+// empty string! A non-empty tie breaker will be returned in case there are multiple most common
+// entries. If the tie breaker is empty but there are duplicates, an empty string will be returned.
+func (c *CountingSet) MostCommon(tieBreaker string) string {
+	return c.filter(
+		tieBreaker,
+		func(i1, i2 int) bool {
+			return i1 &gt; i2
+		},
+	)
+}
+
+// LeastCommon determines the least common entry in the set. If the set is empty, this returns the
+// empty string! A non-empty tie breaker will be returned in case there are multiple least common
+// entries. If the tie breaker is empty but there are duplicates, an empty string will be returned.
+func (c *CountingSet) LeastCommon(tieBreaker string) string {
+	return c.filter(
+		tieBreaker,
+		func(i1, i2 int) bool {
+			return i1 &lt; i2
+		},
+	)
+}
+
+type comparisonFunc = func(int, int) bool
+
+func (c *CountingSet) filter(tieBreaker string, cmpFn comparisonFunc) string {
+	var result string
+	var resultCount int
+	foundOne := false
+	for entry, count := range *c {
+		if !foundOne || cmpFn(count, resultCount) {
+			foundOne = true
+			result = entry
+			resultCount = count
+		}
+	}
+	// Check whether there are any duplicate findings and handle appropriately.
+	for entry, count := range *c {
+		if count == resultCount &amp;&amp; entry != result {
+			return tieBreaker
+		}
+	}
+	return result
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>There are currently no tests.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_how_to_run_3"><a class="anchor" href="#_how_to_run_3"></a><a class="link" href="#_how_to_run_3">How to run</a></h5>
+<div class="paragraph">
+<p>Assuming the required input is in a file <code>input.dat</code>, you only need to execute
+<code>cat input.dat | go run .</code> to run the solution.</p>
+</div>
+<a id="day04" />
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_day_04_go"><a class="anchor" href="#_day_04_go"></a><a class="link" href="#_day_04_go">Day 04: go</a></h3>
+<div class="sect3">
+<h4 id="_day_04_giant_squid"><a class="anchor" href="#_day_04_giant_squid"></a><a class="link" href="#_day_04_giant_squid">Day 04: Giant Squid</a></h4>
+<div class="paragraph">
+<p>This is my implementation for both rounds of the giant squid puzzle.</p>
+</div>
+<div class="sect4">
+<h5 id="_oveview_4"><a class="anchor" href="#_oveview_4"></a><a class="link" href="#_oveview_4">Oveview</a></h5>
+<div class="paragraph">
+<p>This solution contains a <code>solution.go</code>, which defines the main executable.
+There is also a <code>utils.go</code>, which is currently where all helper functions that
+might be re-used later on reside.
+There is also a <code>board.go</code>, which contains specifications of a bingo board.</p>
+</div>
+<div class="paragraph">
+<p><code>solution.go</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight linenums"><code class="language-go" data-lang="go">func findFirstWinner(picks []int, boards []Board) (Board, error) {
+	for _, pick := range picks {
+		for boardIdx := range boards {
+			board := &amp;boards[boardIdx]
+			if board.Mark(pick) &amp;&amp; board.Score() &gt;= 0 {
+				return *board, nil
+			}
+		}
+	}
+	return Board{}, fmt.Errorf("no winner found")
+}
+
+//nolint: funlen
+func main() {
+	// -1 means no score assigned yet.
+	firstWinningScore, lastWinningScore := -1, -1
+	// Read input.
+	picks, boards, err := ReadLinesAsPicksOrBoards()
+	if err != nil {
+		log.Fatalf("cannot read in: %s", err.Error())
+	}
+	// Both parts.
+	for len(boards) &gt; 0 {
+		winner, err := findFirstWinner(picks, boards)
+		if err != nil {
+			if len(boards) &gt; 0 {
+				log.Fatal(err.Error())
+			} else {
+				fmt.Println("All done")
+				return
+			}
+		}
+		score := winner.Score()
+		if firstWinningScore &lt; 0 {
+			firstWinningScore = score
+		} else {
+			lastWinningScore = score
+		}
+		fmt.Printf("Next winner follows, winning score is %d\n", score)
+		fmt.Println(winner.Pretty())
+		// Remove all winners, find next winner, and repeat.
+		newBoards := make([]Board, 0, len(boards))
+		for _, board := range boards {
+			if board.Score() &lt; 0 {
+				newBoards = append(newBoards, board)
+			}
+		}
+		boards = newBoards
+	}
+	fmt.Printf(
+		"All done, first (last) winning score is %d (%d).\n",
+		firstWinningScore, lastWinningScore,
+	)
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>utils.go</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight linenums"><code class="language-go" data-lang="go">func strSliceToIntSlice(sli []string) ([]int, error) {
+	// I wish Go had a map function...
+	result := make([]int, 0, len(sli))
+	for _, val := range sli {
+		conv, err := strconv.Atoi(val)
+		if err != nil {
+			return []int{}, err
+		}
+		result = append(result, conv)
+	}
+	return result, nil
+}
+
+const pickSep = ","
+
+// ReadLinesAsPicksOrBoards reads all lines from stdin as picks or boards.
+func ReadLinesAsPicksOrBoards() ([]int, []Board, error) {
+	var picks []int
+	var boards []Board
+	var board Board
+	for {
+		line, err := readLine()
+		if err == io.EOF {
+			// Success case, no more input to read.
+			return picks, boards, nil
+		}
+		if err != nil {
+			return []int{}, []Board{}, err
+		}
+		line = strings.TrimSpace(line)
+		if strings.Contains(line, pickSep) {
+			// This is a line with picks.
+			fields := strings.Split(line, pickSep)
+			newPicks, err := strSliceToIntSlice(fields)
+			if err != nil {
+				return []int{}, []Board{}, err
+			}
+			picks = append(picks, newPicks...)
+		} else {
+			// This is a line with boards.
+			row, err := strSliceToIntSlice(strings.Fields(line))
+			if err != nil {
+				return []int{}, []Board{}, err
+			}
+			err = board.AddRow(row)
+			if err != nil {
+				return []int{}, []Board{}, err
+			}
+		}
+		if board.IsComplete() {
+			boards = append(boards, board)
+			board = Board{}
+		}
+	}
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>board.go</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight linenums"><code class="language-go" data-lang="go">// Code in this file likely performs quite a few unnecessary copy operations on data. Performance
+// doesn't matter much here, though.
+
+// Field is a field of a bingo board.
+type Field struct {
+	val    int
+	marked bool
+}
+
+// Board is a bingo board.
+type Board struct {
+	fields [][]Field
+	last   int
+}
+
+// Convert an int slice into a field slice, initialising all fields as unmarked.
+func fieldsFromInts(ints []int) []Field {
+	fields := make([]Field, 0, len(ints))
+	for _, val := range ints {
+		newField := Field{
+			val:    val,
+			marked: false,
+		}
+		fields = append(fields, newField)
+	}
+	return fields
+}
+
+// Determine whether a set of fields is a winning set, i.e. whether all fields in the set (actually
+// a slice) are marked.
+func winningSet(fields []Field) bool {
+	for _, f := range fields {
+		if !f.marked {
+			return false
+		}
+	}
+	return true
+}
+
+// IsComplete determines whether a board has as many rows as cols. Such a board is complete since
+// bingo boards are square.
+func (b Board) IsComplete() bool {
+	if len(b.fields) == 0 {
+		return false
+	}
+	// A square board is considered complete.
+	return len(b.fields) == len(b.fields[0])
+}
+
+// AddRow adds a row to a board.
+func (b *Board) AddRow(input []int) error {
+	if len(input) == 0 {
+		// Ignore empty lines as a convenience feature.
+		return nil
+	}
+	if len(b.fields) &gt; 0 &amp;&amp; len(input) != len(b.fields[0]) {
+		return fmt.Errorf("cannot process row of length %d, require %d", len(input), len(b.fields))
+	}
+	fields := fieldsFromInts(input)
+	b.fields = append(b.fields, fields)
+	return nil
+}
+
+// Row gets the row with the specified index. If the index is out of range, an empty slice is
+// returned.
+func (b Board) Row(idx int) []Field {
+	if idx &lt; 0 || idx+1 &gt; len(b.fields) {
+		return []Field{}
+	}
+	// This is easy.
+	result := make([]Field, len(b.fields))
+	_ = copy(result, b.fields[idx])
+	return result
+}
+
+// Col gets the column with the specified index. If the index is out of range, an empty slice is
+// returned.
+func (b Board) Col(idx int) []Field {
+	if idx &lt; 0 || idx+1 &gt; len(b.fields) {
+		return []Field{}
+	}
+	// This is less easy.
+	result := make([]Field, 0, len(b.fields))
+	for _, row := range b.fields {
+		result = append(result, row[idx])
+	}
+	return result
+}
+
+// Mark marks a number and returns whether the board had the number. All occurrences are marked.
+func (b *Board) Mark(num int) bool {
+	found := false
+	for rowIdx := range b.fields {
+		for fieldIdx := range b.fields {
+			field := &amp;b.fields[rowIdx][fieldIdx]
+			if field.val == num {
+				field.marked = true
+				found = true
+			}
+		}
+	}
+	if found {
+		b.last = num
+	}
+	return found
+}
+
+// Sum sums up all numbers. The value of `marked` determines whether marked or unmarked unes are
+// summed up.
+func (b Board) Sum(marked bool) int {
+	sum := 0
+	for _, row := range b.fields {
+		for _, field := range row {
+			if field.marked == marked {
+				sum += field.val
+			}
+		}
+	}
+	return sum
+}
+
+// Score determines whether this is a winning board by returning the score. A non-winning board has
+// -1 score. That way, we can distinguish winning with a zero from non-winning boards.
+func (b Board) Score() int {
+	for idx := 0; idx &lt; len(b.fields); idx++ {
+		if winningSet(b.Row(idx)) || winningSet(b.Col(idx)) {
+			score := b.last * b.Sum(false)
+			return score
+		}
+	}
+	return -1
+}
+
+// Pretty makes a pretty string representation for this board. A marked field is followed by the
+// letter "X". An unmarked field is represented by its number alone followed by a space.
+func (b Board) Pretty() string {
+	// Hard-code formatting helper strings.
+	pre := "&gt; "
+	post := " &lt;"
+	sep := " | "
+	marker := "X"
+	clear := " "
+	formatter := "%-4s"
+	// Actually build the representation.
+	result := ""
+	for _, row := range b.fields {
+		result += pre
+		for colIdx, field := range row {
+			fieldRep := fmt.Sprintf("%d", field.val)
+			if field.marked {
+				fieldRep += marker
+			} else {
+				fieldRep += clear
+			}
+			fieldRep = fmt.Sprintf(formatter, fieldRep)
+			if colIdx &gt; 0 {
+				result += sep
+			}
+			result += fieldRep
+		}
+		result += post + "\n"
+	}
+	return result
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>There are currently no tests.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_how_to_run_4"><a class="anchor" href="#_how_to_run_4"></a><a class="link" href="#_how_to_run_4">How to run</a></h5>
+<div class="paragraph">
+<p>Assuming the required input is in a file <code>input.dat</code>, you only need to execute
+<code>cat input.dat | go run .</code> to run the solution.</p>
+</div>
+<a id="day05" />
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_day_05_go"><a class="anchor" href="#_day_05_go"></a><a class="link" href="#_day_05_go">Day 05: go</a></h3>
+<div class="sect3">
+<h4 id="_day_05_thermal_vents"><a class="anchor" href="#_day_05_thermal_vents"></a><a class="link" href="#_day_05_thermal_vents">Day 05: Thermal Vents</a></h4>
+<div class="paragraph">
+<p>This is my implementation for both rounds of the thermal vents puzzle.</p>
+</div>
+<div class="sect4">
+<h5 id="_oveview_5"><a class="anchor" href="#_oveview_5"></a><a class="link" href="#_oveview_5">Oveview</a></h5>
+<div class="paragraph">
+<p>This solution contains a <code>solution.go</code>, which defines the main executable.
+There is also a <code>utils.go</code>, which is currently where all helper functions that
+might be re-used later on reside.
+There is also a <code>grid.go</code>, which contains specifications of a grid and other
+geometrical functionality.</p>
+</div>
+<div class="paragraph">
+<p><code>solution.go</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight linenums"><code class="language-go" data-lang="go">const (
+	dangerThreshold = 2
+)
+
+func filterDanger(num int) bool {
+	return num &gt;= dangerThreshold
+}
+
+//nolint: funlen
+func main() {
+	grid := make(Grid)
+	lines, err := ReadLinesAsLines()
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+	for _, line := range lines {
+		points, err := line.Points()
+		if err != nil {
+			log.Fatal(err.Error())
+		}
+		for _, point := range points {
+			grid.Mark(point)
+		}
+	}
+	danger := grid.FilterCounts(filterDanger)
+	fmt.Printf("There are %d dangerous spots.\n", len(danger))
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>utils.go</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight linenums"><code class="language-go" data-lang="go">// ReadLinesAsLines reads all lines from stdin as Line structs.
+func ReadLinesAsLines() ([]Line, error) {
+	var result []Line
+	for {
+		line, err := readLine()
+		if err == io.EOF {
+			// Success case, no more input to read.
+			return result, nil
+		}
+		if err != nil {
+			return []Line{}, err
+		}
+		line = strings.TrimSpace(line)
+		parsed, err := LineFromStr(line)
+		if err != nil {
+			return []Line{}, err
+		}
+		result = append(result, parsed)
+	}
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>grid.go</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight linenums"><code class="language-go" data-lang="go">// Vec is a 2D vector. Most of it has been taken from a previous solution.
+type Vec struct {
+	x, y int
+}
+
+// VecFromStr converts a sring into a vector.
+func VecFromStr(str string) (Vec, error) {
+	fields := trimStrings(strings.Split(str, vecSep))
+	if len(fields) != tokensPerPoint {
+		return Vec{}, fmt.Errorf("cannot parse %v as vector, wrong number of fields", str)
+	}
+	ints, err := strSliceToIntSlice(fields)
+	if err != nil {
+		return Vec{}, fmt.Errorf("cannot parse %s as vector, %s", str, err.Error())
+	}
+	result := Vec{
+		x: ints[0],
+		y: ints[1],
+	}
+	return result, nil
+}
+
+// Add adds one vector to another one.
+func (v Vec) Add(delta Vec) Vec {
+	result := Vec{
+		x: v.x + delta.x,
+		y: v.y + delta.y,
+	}
+	return result
+}
+
+// Mul multiplies each component of a vector with a number.
+func (v Vec) Mul(factor int) Vec {
+	result := Vec{
+		x: v.x * factor,
+		y: v.y * factor,
+	}
+	return result
+}
+
+// Inv inverts a vector.
+func (v Vec) Inv() Vec {
+	return v.Mul(-1)
+}
+
+// Sub subtracts a vector'v data from another one'v.
+func (v Vec) Sub(delta Vec) Vec {
+	return v.Add(delta.Inv())
+}
+
+func abs(num int) int {
+	if num &lt; 0 {
+		return -num
+	}
+	return num
+}
+
+func max(i1, i2 int) int {
+	if i1 &gt; i2 {
+		return i1
+	}
+	return i2
+}
+
+// Normalize returns a unit vector with the same direction as the original vector. For now, this
+// does not support diagonals.
+func (v Vec) Normalize() (Vec, error) {
+	if partSelect == "1" {
+		if v.x != 0 &amp;&amp; v.y != 0 {
+			return Vec{}, fmt.Errorf("cannot normalize %v", v)
+		}
+	} else {
+		// Default to part 2.
+		if v.x != 0 &amp;&amp; v.y != 0 &amp;&amp; abs(v.x) != abs(v.y) {
+			return Vec{}, fmt.Errorf("cannot normalize %v", v)
+		}
+	}
+	length := max(abs(v.x), abs(v.y))
+	norm := Vec{
+		x: v.x / length,
+		y: v.y / length,
+	}
+	return norm, nil
+}
+
+// Line is a line in 2D with a start and an end.
+type Line struct {
+	start, end Vec
+}
+
+// LineFromStr converts a sring into a line.
+func LineFromStr(str string) (Line, error) {
+	fields := trimStrings(strings.Split(str, lineSep))
+	if len(fields) != tokensPerLine {
+		return Line{}, fmt.Errorf("cannot parse %v as line, wrong number of fields", str)
+	}
+	start, err := VecFromStr(fields[0])
+	if err != nil {
+		return Line{}, fmt.Errorf("cannot parse %v as line, %v", str, err.Error())
+	}
+	end, err := VecFromStr(fields[1])
+	if err != nil {
+		return Line{}, fmt.Errorf("cannot parse %v as line, %v", str, err.Error())
+	}
+	result := Line{
+		start: start,
+		end:   end,
+	}
+	return result, nil
+}
+
+// Points determines all points on this line.
+func (l Line) Points() ([]Vec, error) {
+	result := []Vec{}
+	direction, err := l.end.Sub(l.start).Normalize()
+	if err != nil {
+		// We ignore lines whose direction we cannot determine.
+		return []Vec{}, nil
+	}
+	pos := l.start
+	for pos != l.end {
+		result = append(result, pos)
+		pos = pos.Add(direction)
+	}
+	result = append(result, pos)
+	return result, nil
+}
+
+// Grid is a lazily evaluated grid that supports marking points on it. Most of it has been taken
+// from a previous solution.
+type Grid map[Vec]int
+
+// Mark marks a point on the grid once.
+func (g *Grid) Mark(entry Vec) {
+	// We don't have to handle non-existing values here since Go returns the zero value (0 for
+	// integers) for such entries.
+	(*g)[entry] = (*g)[entry] + 1
+}
+
+// Count determines how often a point has been marked.
+func (g *Grid) Count(entry Vec) int {
+	return (*g)[entry]
+}
+
+// RemoveAll removes all markings for a specific point.
+func (g *Grid) RemoveAll(entry Vec) {
+	delete(*g, entry)
+}
+
+// FilterFn is a type that can be used for FilterCounts to filter counts that fulfil a predicate.
+type FilterFn = func(int) bool
+
+// FilterCounts allow to filter points based counts using a FilterFn.
+func (g *Grid) FilterCounts(filterFn FilterFn) []Vec {
+	result := []Vec{}
+	for point, count := range *g {
+		if filterFn(count) {
+			result = append(result, point)
+		}
+	}
+	return result
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>There are currently no tests.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_how_to_run_5"><a class="anchor" href="#_how_to_run_5"></a><a class="link" href="#_how_to_run_5">How to run</a></h5>
+<div class="paragraph">
+<p>Assuming the required input is in a file <code>input.dat</code>, you only need to execute
+<code>cat input.dat | go run .</code> to run the solution for part 2.
+You can run the solution for part 1 using <code>cat input.dat | PART=1 go run .</code> or
+in general by setting the environment variable <code>PART</code> to <code>1</code>.</p>
+</div>
+<a id="day06" />
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_day_06_go"><a class="anchor" href="#_day_06_go"></a><a class="link" href="#_day_06_go">Day 06: go</a></h3>
+<div class="sect3">
+<h4 id="_day_06_lanternfish"><a class="anchor" href="#_day_06_lanternfish"></a><a class="link" href="#_day_06_lanternfish">Day 06: Lanternfish</a></h4>
+<div class="paragraph">
+<p>This is my implementation for both rounds of the lanternfish puzzle.</p>
+</div>
+<div class="sect4">
+<h5 id="_oveview_6"><a class="anchor" href="#_oveview_6"></a><a class="link" href="#_oveview_6">Oveview</a></h5>
+<div class="paragraph">
+<p>This solution contains a <code>solution.go</code>, which defines the main executable.
+There is also a <code>utils.go</code>, which is currently where some helper functions are.
+There is also a <code>population.go</code>, which contains specifications of a population
+of breeding lifeforms.
+This solution also fully re-uses the counting set implementation of day 3 in
+<code>set.go</code>.</p>
+</div>
+<div class="paragraph">
+<p><code>solution.go</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight linenums"><code class="language-go" data-lang="go">const (
+	initialDaysToBreed = 9
+	daysToBreed        = 7
+)
+
+var (
+	partChoice = os.Getenv("PART")
+)
+
+//nolint: funlen
+func main() {
+	var days int
+	if partChoice == "1" {
+		days = 80
+	} else {
+		days = 256
+	}
+	sets, err := ReadLinesAsSets()
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+	if len(sets) != 1 {
+		log.Fatal("exactly 1 population supported")
+	}
+	population, err := NewPopulation(daysToBreed, initialDaysToBreed)
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+	population.PopulateFromSet(sets[0])
+	population.Age(days)
+	fmt.Printf("There are %d fish after %d days.\n", population.Size(), days)
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>utils.go</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight linenums"><code class="language-go" data-lang="go">// ReadLinesAsSets reads all lines from stdin as counting sets.
+func ReadLinesAsSets() ([]CountingSet, error) {
+	var result []CountingSet
+	for {
+		line, err := readLine()
+		if err == io.EOF {
+			// Success case, no more input to read.
+			return result, nil
+		}
+		if err != nil {
+			return []CountingSet{}, err
+		}
+		fields := trimStrings(strings.Split(line, setSep))
+		set := CountingSet{}
+		for _, field := range fields {
+			err := set.Add(field)
+			if err != nil {
+				return []CountingSet{}, err
+			}
+		}
+		result = append(result, set)
+	}
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>population.go</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight linenums"><code class="language-go" data-lang="go">// Population tracks the time left until breeding of life forms and counts how many there are per
+// such time.
+type Population struct {
+	pop            []int
+	adultDuration  int
+	infantDuration int
+}
+
+// NewPopulation initialises a new population with times for adults and infants until they breed.
+func NewPopulation(adultDuration, infantDuration int) (Population, error) {
+	if adultDuration &gt; infantDuration {
+		return Population{}, fmt.Errorf("infants must breed slower than adults")
+	}
+	return Population{
+		pop:            make([]int, infantDuration),
+		adultDuration:  adultDuration,
+		infantDuration: infantDuration,
+	}, nil
+}
+
+// PopulateFromSet populates a population from a counting set. This ignores entries in the set
+// larger than the maximum supported time to breed.
+func (p *Population) PopulateFromSet(set CountingSet) {
+	for idx := 0; idx &lt; p.infantDuration; idx++ {
+		p.pop[idx] = set.Count(fmt.Sprint(idx))
+	}
+}
+
+// Age ages a population by the given number of days, breeding appropriately.
+func (p *Population) Age(days int) {
+	for dayCount := 0; dayCount &lt; days; dayCount++ {
+		// This new population is auto-initialised with all zeroes.
+		newPop := make([]int, len(p.pop))
+		// Handle all non-special cases. Simply decrease time to breed by one.
+		for breedTime := 0; breedTime &lt; p.infantDuration-1; breedTime++ {
+			newPop[breedTime] = p.pop[breedTime+1]
+		}
+		// Handle special case of those ready to breed.
+		newPop[p.infantDuration-1] += p.pop[0]
+		newPop[p.adultDuration-1] += p.pop[0]
+		// Overwrite the data about the current population.
+		_ = copy(p.pop, newPop)
+	}
+}
+
+// Size determines the total size of the population.
+func (p Population) Size() int {
+	sum := 0
+	for _, val := range p.pop {
+		sum += val
+	}
+	return sum
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>set.go</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight linenums"><code class="language-go" data-lang="go">// This file contains the exact same counting set as used for day 3.
+
+// CountingSet is a set that also knows how often each element has been added. It does support
+// non-empty strings only.
+type CountingSet map[string]int
+
+// Add adds an entry to the set. The empty string is not supported!
+func (c *CountingSet) Add(entry string) error {
+	if len(entry) == 0 {
+		return fmt.Errorf("empty string not supported in counting set")
+	}
+	// We don't have to handle non-existing values here since Go returns the zero value (0 for
+	// integers) for such entries.
+	(*c)[entry] = (*c)[entry] + 1
+	return nil
+}
+
+// Count determines how often an entry has been added to the set.
+func (c *CountingSet) Count(entry string) int {
+	return (*c)[entry]
+}
+
+// RemoveAll removes all counts for a specific key.
+func (c *CountingSet) RemoveAll(entry string) {
+	delete(*c, entry)
+}
+
+// MostCommon determines the most common entry in the set. If the set is empty, this returns the
+// empty string! A non-empty tie breaker will be returned in case there are multiple most common
+// entries. If the tie breaker is empty but there are duplicates, an empty string will be returned.
+func (c *CountingSet) MostCommon(tieBreaker string) string {
+	return c.filter(
+		tieBreaker,
+		func(i1, i2 int) bool {
+			return i1 &gt; i2
+		},
+	)
+}
+
+// LeastCommon determines the least common entry in the set. If the set is empty, this returns the
+// empty string! A non-empty tie breaker will be returned in case there are multiple least common
+// entries. If the tie breaker is empty but there are duplicates, an empty string will be returned.
+func (c *CountingSet) LeastCommon(tieBreaker string) string {
+	return c.filter(
+		tieBreaker,
+		func(i1, i2 int) bool {
+			return i1 &lt; i2
+		},
+	)
+}
+
+type comparisonFunc = func(int, int) bool
+
+func (c *CountingSet) filter(tieBreaker string, cmpFn comparisonFunc) string {
+	var result string
+	var resultCount int
+	foundOne := false
+	for entry, count := range *c {
+		if !foundOne || cmpFn(count, resultCount) {
+			foundOne = true
+			result = entry
+			resultCount = count
+		}
+	}
+	// Check whether there are any duplicate findings and handle appropriately.
+	for entry, count := range *c {
+		if count == resultCount &amp;&amp; entry != result {
+			return tieBreaker
+		}
+	}
+	return result
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>There are currently no tests.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_how_to_run_6"><a class="anchor" href="#_how_to_run_6"></a><a class="link" href="#_how_to_run_6">How to run</a></h5>
+<div class="paragraph">
+<p>Assuming the required input is in a file <code>input.dat</code>, you only need to execute
+<code>cat input.dat | go run .</code> to run the solution for part 2.
+You can run the solution for part 1 using <code>cat input.dat | PART=1 go run .</code> or
+in general by setting the environment variable <code>PART</code> to <code>1</code>.</p>
+</div>
+<a id="day07" />
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_day_07_go"><a class="anchor" href="#_day_07_go"></a><a class="link" href="#_day_07_go">Day 07: go</a></h3>
+<div class="sect3">
+<h4 id="_day_07_the_treachery_of_whales"><a class="anchor" href="#_day_07_the_treachery_of_whales"></a><a class="link" href="#_day_07_the_treachery_of_whales">Day 07: The Treachery of Whales</a></h4>
+<div class="paragraph">
+<p>This is my implementation for both rounds of the whales puzzle.</p>
+</div>
+<div class="sect4">
+<h5 id="_oveview_7"><a class="anchor" href="#_oveview_7"></a><a class="link" href="#_oveview_7">Oveview</a></h5>
+<div class="paragraph">
+<p>This solution contains a <code>solution.go</code>, which defines the main executable.
+There is also a <code>utils.go</code>, which is currently where some helper functions are.
+This solution also re-uses the counting set implementation of day 3 in
+<code>set.go</code> but using integers instead of string tokens this time.</p>
+</div>
+<div class="paragraph">
+<p><code>solution.go</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight linenums"><code class="language-go" data-lang="go">// For each entry in the set, compute the cost based on some cost function. The target will be every
+// possible number between the smallest and largest entry in the set. Multiples of set entries are
+// accounted for. The lowest cost and associated target are returned.
+func overallCost(set CountingSet, costFn func(int, int) int) (int, int) {
+	bestCost := 0
+	bestPos := 0
+	found := false
+	for checkPos := set.Min(); checkPos &lt;= set.Max(); checkPos++ {
+		checkCost := 0
+		for _, startPos := range set.Keys() {
+			additionalCost := costFn(startPos, checkPos) * set.Count(startPos)
+			checkCost += additionalCost
+		}
+		if !found || checkCost &lt; bestCost {
+			bestPos = checkPos
+			bestCost = checkCost
+			found = true
+		}
+	}
+	return bestCost, bestPos
+}
+
+//nolint: funlen
+func main() {
+	sets, err := ReadLinesAsSets()
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+	if len(sets) != 1 {
+		log.Fatal("exactly 1 input set supported")
+	}
+	set := sets[0]
+	// Part 1.
+	fuelConsumptionFnPart1 := func(start, end int) int {
+		return abs(start - end)
+	}
+	bestCost, bestPos := overallCost(set, fuelConsumptionFnPart1)
+	fmt.Printf("Best position is %d with cost %d\n", bestPos, bestCost)
+	// Part 2. Same code, different cost formula.
+	fuelConsumptionFnPart2 := func(start, end int) int {
+		diff := abs(start - end)
+		// This is the sum of the first diff natural numbers. This also nicely works for diff==0.
+		return (diff * (diff + 1)) / 2 //nolint: gomnd
+	}
+	bestCost, bestPos = overallCost(set, fuelConsumptionFnPart2)
+	fmt.Printf("Best position is %d with cost %d\n", bestPos, bestCost)
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>utils.go</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight linenums"><code class="language-go" data-lang="go">// ReadLinesAsSets reads all lines from stdin as counting sets.
+func ReadLinesAsSets() ([]CountingSet, error) {
+	var result []CountingSet
+	for {
+		line, err := readLine()
+		if err == io.EOF {
+			// Success case, no more input to read.
+			return result, nil
+		}
+		if err != nil {
+			return []CountingSet{}, err
+		}
+		fields := trimStrings(strings.Split(line, setSep))
+		set := CountingSet{}
+		for _, field := range fields {
+			err := set.Add(field)
+			if err != nil {
+				return []CountingSet{}, err
+			}
+		}
+		result = append(result, set)
+	}
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>set.go</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight linenums"><code class="language-go" data-lang="go">// This file contains the counting set as used for day 3 but with ints instead of strings and with
+// some unneeded functionality removed.
+
+// CountingSet is a set that also knows how often each element has been added. It does support
+// non-empty strings only.
+type CountingSet map[int]int
+
+// Add adds an entry to the set.
+func (c *CountingSet) Add(entry string) error {
+	conv, err := strconv.Atoi(entry)
+	if err != nil {
+		return err
+	}
+	// We don't have to handle non-existing values here since Go returns the zero value (0 for
+	// integers) for such entries.
+	(*c)[conv] = (*c)[conv] + 1
+	return nil
+}
+
+// Min returns the smallest key.
+func (c *CountingSet) Min() int {
+	var result int
+	found := false
+	for key := range *c {
+		if !found || key &lt; result {
+			result = key
+			found = true
+		}
+	}
+	return result
+}
+
+// Max returns the largest key.
+func (c *CountingSet) Max() int {
+	var result int
+	found := false
+	for key := range *c {
+		if !found || key &gt; result {
+			result = key
+			found = true
+		}
+	}
+	return result
+}
+
+// Keys returns all keys of the set.
+func (c *CountingSet) Keys() []int {
+	result := make([]int, 0, len(*c))
+	for key := range *c {
+		result = append(result, key)
+	}
+	return result
+}
+
+// Count determines how often an entry has been added to the set.
+func (c *CountingSet) Count(entry int) int {
+	return (*c)[entry]
+}
+
+// RemoveAll removes all counts for a specific key.
+func (c *CountingSet) RemoveAll(entry int) {
+	delete(*c, entry)
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>There are currently no tests.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_how_to_run_7"><a class="anchor" href="#_how_to_run_7"></a><a class="link" href="#_how_to_run_7">How to run</a></h5>
+<div class="paragraph">
+<p>Assuming the required input is in a file <code>input.dat</code>, you only need to execute
+<code>cat input.dat | go run .</code> to run the solution for both parts.
+The solution for part 1 will be output first, followed by that for part 2.</p>
+</div>
+<a id="day08" />
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_day_08_go"><a class="anchor" href="#_day_08_go"></a><a class="link" href="#_day_08_go">Day 08: go</a></h3>
+<div class="sect3">
+<h4 id="_day_08_seven_segment_search"><a class="anchor" href="#_day_08_seven_segment_search"></a><a class="link" href="#_day_08_seven_segment_search">Day 08: Seven Segment Search</a></h4>
+<div class="paragraph">
+<p>This is my implementation for both rounds of the seven segment puzzle.</p>
+</div>
+<div class="sect4">
+<h5 id="_oveview_8"><a class="anchor" href="#_oveview_8"></a><a class="link" href="#_oveview_8">Oveview</a></h5>
+<div class="paragraph">
+<p>This solution contains a <code>solution.go</code>, which defines the main executable.
+There is also a <code>utils.go</code>, which is currently where some helper functions are.
+There is also a solution in bash in the appropriate directory.
+Part 1 has been solved based on the solution of part 2.
+This implementation brute-forces the solution by generating all possible
+mappings and checking each one for validity.</p>
+</div>
+<div class="paragraph">
+<p><code>solution.go</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight linenums"><code class="language-go" data-lang="go"></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>utils.go</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight linenums"><code class="language-go" data-lang="go">// Pow computes an integer power of an integer base.
+func Pow(base, exponent int) int {
+	result := 1
+	for exp := 0; exp &lt; exponent; exp++ {
+		result *= base
+	}
+	return result
+}
+
+// ReadLinesAsInputsAndOutputs reads all lines from stdin, splitting tokens, and determining how
+// many outputs there are. If not all lines have the same number of outputs, an error is returned.
+func ReadLinesAsInputsAndOutputs() ([][]string, int, error) {
+	var result [][]string
+	var numOutputs int
+	for {
+		line, err := readLine()
+		if err == io.EOF {
+			// Success case, no more input to read.
+			return result, numOutputs, nil
+		}
+		if err != nil {
+			return [][]string{}, 0, err
+		}
+		line = strings.TrimSpace(line)
+		separated := trimStrings(strings.Split(line, inputOutputSep))
+		if len(separated) != expectedSplits+1 {
+			err := fmt.Errorf("cannot split into inputs and outputs")
+			return [][]string{}, 0, err
+		}
+		if len(result) == 0 {
+			numOutputs = len(strings.Fields(separated[1]))
+		} else if len(strings.Fields(separated[1])) != numOutputs {
+			err := fmt.Errorf("unexpected number of outputs in %s, wanted %d", line, numOutputs)
+			return [][]string{}, 0, err
+		}
+		localResult := []string{}
+		localResult = append(localResult, strings.Fields(separated[0])...)
+		localResult = append(localResult, strings.Fields(separated[1])...)
+		result = append(result, localResult)
+	}
+}
+
+// AllPermutations returns all possible permutations of a string via a channel. It uses Heap's
+// algorithm. See https://en.wikipedia.org/wiki/Heap%27s_algorithm for details.
+func AllPermutations(str string) &lt;-chan string {
+	channel := make(chan string)
+
+	sli := strings.Split(str, "")
+
+	var generate func([]string, int)
+	generate = func(sli []string, permLen int) {
+		if permLen == 1 {
+			// This is a solution, emit it.
+			emittedStr := strings.Join(sli, "")
+			channel &lt;- emittedStr
+		} else {
+			for idx := 0; idx &lt; permLen; idx++ {
+				generate(sli, permLen-1)
+				if permLen%2 == 1 {
+					sli[idx], sli[permLen-1] = sli[permLen-1], sli[idx]
+				} else {
+					sli[0], sli[permLen-1] = sli[permLen-1], sli[0]
+				}
+			}
+		}
+		// This is the outer-most call to generate. Make sure to close the channel in the end.
+		if permLen == len(sli) {
+			close(channel)
+		}
+	}
+	go generate(sli, len(sli))
+
+	return channel
+}
+
+// SortString sorts a string character-wise. This is particularly useful to determine whether two
+// strings contain the same characters.
+func SortString(str string) string {
+	split := strings.Split(str, "")
+	sort.Strings(split)
+	combined := strings.Join(split, "")
+	return combined
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>There are currently no tests.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_how_to_run_8"><a class="anchor" href="#_how_to_run_8"></a><a class="link" href="#_how_to_run_8">How to run</a></h5>
+<div class="paragraph">
+<p>Assuming the required input is in a file <code>input.dat</code>, you only need to execute
+<code>cat input.dat | go run .</code> to run the solution for both parts.
+The solution for part 1 will be output second, preceded by that for part 2.</p>
+</div>
+<a id="day08" />
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_day_08_bash"><a class="anchor" href="#_day_08_bash"></a><a class="link" href="#_day_08_bash">Day 08: bash</a></h3>
+<div class="sect3">
+<h4 id="_day_08_seven_segment_search_2"><a class="anchor" href="#_day_08_seven_segment_search_2"></a><a class="link" href="#_day_08_seven_segment_search_2">Day 08: Seven Segment Search</a></h4>
+<div class="paragraph">
+<p>This is my solution for part 1.
+There is a solution for both parts in go in the respective location.</p>
+</div>
+<div class="paragraph">
+<p><code>solution_part1.sh</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight linenums"><code class="language-bash" data-lang="bash">main() {
+    echo "SAMPLE"
+    sample | solve
+    echo "ACTUAL"
+    actual | solve
+}
+
+solve() {
+    # The grep line filters out numbers that light 5 or 6 segments of the
+    # display.
+    awk -F"|" '{print $2}' | \
+        tr "[a-z]" "A" | \
+        tr '[:space:]' '\n' | \
+        grep -vE "^(AAAAA|AAAAAA)$" | \
+        sed '/^$/d' | \
+        wc -l
+}
+
+sample() {
+    cat &lt;&lt; EOF
+be cfbegad cbdgef fgaecd cgeb fdcge agebfd fecdb fabcd edb | fdgacbe cefdb cefbgd gcbe
+edbfga begcd cbg gc gcadebf fbgde acbgfd abcde gfcbed gfec | fcgedb cgb dgebacf gc
+fgaebd cg bdaec gdafb agbcfd gdcbef bgcad gfac gcb cdgabef | cg cg fdcagb cbg
+fbegcd cbd adcefb dageb afcb bc aefdc ecdab fgdeca fcdbega | efabcd cedba gadfec cb
+aecbfdg fbg gf bafeg dbefa fcge gcbea fcaegb dgceab fcbdga | gecf egdcabf bgf bfgea
+fgeab ca afcebg bdacfeg cfaedg gcfdb baec bfadeg bafgc acf | gebdcfa ecba ca fadegcb
+dbcfg fgd bdegcaf fgec aegbdf ecdfab fbedc dacgb gdcebf gf | cefg dcbef fcge gbcadfe
+bdfegc cbegaf gecbf dfcage bdacg ed bedf ced adcbefg gebcd | ed bcgafe cdgba cbgef
+egadfb cdbfeg cegd fecab cgb gbdefca cg fgcdab egfdb bfceg | gbdfcae bgc cg cgb
+gcafb gcf dcaebfg ecagb gf abcdeg gaef cafbge fdbac fegbdc | fgae cfgab fg bagce
+EOF
+}
+
+actual() {
+    cat &lt;&lt; EOF
+cg fadegbc ecfadb acdbeg abgfe dcegfb gcad bceag debca bgc | ceafbd gfedcb cabedf dbace
+bgeacd ea dfcab fcdgbae ecbgf gbcadf defa cae dcaefb fabce | ea fdae daecgb cea
+fb gafbec dcabe ecfdag fagdcb afcdb cbf gdfb agfdc acfgdbe | acdgfb gdcfa bceda bf
+fd bcafe afed acbfde fcbde fcbgae fgabdc edbgfca cgebd dfb | dbf becgd bfd efcdb
+deacg egfdbac agefd gbedc gebfca ac gadefb ace fadc fcdgae | gabfde cbdgfae ca eca
+cfaedb gedfa fbegd dgca ga dfcae agf dfagceb gdfcae ecbgaf | gaecfb cdag gfa gaf
+ceg gfdcab dfacge edgf fecagb ecdba ge gceda fcbaged cgdaf | gdaecf gceda fbacge dcagf
+caged egbdf edabfg fbad fagde gefbcd fceabg afg fa cfdagbe | bfdge degca fbda af
+dac egdacf fcedbg dabcg gdfcb dbaeg ac cfdaebg cafb afdbcg | decagf ebdag bfdgce fdbgec
+dbaec edfac bdgae dbcegaf bc cba aecdbf cebf gbacfd facdge | efbc cab ecabfdg cab
+gfce acf fecda egfda gbcfda fc gcefda dbcea afdbge dbceagf | bfedgac bfegda fcgdab fecg
+edfgb ebf be gdcafe degaf agfbced deba bdafge dgcbf cbeagf | efb dbcgf dgabef be
+ebgfd bfcg gf fcgbde dfbagec gefcda fadbce gef febdc edbga | gf dgbefc gfe bedfac
+gabfec dcfage febg gcaeb gcf agbcf gf cbafd cabged cebfagd | egbf fg gcdbea dfbac
+fgcedb fagbe aecgbd gbcaf bef fade fagdecb aebdg ef feadbg | abdge abfdge abcgf gabedc
+dgebfc cebfa dbf acfbdg edbafgc dgfe decbf cdgeb eadbgc df | bgdcefa caebf fbd adfbgc
+febgd fgaced bfedacg bfdgae fdcgbe fabed fcbea gdba ad dae | dae agbd gbfdea aegcfd
+abdgf adcf bfdeg fa gfecdba fab debcag bcgda bcafdg fecgba | edbfg gcfdeab bgfda dfebg
+ecdba bc dcfeba eacgdf cbegfad dbcf begda fcdae cebgaf cab | abc bc ecfdab cab
+bc fabcged bcafg debfcg gdfac fgbea acfged bcg cdba dgfabc | baefg fbcag begcfad dabc
+egfadb ce fgce bagdc gdafce edabcf gefad febdgca aec aedcg | aefbdg ec ceadg gecad
+daegf gebf acdbf be faedbg dbe eabdf fdabgec aebdgc cdefag | be gfdeac bdfac gdbace
+bafgc efac gae ecgdba ebgfa ea degbf afebcg fbacdg afedgbc | acfe age dbfecag bafgc
+gfb bgacfd efcbd bdfeac bg efgcb gcbfed gcafe begd bfdgaec | cbgef gcfea fbcdae faedgbc
+efdbc abd afcbegd dfcba fbedga ceafgd cgab ba agdcbf cdfga | dcafg cabdf ab bcga
+fde fgadc fgceb eadcbfg gebd agfcbe ed fgbdce cbeadf egfdc | bdgcfae fde edgb gbde
+abdcg gaebfc cfadebg cdfbg cegbf ebcgdf dbf fd cdfe fedagb | dgbca cgfeadb gdfaeb beagdf
+fedbc gdeacfb cfbgae ebacdg gafc ca bgdfae geabf eafcb acb | bafge aefcgb cfbae defbc
+fdega cefabd fce bfdegac afecbg fecad cfadb debc ec dfagcb | dcbaf gebfcda fce fegad
+fab gaedb cagbdf fbce fecgad dcfeba dacfe fb fbgaecd faedb | dbecfa gefcdab bfa efbad
+bcega gbacfe aecgdbf gae cabgd ebafc edgcfa ge facebd gefb | baecf efacdb ebagdcf fgeb
+fgea acf af edbgca defbc fegbacd bagcfe ecbaf gdcabf gaceb | aebfc abgfec aegf dcfgab
+ecfgb cfd dbcgefa fcdbe debaf cdgefa cd cfgdbe acfgbe bcdg | bcgd fdbea dcfgbe fcd
+gdfaec fdcabe eb acbgd cbe bfae facbdeg cebda bgfced cfade | be dface eabf cbeda
+efbagd ebf fdceba gfdae dfgabec dbgef bf fabg gbcde dgecaf | dgbef gfdeba afgdeb gdefb
+gcadbef fgadc cbd cb bcgf bcfad dgfcba edafb gfdeca ebdgac | bc fdgcae ecadgf bdcega
+defbg dgbaec gbe eg dabfg fgdaeb badfgc cadgbfe egaf debfc | gbfde fgebd gedbf egfa
+caf gcdabe bfag fa edfbgac becafd cbega edcgf afceg faecbg | bafg abgfec ecfbda fbag
+egfcba dafgcbe cefga cdbgae acfgde bgcfe ebfdc bg fagb bcg | fcebg dfegabc dgecba defacg
+bgcdefa bcfged bf cadbgf edbcf fdb cebgd dfcea gbef gedbac | bf dfecb fb dgceb
+bdegc decabgf agbfce bdcfg eagd gebadc dfeacb deb ed ebgca | dgcabe de dgabec bed
+eabdf gedbaf afcbedg afcdg bgd gbae gadfb cefdbg bfdcea bg | acdgf dbafg geba gbd
+egabdfc dg efdcab bdcef dgecf cfgea dfg cfedbg bagdfc gbde | fadbgc gcfea ebdg gd
+fcge cf ecbfad acfedgb agdef fcgda aefbdg afc cagdb cdafeg | cfa gcadf dagfce acf
+cbadge gdec efagb ce ecb bagecfd gbcad gabec dfacbe cgbfad | acfgdb gcdba cegbad fecdabg
+cegbaf aedcg acgbed fadbe afbcdge gf fge gdeaf dcgf cegdaf | ebadf fagde cdgf baedf
+ebdgf dcgbfe cfdabe afdg agbefd ad daebg cbadefg ceabg ade | bagce bfged cbfged gedab
+adbf decbgf dbc agcdbf cdeabgf dcagb eacgbf abfgc cgaed bd | cbd dbcgfe abdcg cdaeg
+bgcaf fgbae edbcgfa cdfba cbdagf cg cga fgdc edacgb bfcdae | dfabce bdaefc dbfca dgceab
+gbe gedc fdgcab bdgaefc eg cageb ebgadf acbfe beagdc dgacb | gedc gbe bcgea gadcbf
+dcega abgecf cgeab ab gfedbc adfbgc bcgef bafe dcafebg abc | gabdcf acb ab ab
+dfgebc cdgef bc efagb bfceg fgedac cbf gcdb egbacfd cfdaeb | dbaefc agdefc ecgdbaf fecdga
+febacg efgba ebfdg aefcb ag gba gacfbed fagc edbafc agbedc | gab ag dgfbe ecdgab
+cabf fegacd bf ecabgdf gfb bdefag cbdge dfcbg agdfc gbfcda | dgcfba gfb eadfbg fcedag
+dc fcd aecgfd cgfda baefgd cead fgacbed cfbdge eadgf fgabc | fedcga eagcfd gcfda gfdea
+fgbaed aebdgcf edabg fdba faecdg fgaed gcbed ab cgebfa gab | edbcg becdg ab edbga
+agdcb edfbgc edbca ae aeb aefdgcb eacf facedb agbefd ebdfc | adcbegf fcea acedgbf dcgebf
+ecf dgfeb egac dacfeg abcdef ec gfebdac cdgbaf cdegf fcdga | dcabfg efc ec fgdecab
+dcega def cfgde aegfcb deabfcg fd defgba egbdfc bfcd cbfeg | bagdecf df fed dcbf
+gecbf bcdfaeg cdfga fgdcbe gcfbae eafb fagcb bga daebcg ab | acgfd bfaegc gdafc feagcb
+edfbg df dcfbae edf bcegf egfbca acgfbde aegdb dcgf efdgbc | gbcfea beadg dfe cdfbae
+gdbfca acebgd cabdf gebaf becdgaf ed fedc bdefa eda ebcfda | bcfdag fcdaeb fcdab ed
+eafdgc gbdc efadb cd abfceg daebc dce afegcdb gbace becgda | dgcefa dabce gceba bgefac
+bdaf cbgfd fag fgabc fa fcbegd gedfac gcaeb fgdacb eafbdcg | af gebdfc bgdfc fa
+bdafec fdag gbfce dgc dfgbca dacbge cfabd fgdbc dg faedgcb | gcdabe cgaefdb gd gdfcaeb
+ebdcfga afedcb aegdcf fbeg cbdag fg adfgbe ebafd bdfga afg | adcgef fadcgbe gf edbfag
+dgeacbf gdaf bagecd dcefa caedfg dac gcebfa fgace dfbce da | cfegda ad da abcgde
+bfadecg ba gab bafecg ecab dfgca cgfba bdcfge fecgb fdabge | ba ebac aebc fabcg
+eadcg efd cdbf cfdea cbedaf egdafb cfbaeg fd aebfc adecgfb | aebcf fed abedcf aedfcb
+gdb cbdaf cdge cdaebg efgdba egcab gd afebcg gdbca gaedcbf | dgbca begca cbgaef gceba
+bdfgac fgadb adbgc fgca cfgdbe adbfe fg dgbace bfg dgabecf | dbafe gacf gdacb fadgb
+gedbfa cdg aecgd edfgca fbdcage cd fgdabc fedc dafge cgbea | gafde bgdeaf dc defga
+fdceg edfcb gd febgcd dgfb gcd aefcg cafebdg bafdce debgca | gd cfedb defcg cfadegb
+adbfe bgcfda gefda gcaed dagbfce dbeagc gaf gf gfdeac cgfe | gfec ebgdac eabdf gcef
+fc cdf bcfdeg dfgaeb fcgdea gafc bdeca fcbedag faged dacfe | adfebg ebcda fdega agfc
+deagcf ebagfd bgafdec cd cabeg bcedaf dec cfdg gadce adfeg | ebgac cagde dc faedgb
+dcgab ac fabegc dcaf acg fadbcg fbgacde cfdgb cbgfde debag | dagbc daegb edbga cag
+fgcead edbcg cfaed dcgef dfbgcea gf badcfg fdcbae gfd fgae | dfbagc dfcge gf dfeac
+begcf cbf aebf fdgacb gdebac ceabg egabfc gdcfe ebgfacd fb | debcga bgaedc fdabcg abgce
+efgbcd febdga bc fbegd befcd dgafebc ebc fgbc dgabce caefd | fbcg ecafd cdbfe cgbf
+eafg badgec ecgab gdcfb fca fa cgabef fcbag fbeacd cegfbda | fa cabdge acgbfe cdbega
+gdfae fdagbc fecgab eg fadec abgdef abgdcfe dbge eag fgadb | dbafcg befdag ecfdagb aebdfg
+aegbcf bfgecad acgfbd dabceg aefbd gcfd bgd gcbfa dg dagfb | cdgf gd dfbga bdafe
+bcgdf be gcdeb egadc bagecd ebd cabe gdcfeab badfge egcafd | agbdfe be ecab ecbgd
+edbafc fbdgce befgc cge ebdgac eg bdcfe egfd caedgbf bcafg | gabfc eg ceg cdbef
+cbadf af afc baef cfbdg dcegfba ebdac dabgec acbdfe afecdg | cdbaef decba bdcaf dbcae
+ea eac cbgaed cdbaf adge dgfeacb bdaec ecbgfa dgbce gdbfec | cdfba bcdge ae cabgde
+bgecfa abegcfd fgcad fgdcae aedc dfc fbdga cd defgcb cegaf | gbafec egdafc aced acbefg
+becfdg abgcdf abgec dafceg gcdbf bfgadec af fac abdf fcgba | fac abgcf afbcdge fgdbc
+cbe ec caefgdb cbgeaf ecbdag bcadfg cdae cbgad defbg egdcb | dace ecda aced ebgdf
+aecfbg cegdfab fdace ecd cd gadc cgdaef efgca gdfebc badfe | cfdea cd eacfg aecgfbd
+bafgdec gcd gacdf gbcaf cd cgfeab dgbeac bcfd abcgfd fdage | bfcd dc cbfd dc
+gadfec gfadbce gceba abcdf gd bdeg cebgda cdg afbecg bgdac | dgbe afgdce egabcd gedb
+fc defc cdeab bdcgae acebf caf cgefbad efdbca gdfacb bfgea | adfgcb cbead efbcad dcagbe
+fecab adfgbe ecad ca adbfec cab cdfegba gcadbf gbfec eadfb | bgdacf dgeabf ca cgbfe
+gbaefd cafged feac cegdb eafdbgc ea agfcd dgace bagdfc ead | ea gedcb ea acgde
+cbaedf dfbcga cbagd cbfadeg fdbeag bgfad cdgbe ca acb gacf | fabgde fgac acb fcag
+efgc fg agbdcf bdfce bacdgef dgfbe gdfceb fbg edfbac eadbg | dgfeb cadgbf egcf dcfbge
+bdgea gbcf facegb acdfbeg ebgaf dabecf bf gfeac aegcfd fba | fb gabfe cbfg bgafe
+fedcgab fceab cgab egbdfa cgaebf cefdag fca fcebd ac begfa | afc adgfec bfgea bgeacf
+bfda gbcadef bgecd dafegb daefg aecdfg bgdfe acbfeg bf ebf | dfabge bf dbaf bcfaeg
+bacdfge aegdf ebgdf fcaeg edcgfa fbecga ceda adf fabdgc ad | dbgef fagce edafcg bdgfcae
+abdef gaedcf afdgeb becadgf edabc bcdeg bafcde acfb ca cda | dfgbea cda dca adc
+efgd fcgbea gbadcef dcabe fe aebdfg fdabgc abfed feb agdfb | egfd fedg fdgeabc eafdb
+dcabegf gedac ecgfd cea gfcebd agdbe ac gcfa fbeacd gdecaf | fegdac gedab dgaec bfdeca
+bacdgf dgce ec cafdeb fcega eca cdafg ebagf degfca bdfcega | cae fgdabc decgafb cfagdb
+gefac egabcfd gfc baecgd eabcgf dafec gf cbage acgfbd egbf | abcgfe bceadgf feacg egbf
+gbcaf dcaefb gdec adfeg acefdbg fbdage cdfag acefdg cd dca | gecd cgbfa cafgd dc
+fbadge bdcg acb caebfd bgead gbcdea caebg dbgcaef gfeca cb | acdegb gabde gbcae abc
+bcd agdce edbagf gfdecb cbfa bc debafc aedfb beacdgf cbead | ebcfgad dfgceb gdaefb bfca
+bag ab ebca dabecg agcde dbfagce efgcad gbcdaf egdab egfbd | gabed gaecbd ab eagfcd
+gbcadf cdabg bd dbg afgbedc fdgca gacbe adcfge cfbd gedabf | gdb dfgca gfabcd dacgb
+cfeabd cabgf gadfeb gbadc dcbgae dgec bdage gbfcade cd dcb | dceg bedcfa edgacb dc
+bcdfg gdfeab abecdgf edg gefca ecadgf fedcg deca ed gcbefa | bdacfge fecgbda gbcafe fedcg
+acbgfd bdgcf dcfga fbd dfbcgea fb dbgec eafbcd fbga efagcd | gfdca bdcfg dbf afgced
+dafecb acedg bc dgafce gbeac fgceabd bce gbefa gdbc dbceag | agfcdeb fagdce afgbe dfecga
+fgadce db fbadg deagcfb abd aegbf gcdbfa fgdac gbaedc bdfc | daegcf faegb bd dba
+bdga fbagc ceadbf ecgdfba bfgce fga cbfagd ga cfdab gecdaf | fcdaeb ag cegabfd ga
+fce fcdg adfgeb cegadf bafdce fecga fc becga dafebcg agfde | efbagcd afged fedgba efcga
+cegdba fb bcdeg fecb gdeaf acgfdb fdb fgdbe cbdafeg gecbdf | afedg bf dfegb fbgecad
+eg feadcb dgec egf afedc eabgfc gaedf bdgaf acdgbfe egafdc | eagfbc adecf egdc afdge
+bg dagfe edfcabg dbgcae fgaedb fbag fdcage dgb bfegd cbdef | dbgef dgfbe bg efbgd
+dabgfc acefbd cegad cbeda bac adbef cb bcfe fbgdea cafbegd | fadceb ebfdga ebcad bac
+gfbca decbfa ecadbg cga gc cfdg bfcadg bfeadgc cfabd efgba | ebdfca cfagb degacb abdfc
+gcbead fadbge befc bgfceda dbcea cbefda bfa gfacd bf facbd | abf cedba fba dgefcab
+baedc feag begafc fcagdb eg bagcefd baceg gce bcgdfe cfabg | cgabf egaf ge fage
+ecab ce bfcdg fabgce efdcag cgfeb gbaedf dfegbca cef baegf | cefdga gdecfab cfbgd bcaegf
+beacfg fg efg ebfcd dbfgcae fbga bgcea cefgad cgbfe ceagbd | bdcafeg baecfdg fecbd gef
+cebdfg ba abf bdgfaec aebcfg gfcdb dbga afdcb gcbadf fecad | gbad bgdfcae gfdcb baf
+gceaf ebf eadb abdcf adfebc fdbceg cgafdb efcab cefdgab be | ebf dbfcag efb feabc
+fgbcda bceag dfabge fbdceg fced bgfdc fabgdce fe gfe cgbef | abgedf cfde efgbc gfabcd
+deagcf bdfacg fcbad dca gfdbc ecgbadf febcdg dbafe bcga ac | afdgcb cbga dgafce adegcfb
+dbceg bcg gfbeca cgfbaed egfcbd ebgfd gcfd cg bdaegf decab | cg dgfc cbeda dfgeb
+cfbed bdae dfcgb ed efbca cde fcbdae gbcfae fbdgaec aefdgc | dfgace becafg cagebf fcdebag
+ed dfce dae bedca gfaedb befdac bacgd eabgcf bfcae agdfbec | bcaed edacb cdaeb ed
+dagcb cbge daefbc bgadfce bc cfgad abdefg gbdea cab cabegd | badgc ebfcgda bdcfgae abcgd
+ac fgdca gfbdca bcgdafe cefdg cgbeda cda gaefdb fbac dgfba | fdegba egadbf ca bfca
+fedgc dbcaf ceb adefgc ebdg acgbef cbefdg be befcd dcfaegb | dfecb gbcdef eb fgceab
+aefcd fcgaeb eacdgfb fbcg aebdgc gdbeaf agfbe agc cgaef cg | cga gac dabcfeg fbdgcea
+af bdeag gfbdace fga bcaedg cdegf feab eafdg gfedab dagcfb | fgacdb faedg ecbdafg fcedg
+dgafc adfcebg fagec dacfeg fgd fd gbdac defc fdaegb gafbce | cdagb df fcaebg dfce
+bacfdg dgc cg bcaed adcgb cafdeg bgcf dgfab bgfead cbfaged | bdfega dgfeab fdgba agbdc
+agfebd cb bafecg efbga edgac gfedcb cedfagb afbc gcb acgeb | bc cgb bc cbg
+fgdae edfbca bgdf gceaf eabfdg aebfd gad defbgca gdceab dg | eacgf agecbd gd gcabed
+befadcg gdfa afdeb aebfg fg bcfead gadfbe gfe cgeab gfbdce | adebcf dcgfbea deabf abgec
+cb cbg gbaedc efbga bcafgd caefdbg efcdga eacgd bcde gbcea | edagc cebd aefbg bdce
+cdaebfg edcbg cgedba acbeg fbdgc edg fagebc cdea ed abedfg | ed gcbdefa cgabdef baecgf
+eafbg acebgdf dagcb eadc ecg ce cfbgda cegba dgbace bfedgc | edac ce bagcd gfeba
+egafcd gdfaceb acegf cgda deg dgfbea gd cdfge feabcg cedfb | fadcegb egd caedgbf febdc
+feag eg aebfc efcadb bge cdbgf fgbcead bdegac ebcfg aefbcg | ge adcegb fceagb ecfba
+beac bdgea ebagdc bdgafc bcagd age bcgdeaf ae dfaecg defbg | egdacb eag dbcage ecgadbf
+ca agdbec abc dbgfca gbfecd cbfgd acgf fbdae fdacb ceafbgd | dgfbca abcdf ac cfgbda
+bgadf cdgbefa bagef bfe agfdce cebg ecbadf gbecaf eb egcaf | ebdcgaf cebg faegb fgbae
+bfgcea fdgeca cae gbeca abcf cfebagd ca fgdbae cebgd faebg | gfeba ca fedgca gcabe
+cage dfgaebc ae gfbed ebgaf decabf afbcg bfacdg aef cbaegf | debagcf bfgca agce bgeaf
+bcegdf cgdafb abfd abgcfe fdg gfdac gefbcda dgeac afcgb fd | gdbcfe cafdbge gaecbf dgf
+cgdbe decba bfdgcea debfa cfdbae gafedb ac fbca agfdec cea | dgecb dacbe edagfb gfdbea
+gacdef bfeda afecd gfbae bdcega bafgcde dab dfceba bcfd db | db eacdgb aedbfcg fcgbdea
+abdgcf dafec faedb cf bcfgeda gefbad cabfde cfbe afc aegdc | bdfega afgdecb fgdcba gedafb
+aedcb fce bedfc cfbged gefb bgfeacd edgacf ef gcfdb dgfabc | gedfca fabcdg adfcge cfe
+dbfagec dabec eda fdcbea ed agdbc gfbcea cbefa efdb gfdeca | ecfgdba ade fcagebd dea
+dafbe adfbcg bfeac cbe bagfecd cfge egcdab cgabf ce gfceab | bcagef afgcb fcgabd gcdabf
+agc ag gbaecf cagbf fgdcaeb bdgfc cefab ecfagd bega aedfcb | ebcafg fbace cag eacfdbg
+ea gfbda eacd bfced eagfbc aeb cbfged befda bgafced dacfeb | gfbad aeb fdabg cedfbg
+gcbadf gbead afcbde gad beadf daefgb aecgb dg efagdcb gedf | dgef fegabd afebd dg
+dbc fdcge dabeg aceb cgdeb afedbg cdgeba bdagcfe bc gcdbaf | gcadbe dcb abcedg edbgc
+bfcd ebfgd cgf egcab bfdcge adfgec gbefad fcbegad gfebc cf | fcdaeg dbegacf dbcf cf
+bcfedga df dfa gcaedb fagcbd adecbf ecgaf dgfb gcdaf bdcag | gecaf df gfbdeca df
+acf cdfe dcbegaf feabd ecbgfa dbacg aebgfd bfdeac dcfba fc | gfedba fc efdc dfbaecg
+ecf bgaecd ecdgfb adgfe egcfa fcbedga bagec gacebf cafb fc | cfgaebd aecbg ecgab dgbeca
+beagc aegbdc fcdeb fcgbe gf geaf acgbfd fcg fecgdba fbgeca | bgfadc baedcg gfc gebacf
+gedf caebfd fcgea bdcgae age acefd fdcagbe gacfb gcefda eg | bedcaf dgeabc acgfe aeg
+gceabfd cdgba cgfdae cfdagb begd ceabg ceafb ge gae gabdce | fcgaed dgfcae acegb ebgd
+deg cegdbf dbceg bdgafe baegdfc bcadg de agbecf gfbec ecfd | fdce ed de gedabf
+afgced gb dbg gbec badcfg abged baedf eadcg cafgedb gdbeca | fgeadc bg gbd beadg
+ad bdegca cgabd bedfgac gda cead bfcaeg gaecb cdbfg edgabf | dfbagec eacgfbd cgedba ad
+bacd afgecd ba eadbcf fdgeb bgacef feagcdb bfdae deacf eba | abe fdebg abe dgafec
+cdafe dab febdga fcbd fceadb bd fecdag agceb abdcfeg bacde | dab cbdafge dfaec dagefb
+ecbgad cbe bdef dfegcb dgbcf agcfe fgebc eb fdgbca ebgadcf | bfdgec be be fcgea
+cdg dabfc edbfac gd fegac dfacg gfdb deabcfg dbacge bcadgf | bdcfa efgca cgd aedgcb
+adcfe afd deagcf faebc ebfcagd efdg cbeagd gabfcd fd cedga | daf dfcae fd egdabc
+dgfc cabfe bcg abegdf gdafb cg afbecgd fcagbd aedgcb bfgac | agefbdc gdfacb cg cafdbg
+fbadge bfgca agf dacbfge bdcafe bfeac aegc ga fabgce dfgcb | fdebga fgbcd baefgc geac
+abe ebcfga dgabc gfcbe fcadbeg gafe ea gcabe fdgbce aecfbd | gadbc ebcag ecgbf gabefc
+gd ebacfd afedcgb cdeabg cabgd gad aecbd ecdg gdbfae bacgf | egdacb agfdeb cbafg gda
+ec dgfae gfdcba ced dagebc dcafbe cadfb efacd edgfabc cefb | abdfgce befc edc debgca
+ec cfed gbafe gfecdba cfdgae cae gfdac gacbde fdcagb ecfag | dcafeg ce fdbaecg gaefb
+acge fgebd fcbeg agfcbe ce bcfga cbe eabgfcd gcdafb edfbca | gbafcd abcgf agbcdf ce
+eafgcb bface dcgebfa dbface dc ecadbg acfd fdebg dcefb bdc | dacf bcfega cafbe dc
+cdbgae befcg bgade fgbeacd gbdfae fbdacg fd dfg aedf bfgde | daefgbc edfa abegd bfadcg
+dcage bcae agdfcb efbagd bdafceg gfecd dae dbecga dgcba ae | cdgea aed afbcgd aed
+fbedcag agfe cbeafd efgbc gacbd agefbc af cagbf cedbfg afc | gfaebc dagcb febcg ecgfdab
+abecgdf cagbd efbdc ebfg fg gdfcb aecdgf dbgcfe cbafde gdf | decfb gfd fbcgd fdg
+ecbafd ba bafdeg fgdba dba fgebd cbefgd bgae dcgfa daegcbf | adb bfadg cbfead ab
+egbdc acbfged gae cdaeg ga agbefd acgf decaf cdaegf eafdcb | agcf ga daegcfb cedbg
+bafce adcfeg caegfb cefga fb fab bdcagfe dabgef bgcf ebdac | gface bcaef fab fcabe
+gcedab facgbd efadg edacg bdafecg fedgb fda af aefc gafcde | dgecfa ebdgac fa bdfeg
+gdba gedfb egfbad fegadc ecgfba dfbec gd cbedfga abefg fdg | fcadge gdbef fegbac agbef
+fbdec fdbceag feacb fbcgd dcbfge dec efgadc dcbafg ed dbge | cabgdf ceafb afgdec de
+cbgaed fbagc cbfd bdaegf bdcag egdbfac afgce bcfadg baf bf | fb baf edgafb cbgda
+EOF
+}
+
+main</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Simply run the script to solve.</p>
+</div>
+<a id="day09" />
+</div>
+</div>
+<div class="sect2">
+<h3 id="_day_09_go"><a class="anchor" href="#_day_09_go"></a><a class="link" href="#_day_09_go">Day 09: go</a></h3>
+<div class="sect3">
+<h4 id="_day_09_smoke_basin"><a class="anchor" href="#_day_09_smoke_basin"></a><a class="link" href="#_day_09_smoke_basin">Day 09: Smoke Basin</a></h4>
+<div class="paragraph">
+<p>This is my implementation for both rounds of the smoke basin puzzle.</p>
+</div>
+<div class="sect4">
+<h5 id="_oveview_9"><a class="anchor" href="#_oveview_9"></a><a class="link" href="#_oveview_9">Oveview</a></h5>
+<div class="paragraph">
+<p>This solution contains a <code>solution.go</code>, which defines the main executable.
+There is also a <code>utils.go</code>, which is currently where all helper functions that
+might be re-used later on reside.
+There is also a <code>grid.go</code>, which contains specifications of a grid and other
+geometrical functionality.
+This solution reuses quite a bit of the day 5 solution.</p>
+</div>
+<div class="paragraph">
+<p><code>solution.go</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight linenums"><code class="language-go" data-lang="go">const (
+	noMoreBasinHeight = 9
+	numLargestBasins  = 3
+)
+
+//nolint: funlen
+func main() {
+	grid, err := ReadLinesAsGrid()
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+	minima := []Vec{}
+	risk := 0
+	for point := range grid.Points() {
+		if grid.IsLocalMin(point) {
+			risk += 1 + grid.Count(point)
+			minima = append(minima, point)
+		}
+	}
+	// minima = []Vec{Vec{x: 0, y: 1}}
+	fmt.Printf("There is %d risk.\n", risk)
+	sizes := []int{}
+	for _, min := range minima {
+		basin, err := grid.Basin(min, noMoreBasinHeight-1)
+		if err != nil {
+			log.Fatal(err.Error())
+		}
+		sizes = append(sizes, len(basin))
+	}
+	// Multiply the sizes of the three largest basins.
+	sort.Ints(sizes)
+	sizeMult := 1
+	for _, size := range sizes[len(sizes)-numLargestBasins:] {
+		sizeMult *= size
+	}
+	fmt.Printf("Multiplied basin size is %d.\n", sizeMult)
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>utils.go</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight linenums"><code class="language-go" data-lang="go">// ReadLinesAsGrid reads all lines from stdin as a grid. That is, each point on the grid has a
+// height and a location.
+func ReadLinesAsGrid() (Grid, error) {
+	lineIdx := 0
+	result := make(Grid)
+	for {
+		line, err := readLine()
+		if err == io.EOF {
+			// Success case, no more input to read.
+			return result, nil
+		}
+		if err != nil {
+			return Grid{}, err
+		}
+		line = strings.TrimSpace(line)
+		ints, err := strSliceToIntSlice(strings.Split(line, ""))
+		if err != nil {
+			return Grid{}, err
+		}
+		for rowIdx, val := range ints {
+			// This is lazy but I wanted to re-use old code.
+			point, err := VecFromStr(fmt.Sprintf("%d%s%d", lineIdx, vecSep, rowIdx))
+			if err != nil {
+				return Grid{}, err
+			}
+			err = result.Mark(point, val)
+			if err != nil {
+				return Grid{}, err
+			}
+		}
+		if err != nil {
+			return Grid{}, err
+		}
+		lineIdx++
+	}
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>grid.go</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight linenums"><code class="language-go" data-lang="go">// Vec is a 2D vector. Most of it has been taken from a previous solution.
+type Vec struct {
+	x, y int
+}
+
+var (
+	unitX     = Vec{x: 1}
+	unitY     = Vec{y: 1}
+	unitDisps = []Vec{unitX, unitY, unitX.Inv(), unitY.Inv()}
+)
+
+// VecFromStr converts a sring into a vector.
+func VecFromStr(str string) (Vec, error) {
+	fields := trimStrings(strings.Split(str, vecSep))
+	if len(fields) != tokensPerPoint {
+		return Vec{}, fmt.Errorf("cannot parse %v as vector, wrong number of fields", str)
+	}
+	ints, err := strSliceToIntSlice(fields)
+	if err != nil {
+		return Vec{}, fmt.Errorf("cannot parse %s as vector, %s", str, err.Error())
+	}
+	result := Vec{
+		x: ints[0],
+		y: ints[1],
+	}
+	return result, nil
+}
+
+// Add adds one vector to another one.
+func (v Vec) Add(delta Vec) Vec {
+	result := Vec{
+		x: v.x + delta.x,
+		y: v.y + delta.y,
+	}
+	return result
+}
+
+// Mul multiplies each component of a vector with a number.
+func (v Vec) Mul(factor int) Vec {
+	result := Vec{
+		x: v.x * factor,
+		y: v.y * factor,
+	}
+	return result
+}
+
+// Inv inverts a vector.
+func (v Vec) Inv() Vec {
+	return v.Mul(-1)
+}
+
+// Sub subtracts a vector'v data from another one'v.
+func (v Vec) Sub(delta Vec) Vec {
+	return v.Add(delta.Inv())
+}
+
+// Grid is a lazily evaluated grid that supports marking points on it. Most of it has been taken
+// from a previous solution.
+type Grid map[Vec]int
+
+// Mark marks a point on the grid n times. Don't accept numbers &lt;0.
+func (g *Grid) Mark(entry Vec, n int) error {
+	if n &lt; 0 {
+		return fmt.Errorf("can only mark non-negative times")
+	}
+	// We don't have to handle non-existing values here since Go returns the zero value (0 for
+	// integers) for such entries.
+	(*g)[entry] = (*g)[entry] + n
+	return nil
+}
+
+// Count determines how often a point has been marked.
+func (g *Grid) Count(entry Vec) int {
+	return (*g)[entry]
+}
+
+// Has determines whether a point is on the grid.
+func (g *Grid) Has(entry Vec) bool {
+	_, ok := (*g)[entry]
+	return ok
+}
+
+// RemoveAll removes all markings for a specific point.
+func (g *Grid) RemoveAll(entry Vec) {
+	delete(*g, entry)
+}
+
+// IsLocalMin determines whether a point is a local minimum.
+func (g *Grid) IsLocalMin(entry Vec) bool {
+	for neigh := range pointEnv(entry) {
+		if !g.Has(neigh) {
+			continue
+		}
+		if g.Count(entry) &gt;= g.Count(neigh) {
+			return false
+		}
+	}
+	return true
+}
+
+// Points returns an iterator over all points on the grid.
+func (g *Grid) Points() &lt;-chan Vec {
+	channel := make(chan Vec)
+	go func() {
+		for point := range *g {
+			channel &lt;- point
+		}
+		close(channel)
+	}()
+	return channel
+}
+
+// Check whether a slice has a specific entry.
+func sliceHasEntry(sli []Vec, entry Vec) bool {
+	for _, val := range sli {
+		if entry == val {
+			return true
+		}
+	}
+	return false
+}
+
+// Obtain an iterator over a point's environment.
+func pointEnv(point Vec) &lt;-chan Vec {
+	channel := make(chan Vec)
+	go func() {
+		for _, disp := range unitDisps {
+			displaced := point.Add(disp)
+			channel &lt;- displaced
+		}
+		close(channel)
+	}()
+	return channel
+}
+
+// Basin returns a "grid" that contains the basin associated with the given entry. The value of max
+// will be the maximum value permitted for a point in a basin.
+func (g *Grid) Basin(entry Vec, max int) (Grid, error) {
+	if !g.IsLocalMin(entry) {
+		err := fmt.Errorf("can only start basin generation from local minimum")
+		return Grid{}, err
+	}
+	result := Grid{}
+	for checkEnv := []Vec{entry}; len(checkEnv) != 0; {
+		newEnv := []Vec{}
+		// Add each entry of checkEnv to the basin if it is lower than or equal to all of its
+		// surrounding points that are not yet in the basin.
+		for _, checkVec := range checkEnv {
+			keepThis := true
+			for displaced := range pointEnv(checkVec) {
+				// Non-existent points count as ultra-high walls.
+				if !g.Has(displaced) {
+					continue
+				}
+				// If the to-be-checked point itself does not exist, it cannot be added. Neither can
+				// it be added if it is too large.
+				if !g.Has(checkVec) || g.Count(checkVec) &gt; max {
+					keepThis = false
+				}
+				// We use &gt; here since we assume lava can also flow horizontally instead of just
+				// downward all the time.
+				if !result.Has(displaced) &amp;&amp; g.Count(checkVec) &gt; g.Count(displaced) {
+					keepThis = false
+				}
+			}
+			if keepThis &amp;&amp; !result.Has(checkVec) {
+				err := result.Mark(checkVec, g.Count(checkVec))
+				if err != nil {
+					return Grid{}, err
+				}
+				// Add a point's entire surrounding to be checked for the same basin next time.
+				for displaced := range pointEnv(checkVec) {
+					if !sliceHasEntry(newEnv, displaced) {
+						newEnv = append(newEnv, displaced)
+					}
+				}
+			}
+		}
+		checkEnv = newEnv
+	}
+	return result, nil
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>There are currently no tests.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_how_to_run_9"><a class="anchor" href="#_how_to_run_9"></a><a class="link" href="#_how_to_run_9">How to run</a></h5>
+<div class="paragraph">
+<p>Assuming the required input is in a file <code>input.dat</code>, you only need to execute
+<code>cat input.dat | go run .</code> to run the solution for part 2.
+You can run the solution for part 1 using <code>cat input.dat | PART=1 go run .</code> or
+in general by setting the environment variable <code>PART</code> to <code>1</code>.</p>
+</div>
+<a id="day10" />
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_day_10_go"><a class="anchor" href="#_day_10_go"></a><a class="link" href="#_day_10_go">Day 10: go</a></h3>
+<div class="sect3">
+<h4 id="_day_10_syntax_scoring"><a class="anchor" href="#_day_10_syntax_scoring"></a><a class="link" href="#_day_10_syntax_scoring">Day 10: Syntax Scoring</a></h4>
+<div class="paragraph">
+<p>This is my implementation for both rounds of the syntax scoring puzzle.</p>
+</div>
+<div class="sect4">
+<h5 id="_oveview_10"><a class="anchor" href="#_oveview_10"></a><a class="link" href="#_oveview_10">Oveview</a></h5>
+<div class="paragraph">
+<p>This solution contains a <code>solution.go</code>, which defines the main executable.
+There is also a <code>stack.go</code>, which contains specifications of a FIFO.</p>
+</div>
+<div class="paragraph">
+<p><code>solution.go</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight linenums"><code class="language-go" data-lang="go">var openerCloser = map[string]string{
+	"(": ")",
+	"[": "]",
+	"{": "}",
+	"&lt;": "&gt;",
+}
+
+//nolint:gomnd
+var delimScorePart1 = map[string]int{
+	")": 3,
+	"]": 57,
+	"}": 1197,
+	"&gt;": 25137,
+}
+
+//nolint:gomnd
+const (
+	multScorePart2 = 5
+)
+
+//nolint:gomnd
+var delimScorePart2 = map[string]int{
+	")": 1,
+	"]": 2,
+	"}": 3,
+	"&gt;": 4,
+}
+
+// Check the syntax. Return whether the syntax was OK, the sequence of expected closing delimiters,
+// and the first offending character.
+func checkSyntax(line string) (bool, Stack, string) {
+	stack := Stack{}
+	for _, char := range strings.Split(line, "") {
+		if closer, isOpener := openerCloser[char]; isOpener {
+			// We found a new opener. Add the corresponding closer to the stack.
+			stack.Push(closer)
+		} else {
+			// We did not find an opener. Check whether the closer we found is the expected one.
+			expectedCloser, ok := stack.Pop()
+			if !ok {
+				// The stack was empty. An empty offender means the line had more closing delimiters
+				// than opening ones.
+				return false, stack, ""
+			}
+			if expectedCloser != char {
+				// We did not find the closer we expected. The current char is the offender.
+				return false, stack, char
+			}
+		}
+	}
+	return true, stack, ""
+}
+
+//nolint: funlen
+func main() {
+	lines, err := ReadLines()
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+	remainingLines := []string{}
+	// Part 1.
+	scorePart1 := 0
+	for _, line := range lines {
+		ok, _, offender := checkSyntax(line)
+		// The second condition means we currently only check corrupted lines but not such ones that
+		// are incomplete.
+		if !ok &amp;&amp; offender != "" {
+			newScore, found := delimScorePart1[offender]
+			if !found {
+				log.Fatalf("cannot find score for offender %s", offender)
+			}
+			scorePart1 += newScore
+		} else {
+			// Keep all lines that are not corrupted.
+			remainingLines = append(remainingLines, line)
+		}
+	}
+	fmt.Printf("Score is %d points.\n", scorePart1)
+	// Part 1.
+	scoresPart2 := []int{}
+	for _, line := range remainingLines {
+		lineScore := 0
+		ok, remainder, _ := checkSyntax(line)
+		if !ok {
+			// We wanted to filter out all corrupted lines already. Thus, finding one here is a bug.
+			log.Fatalf("found corrupted line '%s' but we have filtered them all", line)
+		}
+		// Iterate over all the remaining characters.
+		for char, nonEmpty := remainder.Pop(); nonEmpty; char, nonEmpty = remainder.Pop() {
+			lineScore *= multScorePart2
+			newScore, found := delimScorePart2[char]
+			if !found {
+				log.Fatalf("cannot find score for character %s", char)
+			}
+			lineScore += newScore
+		}
+		scoresPart2 = append(scoresPart2, lineScore)
+	}
+	// Pick the middle one.
+	sort.Ints(scoresPart2)
+	if len(scoresPart2)%2 != 1 {
+		log.Fatal("we were promised an odd number of scores but found an even one")
+	}
+	// Integer division FTW.
+	scorePart2 := scoresPart2[len(scoresPart2)/2]
+	fmt.Printf("Score is %d points.\n", scorePart2)
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>stack.go</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight linenums"><code class="language-go" data-lang="go">// Stack is a FIFO.
+type Stack []string
+
+// Push puts a value on the stack.
+func (s *Stack) Push(val string) {
+	*s = append(*s, val)
+}
+
+// Pop removes the topmost value and returns it. Also returns whether the stack was non-empty.
+func (s *Stack) Pop() (string, bool) {
+	if len(*s) == 0 {
+		return "", false
+	}
+	val := (*s)[len(*s)-1]
+	*s = (*s)[0 : len(*s)-1 : len(*s)-1]
+	return val, true
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>There are currently no tests.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_how_to_run_10"><a class="anchor" href="#_how_to_run_10"></a><a class="link" href="#_how_to_run_10">How to run</a></h5>
+<div class="paragraph">
+<p>Assuming the required input is in a file <code>input.dat</code>, you only need to execute
+<code>cat input.dat | go run .</code> to run the solution.</p>
+</div>
+<a id="day11" />
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_day_11_go"><a class="anchor" href="#_day_11_go"></a><a class="link" href="#_day_11_go">Day 11: go</a></h3>
+<div class="sect3">
+<h4 id="_day_11_dumbo_octopus"><a class="anchor" href="#_day_11_dumbo_octopus"></a><a class="link" href="#_day_11_dumbo_octopus">Day 11: Dumbo Octopus</a></h4>
+<div class="paragraph">
+<p>This is my implementation for both rounds of the dumbo octopus puzzle.</p>
+</div>
+<div class="sect4">
+<h5 id="_oveview_11"><a class="anchor" href="#_oveview_11"></a><a class="link" href="#_oveview_11">Oveview</a></h5>
+<div class="paragraph">
+<p>This solution contains a <code>solution.go</code>, which defines the main executable.
+There is also a <code>utils.go</code>, which is currently where all helper functions that
+might be re-used later on reside.
+There is also a <code>grid.go</code>, which contains specifications of a grid and other
+geometrical functionality.
+This solution reuses quite a bit of the day 9 solution, which was based on the
+day 5 solution.</p>
+</div>
+<div class="paragraph">
+<p><code>solution.go</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight linenums"><code class="language-go" data-lang="go">const (
+	flashThreshold   = 9
+	generationsPart1 = 100
+	// We set a max number of generations to prevent an endless loop.
+	maxGenerationsPart2 = 1000
+)
+
+// SolutionOutput is the output of `solve`'s channel.
+type SolutionOutput struct {
+	value int
+	err   error
+}
+
+func solve(grid Grid, threshold int) &lt;-chan SolutionOutput {
+	channel := make(chan SolutionOutput)
+
+	go func() {
+		for {
+			flashesThisGen := 0
+			if err := grid.MarkAll(1); err != nil {
+				channel &lt;- SolutionOutput{0, err}
+				close(channel)
+				return
+			}
+			addUsBack := []Vec{}
+			for o := grid.FilterThreshold(threshold); len(o) &gt; 0; o = grid.FilterThreshold(threshold) {
+				// If we found any that will flash, handle them.
+				// First, count their flashes.
+				flashesThisGen += len(o)
+				// Then, remove them from the grid. They cannot flash again this time. But remember to
+				// add them back later.
+				for _, p := range o {
+					grid.RemoveAll(p)
+					addUsBack = append(addUsBack, p)
+				}
+				// Then, their flashes will increase the energy levels of their environment. Propagate
+				// that. Only points that are still on the grid will have their energy levels changed.
+				for _, p := range o {
+					if err := grid.MarkExistingEnv(1, p, pointEnv); err != nil {
+						channel &lt;- SolutionOutput{0, err}
+						close(channel)
+						return
+					}
+				}
+				// Rinse repeat until no more points exceed the threshold.
+			}
+			// Add those points back that were removed. Their initial energy level will be zero.
+			for _, addBack := range addUsBack {
+				if err := grid.Mark(addBack, 0); err != nil {
+					channel &lt;- SolutionOutput{0, err}
+					close(channel)
+					return
+				}
+			}
+			channel &lt;- SolutionOutput{flashesThisGen, nil}
+		}
+	}()
+
+	return channel
+}
+
+//nolint: funlen
+func main() {
+	grid, err := ReadLinesAsGrid()
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+	numOctopodes := len(grid)
+	flashes := 0
+	solutionGenerator := solve(grid, flashThreshold)
+	for gen := 1; gen &lt;= generationsPart1; gen++ {
+		sol := &lt;-solutionGenerator
+		if err := sol.err; err != nil {
+			log.Fatal(err.Error())
+		}
+		flashes += sol.value
+	}
+	fmt.Printf("The octopodes flashed %d times in %d generations.\n", flashes, generationsPart1)
+	for gen := generationsPart1; gen &lt;= maxGenerationsPart2; gen++ {
+		sol := &lt;-solutionGenerator
+		if err := sol.err; err != nil {
+			log.Fatal(err.Error())
+		}
+		if sol.value == numOctopodes {
+			fmt.Printf(
+				"The octopodes all flashed together the 1st time the %d'th generation.\n", gen,
+			)
+			return
+		}
+	}
+	log.Fatal("the octopodes never flashed all together")
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>utils.go</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight linenums"><code class="language-go" data-lang="go">// ReadLinesAsGrid reads all lines from stdin as a grid. That is, each point on the grid has a
+// value and a location.
+func ReadLinesAsGrid() (Grid, error) {
+	lineIdx := 0
+	result := make(Grid)
+	for {
+		line, err := readLine()
+		if err == io.EOF {
+			// Success case, no more input to read.
+			return result, nil
+		}
+		if err != nil {
+			return Grid{}, err
+		}
+		line = strings.TrimSpace(line)
+		ints, err := strSliceToIntSlice(strings.Split(line, ""))
+		if err != nil {
+			return Grid{}, err
+		}
+		for rowIdx, val := range ints {
+			// This is lazy but I wanted to re-use old code.
+			point, err := VecFromStr(fmt.Sprintf("%d%s%d", lineIdx, vecSep, rowIdx))
+			if err != nil {
+				return Grid{}, err
+			}
+			err = result.Mark(point, val)
+			if err != nil {
+				return Grid{}, err
+			}
+		}
+		if err != nil {
+			return Grid{}, err
+		}
+		lineIdx++
+	}
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>grid.go</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight linenums"><code class="language-go" data-lang="go">// Vec is a 2D vector. Most of it has been taken from a previous solution.
+type Vec struct {
+	x, y int
+}
+
+var (
+	unitX         = Vec{x: 1}
+	unitY         = Vec{y: 1}
+	pointEnvDisps = []Vec{
+		// x==1
+		unitX.Add(unitY),
+		unitX,
+		unitX.Sub(unitY),
+		// x==0
+		unitY,
+		unitY.Inv(),
+		// x==-1
+		unitX.Inv().Add(unitY),
+		unitX.Inv(),
+		unitX.Inv().Sub(unitY),
+	}
+)
+
+// Obtain an iterator over a point's environment.
+func pointEnv(point Vec) &lt;-chan Vec {
+	channel := make(chan Vec)
+	go func() {
+		for _, disp := range pointEnvDisps {
+			displaced := point.Add(disp)
+			channel &lt;- displaced
+		}
+		close(channel)
+	}()
+	return channel
+}
+
+// VecFromStr converts a sring into a vector.
+func VecFromStr(str string) (Vec, error) {
+	fields := trimStrings(strings.Split(str, vecSep))
+	if len(fields) != tokensPerPoint {
+		return Vec{}, fmt.Errorf("cannot parse %v as vector, wrong number of fields", str)
+	}
+	ints, err := strSliceToIntSlice(fields)
+	if err != nil {
+		return Vec{}, fmt.Errorf("cannot parse %s as vector, %s", str, err.Error())
+	}
+	result := Vec{
+		x: ints[0],
+		y: ints[1],
+	}
+	return result, nil
+}
+
+// Add adds one vector to another one.
+func (v Vec) Add(delta Vec) Vec {
+	result := Vec{
+		x: v.x + delta.x,
+		y: v.y + delta.y,
+	}
+	return result
+}
+
+// Mul multiplies each component of a vector with a number.
+func (v Vec) Mul(factor int) Vec {
+	result := Vec{
+		x: v.x * factor,
+		y: v.y * factor,
+	}
+	return result
+}
+
+// Inv inverts a vector.
+func (v Vec) Inv() Vec {
+	return v.Mul(-1)
+}
+
+// Sub subtracts a vector'v data from another one'v.
+func (v Vec) Sub(delta Vec) Vec {
+	return v.Add(delta.Inv())
+}
+
+// Grid is a lazily evaluated grid that supports marking points on it. Most of it has been taken
+// from a previous solution.
+type Grid map[Vec]int
+
+// Mark marks a point on the grid n times. Don't accept numbers &lt;0.
+func (g *Grid) Mark(entry Vec, n int) error {
+	if n &lt; 0 {
+		return fmt.Errorf("can only mark non-negative times")
+	}
+	// We don't have to handle non-existing values here since Go returns the zero value (0 for
+	// integers) for such entries.
+	(*g)[entry] = (*g)[entry] + n
+	return nil
+}
+
+// Count determines how often a point has been marked.
+func (g *Grid) Count(entry Vec) int {
+	return (*g)[entry]
+}
+
+// Has determines whether a point is on the grid.
+func (g *Grid) Has(entry Vec) bool {
+	_, ok := (*g)[entry]
+	return ok
+}
+
+// RemoveAll removes all markings for a specific point.
+func (g *Grid) RemoveAll(entry Vec) {
+	delete(*g, entry)
+}
+
+// FilterThreshold returns all points whose value exceeds a threshold.
+func (g *Grid) FilterThreshold(threshold int) []Vec {
+	result := []Vec{}
+	for point := range g.Points() {
+		if g.Count(point) &gt; threshold {
+			result = append(result, point)
+		}
+	}
+	return result
+}
+
+// MarkAll maks all points in the grid with the same value.
+func (g *Grid) MarkAll(val int) error {
+	for p := range g.Points() {
+		if err := g.Mark(p, val); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+// EnvFn is a function type used to determine a point's environment.
+type EnvFn = func(point Vec) &lt;-chan Vec
+
+// MarkExistingEnv marks all points by the specified value in the environment of a given point. The
+// environment is defined by envFn. Only points that actually exist will be marked.
+func (g *Grid) MarkExistingEnv(val int, point Vec, envFn EnvFn) error {
+	for neigh := range envFn(point) {
+		if !g.Has(neigh) {
+			continue
+		}
+		if err := g.Mark(neigh, val); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+// Points returns an iterator over all points on the grid.
+func (g *Grid) Points() &lt;-chan Vec {
+	channel := make(chan Vec)
+	go func() {
+		for point := range *g {
+			channel &lt;- point
+		}
+		close(channel)
+	}()
+	return channel
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>There are currently no tests.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_how_to_run_11"><a class="anchor" href="#_how_to_run_11"></a><a class="link" href="#_how_to_run_11">How to run</a></h5>
+<div class="paragraph">
+<p>Assuming the required input is in a file <code>input.dat</code>, you only need to execute
+<code>cat input.dat | go run .</code> to run the solution for both parts.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div></p>
+
+	</div>
+
+</div>
+<div id="push"></div>
+</div>
+
+
+    <div id="footer">
+      <div class="container">
+          <p class="muted credit">&copy; 2021 | Mixed with Bootstrap v3.1.1 | generated with <a href="https://doctoolchain.org">docToolchain</a> | Baked with JBake v2.6.4</p>
+      </div>
+    </div>
+    
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="../../../js/bootstrap.min.js"></script>
+    <script src="../../../js/prettify.js"></script>
+    
+
+
+</body>
+</html>

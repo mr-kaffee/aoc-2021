@@ -1,0 +1,2868 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Aoc 2021: rdmueller</title>
+    <meta charset="UTF-8">
+<meta name="google-site-verification" content="JZ7jk3duxzxHDLuOHKPxc-uoz0JPlSBLeaAxh3wGn9Q" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Just for fun">
+    <meta name="author" content="Ralf D. Müller">
+    <meta name="keywords" content="aoc">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../../css/asciidoctor.css" rel="stylesheet">
+    <link href="../../../css/base.css" rel="stylesheet">
+    <link href="../../../css/prettify.css" rel="stylesheet">
+      <link href="../../../css/retro.css" rel="stylesheet">
+      <style>
+      @media only screen and (min-width:768px){
+          #toctitle{font-size:1.375em}
+          #toc.toc{margin-top:0!important;background-color:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #efefed;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto; padding-top: 60px;}
+          #toc.toc #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+          #toc.toc>ul{font-size:.9em;margin-bottom:0}
+          #toc.toc ul ul{margin-left:0;padding-left:1em}
+          #toc.toc ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+          body.toc2{ padding-left: 15.5em;padding-right:0; width: 100% !important;}
+          body.toc2 div#wrap div.content {width: auto !important;}
+          #toc.toc{width:15em; padding-top: 60px;}
+      }
+      @media only screen and (min-width:1280px){
+          body.toc2{ padding-left: 20.5em;padding-right:0; width: 100% !important;}
+          body.toc2 div#wrap div.content {width: auto !important;}
+          #toc.toc{width:20em; padding-top: 60px;}
+          #toc.toc #toctitle{font-size:1.375em}
+          #toc.toc>ul{font-size:.95em}
+          #toc.toc ul ul{padding-left:1.25em}
+      }
+      body {
+          overflow-y: scroll;
+      }
+      html, body {
+          font-size: 1.06rem;
+      }
+      body.toc2{ overflow-x: auto}
+      #toc.toc ul {
+          padding-inline-start: 0;
+      }
+      :target::before {
+          content: "";
+          display: block;
+          height: 60px; /* fixed header height*/
+          margin: -60px 0 0; /* negative fixed header height */
+      }
+      .navbar {
+          background-image: url(/aoc-2021/images/treeback.png);
+          background-size: contain;
+          background-repeat: repeat-x;
+          border-bottom: 0;
+          padding-bottom: 20px;
+          background-color: transparent;
+          box-shadow: none;
+      }
+      html {
+          background: url(/aoc-2021/images/snowback.png) no-repeat center center fixed;
+          -webkit-background-size: cover;
+          -moz-background-size: cover;
+          -o-background-size: cover;
+          background-size: cover;
+      }
+
+      </style>
+      <script>
+          //smart redirectg
+          if (document.location.href.includes("netlify")) {
+              document.location.href=document.location.href.replace("aoc-2021.netlify.app/","doctoolchain.org/aoc-2021/");
+          }
+      </script>
+<!-- /aoc-2021/ -->
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+      <link rel="apple-touch-icon" sizes="180x180" href="/aoc-2021//apple-touch-icon.png">
+      <link rel="icon" type="image/png" sizes="32x32" href="/aoc-2021//favicon-32x32.png">
+      <link rel="icon" type="image/png" sizes="16x16" href="/aoc-2021//favicon-16x16.png">
+      <link rel="manifest" href="/aoc-2021//site.webmanifest">
+      <link rel="mask-icon" href="/aoc-2021//safari-pinned-tab.svg" color="#5bbad5">
+      <meta name="msapplication-TileColor" content="#da532c">
+      <meta name="theme-color" content="#ffffff">
+  </head>
+
+<body onload="prettyPrint()" class="toc2 toc-left" >
+<div id="wrap">
+
+	
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../../../">AoC-2021</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+              
+                
+                  <li><a href="../../../rules/">Rules</a></li>
+                
+              
+                
+                  <li><a href="../../../solutions/">Solutions</a></li>
+                
+              
+                
+                  <li><a href="../../../about/">About</a></li>
+                
+              
+          </ul>
+            <!-- tag::search[] -->
+            <form class="navbar-form navbar-right" action="https://google.de/search" style="border: none;">
+                <div class="form-group">
+                    <input type="hidden" name="q" value="site:aoc-2021.netlify.com">
+                    <input type="text" name="q" class="form-control" id="search">
+                    <button type="submit" class="btn btn-default hidden-sm ">Find</button>
+                </div>
+            </form>
+            <!-- end::search[] -->
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+	<div class="container content">
+	<p><div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_rdmueller">rdmueller</a>
+<ul class="sectlevel2">
+<li><a href="#_about_me">About me</a></li>
+<li><a href="#_day_00_ruby">Day 00: ruby</a></li>
+<li><a href="#_day_01_python">Day 01: python</a>
+<ul class="sectlevel3">
+<li><a href="#_day1_of_advent_of_code">Day1 of Advent of Code</a>
+<ul class="sectlevel4">
+<li><a href="#_part_1">Part 1</a></li>
+<li><a href="#_part_2">Part 2</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_day_02_groovy">Day 02: groovy</a>
+<ul class="sectlevel3">
+<li><a href="#_day_2_dive">Day 2: Dive!</a>
+<ul class="sectlevel4">
+<li><a href="#_part_1_2">Part 1</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_day_03_groovy">Day 03: groovy</a>
+<ul class="sectlevel3">
+<li><a href="#_day_03_binary_diagnostic">Day 03: Binary Diagnostic</a>
+<ul class="sectlevel4">
+<li><a href="#_part_1_3">Part 1</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_day_04_groovy">Day 04: groovy</a>
+<ul class="sectlevel3">
+<li><a href="#_groovy">groovy</a></li>
+</ul>
+</li>
+<li><a href="#_day_05_groovy">Day 05: groovy</a>
+<ul class="sectlevel3">
+<li><a href="#_groovy_2">groovy</a></li>
+</ul>
+</li>
+<li><a href="#_day_06_groovy">Day 06: groovy</a>
+<ul class="sectlevel3">
+<li><a href="#_day06_lantern_fishes">Day06: Lantern fishes</a></li>
+</ul>
+</li>
+<li><a href="#_day_07_groovy">Day 07: groovy</a>
+<ul class="sectlevel3">
+<li><a href="#_groovy_3">groovy</a></li>
+</ul>
+</li>
+<li><a href="#_day_08_groovy">Day 08: groovy</a>
+<ul class="sectlevel3">
+<li><a href="#_groovy_4">groovy</a></li>
+</ul>
+</li>
+<li><a href="#_day_09_groovy">Day 09: groovy</a>
+<ul class="sectlevel3">
+<li><a href="#_groovy_5">groovy</a></li>
+</ul>
+</li>
+<li><a href="#_day_10_groovy">Day 10: groovy</a>
+<ul class="sectlevel3">
+<li><a href="#_groovy_6">groovy</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="sect1">
+<h2 id="_rdmueller"><a class="anchor" href="#_rdmueller"></a><a class="link" href="#_rdmueller">rdmueller</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 83.3334%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="image"><img src="https://avatars3.githubusercontent.com/u/1856308?v=4" alt="1856308?v=4" width="100px"></span></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><strong>rdmueller</strong><br>
+Ralf D. Müller<br>
+Github: <a href="https://github.com/rdmueller">rdmueller</a>,
+Twitter: <a href="https://twitter.com/RalfDMueller">RalfDMueller</a><br>
+Blog : <a href="https://docs-as-co.de" class="bare">https://docs-as-co.de</a></p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="_about_me"><a class="anchor" href="#_about_me"></a><a class="link" href="#_about_me">About me</a></h3>
+<div class="paragraph">
+<p>see <a href="https://fiveandahalfstars.ninja/rdmueller" class="bare">https://fiveandahalfstars.ninja/rdmueller</a> for more details.</p>
+</div>
+<a id="day00" />
+</div>
+<div class="sect2">
+<h3 id="_day_00_ruby"><a class="anchor" href="#_day_00_ruby"></a><a class="link" href="#_day_00_ruby">Day 00: ruby</a></h3>
+<div class="paragraph">
+<p>This year, I wil luse Advent of Code to learn ruby.
+The reason is simple.
+I don&#8217;t know ruby yet and Asciidoctor, the converter for AsciiDoc, is written in ruby.
+So this knowledge should help me to make better use of Asciidoctor.</p>
+</div>
+<div class="paragraph">
+<p>What I&#8217;ve found to get started with ruby are the <a href="http://rubykoans.com/">ruby koans</a>.
+Programming koans are simply put just a bunch of unit tests which you have to fix to get them to pass.
+This way, you also learn the language they are written in.
+You also learn how to write tests in the given language which gives you a good start because you can do test driven development right from the start!</p>
+</div>
+<div class="paragraph">
+<p>A second goal for this year it to use documentation driven development/design (DDD/D) 🤣.
+With this approach, I first write my thoughts down as documentation and then start to code.</p>
+</div>
+<div class="paragraph">
+<p>While I write the docs, I will already decided about classes and methods I need.
+I will already add them to the docs as references to the code.</p>
+</div>
+<div class="paragraph">
+<p>Next I will turn my thoughts into test driven development (TDD).
+As soon as I know what I want to code, I can already write some acceptance criteria and then some tests.
+These tests can also be referenced from the docs.</p>
+</div>
+<div class="paragraph">
+<p>Now let&#8217;s start with the simple <code>hello world</code>:</p>
+</div>
+<div class="listingblock">
+<div class="title">solution.rb</div>
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-ruby" data-lang="ruby">#!/usr/bin/env ruby
+puts "Hello World"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Acceptance criteria is that the code returns the text "Hello World" when executed.
+Let&#8217;s write the tests as bash script :-)</p>
+</div>
+<div class="listingblock">
+<div class="title">tests.bash</div>
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-bash" data-lang="bash">#!/bin/bash
+# run tests with
+# ./test.bash &amp;&gt; results.txt
+
+OUTPUT=$(./solution.rb)
+if [ "$OUTPUT" == "Hello World" ]
+then
+   echo "success"
+else
+   echo "fail"
+   echo "$OUTPUT"
+fi</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">results.txt</div>
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-text" data-lang="text">success</code></pre>
+</div>
+</div>
+<a id="day01" />
+</div>
+<div class="sect2">
+<h3 id="_day_01_python"><a class="anchor" href="#_day_01_python"></a><a class="link" href="#_day_01_python">Day 01: python</a></h3>
+<div class="sect3">
+<h4 id="_day1_of_advent_of_code"><a class="anchor" href="#_day1_of_advent_of_code"></a><a class="link" href="#_day1_of_advent_of_code">Day1 of Advent of Code</a></h4>
+<div class="paragraph">
+<p>Le&#8217;ts do the first star in python.</p>
+</div>
+<div class="sect4">
+<h5 id="_part_1"><a class="anchor" href="#_part_1"></a><a class="link" href="#_part_1">Part 1</a></h5>
+<div class="paragraph">
+<p>First, I need to get the input.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-python" data-lang="python">with open("input.txt", "r") as f:
+    input = f.read()</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then iterate over the input and compare each number to the previous one.</p>
+</div>
+<div class="paragraph">
+<p>Finally, I need to sum up the differences.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-python" data-lang="python"># iterate over all lines
+sum = 0
+prevNum = 100000000000
+for line in input.splitlines():
+    # convert to int
+    num = int(line)
+    # check if num is increasing
+    if num &gt; prevNum:
+        sum += 1
+    prevNum = num
+print (sum)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_part_2"><a class="anchor" href="#_part_2"></a><a class="link" href="#_part_2">Part 2</a></h5>
+<div class="paragraph">
+<p>Now I switch back to groovy.</p>
+</div>
+<div class="paragraph">
+<p>First, read the input.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">def input = []
+new File("input.txt").eachLine { line -&gt;
+    input &lt;&lt; (line as Integer)
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then iterate over the input and create the output of the sliding windows.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">def windows = [0:10000000000, 1:0,2:0]
+def result = []
+input.eachWithIndex { line, i -&gt;
+    result &lt;&lt; windows[i % 3]
+    windows[i%3] = 0
+    windows[0] += line
+    windows[1] += line
+    windows[2] += line
+}
+result &lt;&lt; windows[input.size % 3]
+result = result [3..-1]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now count the steps as in the python part 1.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">def sum = 0
+def prevNum = 1000000000
+result.each {
+    if (it &gt; prevNum) {
+        sum++
+    }
+    prevNum = it
+}
+println sum</code></pre>
+</div>
+</div>
+<a id="day02" />
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_day_02_groovy"><a class="anchor" href="#_day_02_groovy"></a><a class="link" href="#_day_02_groovy">Day 02: groovy</a></h3>
+<div class="sect3">
+<h4 id="_day_2_dive"><a class="anchor" href="#_day_2_dive"></a><a class="link" href="#_day_2_dive">Day 2: Dive!</a></h4>
+<div class="sect4">
+<h5 id="_part_1_2"><a class="anchor" href="#_part_1_2"></a><a class="link" href="#_part_1_2">Part 1</a></h5>
+<div class="paragraph">
+<p>just iterate over the input and update coordinates</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">def depth = 0
+def horizontal = 0
+new File("input.txt").eachLine { line -&gt;
+    switch (line.split(" ")[0]) {
+        case "up":
+            depth -= line.split(" ")[1] as Integer
+            break;
+        case "down":
+            depth += line.split(" ")[1] as Integer
+            break;
+        case "forward":
+            horizontal += line.split(" ")[1] as Integer
+            break;
+    }
+
+}
+println (depth * horizontal)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>now, slightly change the solution for part 1</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">def depth = 0
+def horizontal = 0
+def aim = 0
+new File("input.txt").eachLine { line -&gt;
+    switch (line.split(" ")[0]) {
+        case "up":
+            aim -= line.split(" ")[1] as Integer
+            break;
+        case "down":
+            aim += line.split(" ")[1] as Integer
+            break;
+        case "forward":
+            horizontal += line.split(" ")[1] as Integer
+            depth += aim*(line.split(" ")[1] as Integer)
+            break;
+    }
+
+}
+println (depth * horizontal)</code></pre>
+</div>
+</div>
+<a id="day03" />
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_day_03_groovy"><a class="anchor" href="#_day_03_groovy"></a><a class="link" href="#_day_03_groovy">Day 03: groovy</a></h3>
+<div class="sect3">
+<h4 id="_day_03_binary_diagnostic"><a class="anchor" href="#_day_03_binary_diagnostic"></a><a class="link" href="#_day_03_binary_diagnostic">Day 03: Binary Diagnostic</a></h4>
+<div class="sect4">
+<h5 id="_part_1_3"><a class="anchor" href="#_part_1_3"></a><a class="link" href="#_part_1_3">Part 1</a></h5>
+<a id="day04" />
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_day_04_groovy"><a class="anchor" href="#_day_04_groovy"></a><a class="link" href="#_day_04_groovy">Day 04: groovy</a></h3>
+<div class="paragraph">
+<p><span class="small">this documentation is autogenerated. Add a <code>README.adoc</code> to your solution to take over the control of this :-)</span></p>
+</div>
+<div class="sect3">
+<h4 id="_groovy"><a class="anchor" href="#_groovy"></a><a class="link" href="#_groovy">groovy</a></h4>
+<div class="listingblock">
+<div class="title">test.txt</div>
+<div class="content">
+<pre class="prettyprint highlight"><code>1,2,3,4,5
+
+ 1  2  3  4  5
+ 6  7  8  9 10
+11 12 13 14 15
+16 17 18 19 20
+21 22 23 24 25</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">solution.groovy</div>
+<div class="content">
+<pre class="prettyprint highlight"><code>#!/usr/bin/env groovy
+def numbers = []
+def boards = []
+def readInput = { filename -&gt;
+    def state = "nums"
+    board = []
+    new File(filename).text.eachLine { line -&gt;
+        switch (state) {
+            case "nums":
+                numbers = line.split(",").collect { it as Integer }
+                state = "board"
+                break
+            case "board":
+                if (line.trim()=="") {
+                } else {
+
+                    board += line.trim().split(" +").collect { if (it) {it as Integer} }
+                    if (board.size()==25) {
+                        boards.add(board)
+                        board = []
+                    }
+                }
+                break
+        }
+    }
+}
+
+hasWon = { board -&gt;
+    def won = false
+    5.times { row -&gt;
+        def rowWon = true
+        5.times { j -&gt;
+            if (board[row*5+j]!=null) {
+                rowWon = false
+            }
+        }
+        if (rowWon) {
+            won = true
+        }
+    }
+    5.times { col -&gt;
+        def colWon = true
+        5.times { j -&gt;
+            if (board[col+j*5]!=null) {
+                colWon = false
+            }
+        }
+        if (colWon) {
+            won = true
+        }
+    }
+    return won
+}
+
+def sumOfBoard = { board -&gt;
+    def sum = 0
+    board.each { num -&gt;
+        sum += num?:0
+    }
+    return sum
+}
+readInput ("input.txt")
+
+numbers.each { num -&gt;
+    println "="*80
+    println num
+    boards.eachWithIndex { board, i -&gt;
+        if (board.indexOf(num)!=-1) {
+            board[board.indexOf(num)] = null
+        }
+        println "board $i"
+        5.times {
+            println board[5*it..5*it+4].collect {(it?it.toString():".").padLeft(3)}.join(" ")
+        }
+        println ()
+        if (hasWon(board)) {
+            println("Part 1: $i")
+            def sum = sumOfBoard(board)
+            println (sum*num)
+            throw new RuntimeException("done")
+        }
+    }
+
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">solution2.groovy</div>
+<div class="content">
+<pre class="prettyprint highlight"><code>#!/usr/bin/env groovy
+def numbers = []
+def boards = []
+def readInput = { filename -&gt;
+    def state = "nums"
+    board = []
+    new File(filename).text.eachLine { line -&gt;
+        switch (state) {
+            case "nums":
+                numbers = line.split(",").collect { it as Integer }
+                state = "board"
+                break
+            case "board":
+                if (line.trim()=="") {
+                } else {
+
+                    board += line.trim().split(" +").collect { if (it) {it as Integer} }
+                    if (board.size()==25) {
+                        boards.add(board)
+                        board = []
+                    }
+                }
+                break
+        }
+    }
+}
+
+hasWon = { board -&gt;
+    def won = false
+    5.times { row -&gt;
+        def rowWon = true
+        5.times { j -&gt;
+            if (board[row*5+j]!=null) {
+                rowWon = false
+            }
+        }
+        if (rowWon) {
+            won = true
+        }
+    }
+    5.times { col -&gt;
+        def colWon = true
+        5.times { j -&gt;
+            if (board[col+j*5]!=null) {
+                colWon = false
+            }
+        }
+        if (colWon) {
+            won = true
+        }
+    }
+    return won
+}
+
+def sumOfBoard = { board -&gt;
+    def sum = 0
+    board.each { num -&gt;
+        sum += num?:0
+    }
+    return sum
+}
+readInput ("input.txt")
+
+numbers.each { num -&gt;
+    boards.eachWithIndex { board, i -&gt;
+        if (!hasWon(board)) {
+            if (board.indexOf(num) != -1) {
+                board[board.indexOf(num)] = null
+            }
+            //println "board $i"
+            //5.times {
+            //    println board[5 * it..5 * it + 4].collect { (it ? it.toString() : ".").padLeft(3) }.join(" ")
+            //}
+            //println()
+            if (hasWon(board)) {
+                println("Part 2: $i")
+                def sum = sumOfBoard(board)
+                println(sum * num)
+            }
+        }
+    }
+
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">input.txt</div>
+<div class="content">
+<pre class="prettyprint highlight"><code>13,79,74,35,76,12,43,71,87,72,23,91,31,67,58,61,96,16,81,92,41,6,32,86,77,42,0,55,68,14,53,26,25,11,45,94,75,1,93,83,52,7,4,22,34,64,69,88,65,66,39,97,27,29,78,5,49,82,54,46,51,28,98,36,48,15,2,50,38,24,89,59,8,3,18,47,10,90,21,80,73,33,85,62,19,37,57,95,60,20,99,17,63,56,84,44,40,70,9,30
+
+14 86 50 89 49
+10 85 33 46 87
+82 91 54 13 90
+63 88 75 99 79
+74 31  4  0 71
+
+56  3 70  2 22
+44 63 10 95  8
+92 62 83  4 93
+74 80  5 11 68
+24 50 42 65 72
+
+42 21 72 26  7
+ 4 78  1 49 50
+93 43 38 71 68
+62 52 40 61 82
+31 28 16 96 18
+
+46 77 11 86 64
+ 4 14 61 94 30
+76 21  7  2 92
+55  1 66 45 23
+65 51 67 26 29
+
+ 1 89 70 73 81
+75 40 93 15 60
+11 58 37 42 26
+62 36 20 87 47
+54 35  6 23 10
+
+ 2 13 21 69 71
+98 59 82  7 32
+67 90 62 51 19
+84  6 23  3 17
+24 10 25  0 47
+
+28 10 26 86 65
+33 18 21  6 99
+40 61 30 58 34
+29 37 78  4 83
+87 53 44 22 32
+
+19 35 93 78 26
+87 99 15 75 56
+70 22 33 27 24
+58 53 83 48  8
+62 66 18 89 25
+
+30 25 67 77 47
+99  0 44 40 23
+31 19 52 55  7
+65 22 12 27 71
+82 62 54 78 18
+
+17 19 56 93 15
+62 30 64 68 21
+32 84 43 81 51
+61 83 52 65 58
+90 87 31 67 10
+
+95 76 21 10  1
+81 30 64 51 44
+77 31 32 94 90
+58 48 11 43 37
+12 19 82 85 80
+
+79 91 84 44 35
+80  6 64  0 20
+ 7 36 33 17 51
+71 19 24 26  2
+75 37 25 59 11
+
+48 91 17 38 16
+54 46 53 33 28
+20  6 68 96 45
+70 75 35 65 59
+ 0 39 13 23  4
+
+41 83 90 95 17
+67  4 23 62 93
+31  1 51 21 16
+34 14 92 66 89
+ 0 78 58 80 96
+
+67  2 42 36 32
+ 1 62 37 65 79
+66 80 19 75  0
+17 86 94 49 54
+40 59 16 14 30
+
+33 70 65  6 20
+44 22 55 81 15
+54  2 13  5  1
+93 40 97 67 78
+30 75 96 41  7
+
+40 96 24 19 32
+88 58 65 34 52
+38 49 50  5 35
+ 4 13  2 22 26
+46 55 18 89 33
+
+64 17 54 59 16
+22 97 91 83 87
+ 0  3 85 92 43
+99 31 19 73  4
+ 8 41 68 48 75
+
+37 45 16 50 57
+31 14 32 77 60
+90 63  3 40  8
+96  6 56 95  2
+80 69 61 52 24
+
+84 50 31  7 40
+32 58 47 51 70
+59 76 44 83 72
+87 52 77 10 81
+57  1 12 37 73
+
+14 74  7 98 95
+78 47  1 22 96
+45 80 92 37 21
+15 10 33 73 63
+29 34 51 27 31
+
+76 21 26 20 22
+89 58 37 91 38
+59  9 74 24 96
+80 69 30  7  0
+70 87 16 78 49
+
+69 79 75 99 65
+20 48 61 29 67
+31 86 90 72 57
+62 83 94 74  1
+34 13 55 56 36
+
+54 52 66 15 29
+ 7 16 94 62 92
+50 80  6 24 58
+96 13 93  1  0
+65  3 12 44 76
+
+45 43 51 92 86
+60 70  3 23 69
+63 78 30 66 48
+17 74 81 75 37
+79 53 25 28 15
+
+69 60 98 68 37
+18 39 36 48 75
+50  3 52 11 87
+57 46 63 80 41
+89 12 94 84 25
+
+79 11 64 51 67
+17 47 98 57  5
+16 70 49  0 83
+32 56 84 73 86
+74 59 35 15  6
+
+ 6 94 81 28 82
+53 58 43 46 51
+17 20 18 96 41
+66 22 27 12 44
+93 40 78 26 54
+
+28 88 94  9 16
+14 66  2 98 82
+23 69 44 75 10
+38 34 18 51  1
+68 52 29  0 39
+
+11 45 80 94 89
+24 44 96 71 58
+97  2 46 92 12
+47 19 99 55  7
+64 62 72 23 61
+
+99 92 94 38 98
+10 97 40 57 30
+67 77  7 64 23
+88 80 58 78 59
+42 69 68 16 60
+
+68 74 52 73 18
+62 57 49 91 19
+21 48 51 22 70
+45 29 53 75  8
+42 17 20 47 31
+
+76 29 88 23 65
+80  2 90 75 48
+93 55 10 50 81
+74 54  6 89 18
+27 26 84 11 78
+
+69 39 34 79 12
+72 96 80 68 44
+27 57 99 61 64
+81 63  6 25 95
+ 8 32 15 74 35
+
+40 38  2 63 21
+28 57 90 19 49
+68 75 11 24 44
+45 50 15 27  9
+31 30 52 33 36
+
+ 4 55 11 83 95
+35  0 30 25 45
+73 31 94 22 28
+91 19 50 54 47
+14 90 71 98 23
+
+31 55 45 78 67
+ 1 24 51 25 80
+85 96 46 87 64
+37 93 22 59 90
+69 70 50 17 53
+
+20 66 46 83 91
+28 57 99 63  1
+17 59 54 47 55
+50 10 41 53 34
+ 3 39 97  9 38
+
+58 29 70 23 95
+96 67 84 59 45
+35 64 63 77 52
+31 14 33 12 78
+17 36 98  0 71
+
+83 68  7  9 75
+13 39  5 99 73
+82 60 14  8 63
+49 86 67 56 91
+62 52 36  1 29
+
+24 65 75 31 63
+48 72 14 70  0
+85 30 42 33 87
+26  8 29  4 96
+93 60 74  9 50
+
+16 98 31 91 43
+90 76 97 18 70
+67  2 45 41 58
+ 7  8 26 62 61
+72 21 63 69 17
+
+15 28 96 16 24
+45 41 62 89 67
+57  4 80 23  3
+29 51 99 94 68
+56 37 81 54 63
+
+61 81  6 46 77
+28 43 63 10 41
+76 12 82 23 13
+32 47 94 96 92
+ 7 29 69 22 64
+
+68 64 51 69 96
+76 18 88 43 55
+ 8 91 73 83 54
+ 0 35 94 20 97
+50 29 82 71 75
+
+28 56 92 79 36
+18 85 35 25 26
+51 54 53 21 59
+64 19 17 14 30
+ 9 84  5 93 46
+
+58  3  5 76 57
+55 64 79 16 97
+14 59 93 24 60
+84 49 44 69 15
+87 42 43 25 18
+
+ 5 90 79 46 80
+41 56 93 15 50
+53 25 95 39  0
+77 89 40 17 92
+ 9 73 85 28 42
+
+20 85 78 73 74
+59 12 82 24 52
+55 33 11 28 60
+15 25 61 16 45
+ 3 14 39 95 92
+
+82 94 47 30 79
+38 87 15 31 45
+69 63 98 72  1
+77 39 96 81 92
+16 71 80 86  2
+
+38 60 28 94 24
+40 46 67 22 34
+39 70 71  3 96
+27 54 41 69 18
+23 62  1 61 84
+
+74 85 15 44 11
+39 92 43 79  1
+82  8 26  9 57
+20 93 18 97 31
+67 81 17 21 13
+
+54 63 83 89 51
+ 0  8 15 25 59
+95 74 18 28 98
+50  3 34 23 77
+ 4 24 61 90 88
+
+11 64 61 28 27
+ 5 35 74 75 47
+69 84 17 62  9
+40 21 32 73 67
+92 36 12 51 26
+
+35 50  7 26 36
+43 56 42 41 48
+59 54 91 55 33
+37 13 19 20 88
+22 21 51  4 69
+
+93 48  8 94  6
+14 34 13 10 32
+64 90 92 23 15
+63 95 85 28 87
+38  5 91 75 24
+
+94 68 32 85 10
+75 33  0 52 37
+82  8 24 58 93
+49 73 63 44 61
+71 50 16 88 72
+
+93 71 54 20 51
+39 92 75 79 66
+ 6 58 52 22 63
+74 53 99 16 61
+29 96 11 83 24
+
+32 26 10 77 16
+31 92 58 44 79
+17  2 72 29  8
+93 38  9 15  3
+50 89 61 88 81
+
+95 65 70 27 79
+ 4 19 30 86 72
+80 61 68 74 49
+ 7  5 77 14 53
+98 44 51 43 93
+
+59 70 44 52 14
+31 82  9 55 13
+15 63 99 26 61
+34 48 23 56 41
+97 79 28 29 93
+
+26 86 35 66 67
+25 39 48 45 69
+44 93 13 17 81
+70 89 54 62 68
+41 36 90 83 12
+
+92 59 53 11 83
+43 70 30  8 66
+46  6 31 56 90
+62 20 65 94 34
+67 96 47 71 17
+
+34 85 72 51 46
+21  6 44 64 27
+79 86 29 33 35
+ 7 87 47 94 84
+62 90 58 80 73
+
+ 7 73 50  0 35
+77  6 33 89 94
+71 52 95 53  8
+22  9 46 49 75
+45 56 96 87 67
+
+85 64 44 39 57
+90 30 15 35 54
+78 89 55 99 12
+80 96 20 50 45
+56 10 71 59 17
+
+66 87 77 71 45
+79 65 80 11 88
+74 99 30 89 73
+58 78 64 85 20
+10 41  1 44 49
+
+38 47  3 60 27
+ 8 10 14  4  1
+92 24 46 16 95
+55 69 77  7 36
+15 51 13 58 76
+
+61  3 71 38 46
+34 93 42 90 32
+99 16 73 55  6
+48 23 56 12 39
+22 87 51 70 89
+
+ 8 58 99 23 56
+91 62 68 57 32
+46 95 21  3 75
+35 51 33  7 74
+26  2 89 76 48
+
+93 89 88 49 55
+11 29 72 27 35
+45  5 46 18 65
+23 32 30 97 42
+76 19 22 77 78
+
+17 43 19  2 42
+20 26 36 68 75
+38 94 37 99 93
+62 46  1 45 89
+59  7 92 78 22
+
+75 41 53 45  7
+91 55 40 31 36
+29 78 90 17 57
+63 20 77 67 42
+64 62 11 48 84
+
+26 89 27 47 91
+15  9 18 62 28
+31 96 42 81 86
+11 52 20 93 38
+83 64 39  1 60
+
+99 48 86 72 92
+38 32 62 18 17
+93 71 76 73 64
+26 36 74 52 68
+24 98 34 88 45
+
+18 84 79 52 42
+54 10 33 90 64
+35  1 78 62 65
+22 48 87 72 50
+56  3 49 20 63
+
+14 50 79 84 49
+17 46 66 80 87
+97 90 24 65 73
+25 30 94 72 99
+78 89 81 96 28
+
+ 7 24 96 54 86
+ 4 56 83 32 27
+29 91 73 34 45
+16 70  1 39  3
+94 47 44 42 87
+
+44 74 52 65 22
+ 5 46 75 27 12
+25 24 43 21 42
+19 80 60 97  3
+ 8 84  9 87 94
+
+62 80  7 66 82
+60 79 45  1 75
+55 54 85 64 96
+65  6 16 27 38
+77 26 74 71 91
+
+55 23 59 47 62
+53 92 34 96 58
+38  3 88 46 60
+50 56 83 39 80
+37  6 93  7 94
+
+56 26 45 73 16
+37 30 74 44 64
+53 70 29 21 49
+ 4  5 27 92 22
+36  8 63 50 69
+
+70 83 15 22 56
+64 98 32 39 12
+82 21 73 19 14
+44 61 78 26 99
+76 24 81 38 85
+
+56 55 64 39 19
+13 70 63 32 54
+85 22 14 27 73
+25 89 15 44 21
+29 77 79 23 10
+
+84 27 63 34  5
+57 81 78 90 59
+35 85 51 54 48
+92  4 89 70 30
+97  0  7 86 26
+
+ 4 44 88 71  6
+80 23 19 55 57
+91  7 18 27 95
+85 13 66  8 34
+63 45 77 17 84
+
+58  7 56 38 48
+92 97 50 80 54
+ 5  8 17 49 23
+96 82 20 74  4
+90  0 59 93 30
+
+44 97 88 33 11
+18 69  4  0 94
+13 57 24  9 53
+49  7 68 15 42
+25 39 52  6 98
+
+31 65 59 74 12
+22 39 13  2 16
+44 46 90 60 93
+82  9 71 99 89
+23 80 35 51 41
+
+47 30 75 73 22
+62 87 59 42 90
+ 9  5 41 54 32
+71 25 46 24 12
+53 28 77 33 76
+
+36 25  2 74 29
+58 34 44 94 83
+16 72 69 45 28
+88  0 86 14 49
+10 56 24 82 73
+
+27 42 83 51 61
+93 77 33 49 46
+23  5 41 48 90
+81 10  3 16  1
+84 36 40 88 54
+
+60 85  7 28 39
+54 11  4 18 84
+63 95 62 13 82
+93 33 40 16 55
+34 78 29 56 66
+
+51 99 73 14 69
+ 3 65 23 60 96
+ 1 49 78 55 25
+15 66 11 42 87
+48 52 56 34 38
+
+60 59 65 32 73
+68 76 35 75 42
+72 70 45 34 38
+29 84 28 62 43
+49 85 31 57 23
+
+42 57 40 73 32
+70 79 80 11 67
+55 26 87 92 19
+63 58 78 29 77
+17 74 18 20 60
+
+84 99 72 74 62
+15 14 50 57 77
+48 91 55 46 82
+85 27 33 21 54
+45 31 43 40 60
+
+73 37 66 67 19
+16 79 15 45 89
+84 78 69 28 46
+17  4 12 95 87
+49 99 31  9 36
+
+61 34 98 60 74
+30 95 33 46 64
+73 97 12 26  7
+ 2 58 49 70 54
+80 55 94 91 11
+
+27  5  3 62 49
+38 88 40  9 47
+29 59 94 74 12
+48 73 85 97 35
+28 25 30 14 83</code></pre>
+</div>
+</div>
+<a id="day05" />
+</div>
+</div>
+<div class="sect2">
+<h3 id="_day_05_groovy"><a class="anchor" href="#_day_05_groovy"></a><a class="link" href="#_day_05_groovy">Day 05: groovy</a></h3>
+<div class="paragraph">
+<p><span class="small">this documentation is autogenerated. Add a <code>README.adoc</code> to your solution to take over the control of this :-)</span></p>
+</div>
+<div class="sect3">
+<h4 id="_groovy_2"><a class="anchor" href="#_groovy_2"></a><a class="link" href="#_groovy_2">groovy</a></h4>
+<div class="listingblock">
+<div class="title">test.txt</div>
+<div class="content">
+<pre class="prettyprint highlight"><code>0,9 -&gt; 5,9
+8,0 -&gt; 0,8
+9,4 -&gt; 3,4
+2,2 -&gt; 2,1
+7,0 -&gt; 7,4
+6,4 -&gt; 2,0
+0,9 -&gt; 2,9
+3,4 -&gt; 1,4
+0,0 -&gt; 8,8
+5,5 -&gt; 8,2</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">solution.groovy</div>
+<div class="content">
+<pre class="prettyprint highlight"><code>#!/usr/bin/env groovy
+
+def readFile = { filename -&gt;
+    def lines = []
+    new File(filename).text.eachLine { line -&gt;
+        def (start, end) = line.split(" -&gt; ")
+        lines &lt;&lt; [
+                start.split(",")
+                        .collect { it as Integer},
+                end.split(",")
+                        .collect { it as Integer}]
+    }
+    return lines
+}
+def lines = []
+lines = readFile("input.txt")
+def field = [:]
+lines.each { line -&gt;
+    def (start, end) = line
+    if (start[0]==end[0]) {
+        def x = start[0]
+        (start[1]..end[1]).each { y -&gt;
+            if (!field["${x}-${y}"]) {field["${x}-${y}"] = 0}
+            field["${x}-${y}"]++
+        }
+    }
+    if (start[1]==end[1]) {
+        def y = start[1]
+        (start[0]..end[0]).each { x -&gt;
+            if (!field["${x}-${y}"]) {field["${x}-${y}"] = 0}
+            field["${x}-${y}"]++
+        }
+    }
+}
+def sum = 0
+field.each { key, value -&gt;
+    if (value &gt; 1) {
+        sum++
+    }
+}
+println sum</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">solution2.groovy</div>
+<div class="content">
+<pre class="prettyprint highlight"><code>#!/usr/bin/env groovy
+
+def readFile = { filename -&gt;
+    def lines = []
+    new File(filename).text.eachLine { line -&gt;
+        def (start, end) = line.split(" -&gt; ")
+        lines &lt;&lt; [
+                start.split(",")
+                        .collect { it as Integer},
+                end.split(",")
+                        .collect { it as Integer}]
+    }
+    return lines
+}
+def lines = []
+lines = readFile("input.txt")
+def field = [:]
+lines.each { line -&gt;
+    def (start, end) = line
+    if (start[0]==end[0]) {
+        def x = start[0]
+        (start[1]..end[1]).each { y -&gt;
+            if (!field["${x}-${y}"]) {field["${x}-${y}"] = 0}
+            field["${x}-${y}"]++
+        }
+    }
+    if (start[1]==end[1]) {
+        def y = start[1]
+        (start[0]..end[0]).each { x -&gt;
+            if (!field["${x}-${y}"]) {field["${x}-${y}"] = 0}
+            field["${x}-${y}"]++
+        }
+    }
+    if ((start[0]!=end[0])&amp;&amp;(start[1]!=end[1])) {
+        def x = start[0]
+        (start[1]..end[1]).each { y -&gt;
+            if (!field["${x}-${y}"]) {field["${x}-${y}"] = 0}
+            field["${x}-${y}"]++
+            if (start[0]&lt;end[0]) {x++} else {x--}
+        }
+    }
+}
+def sum = 0
+field.each { key, value -&gt;
+    if (value &gt; 1) {
+        sum++
+    }
+}
+println sum</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">input.txt</div>
+<div class="content">
+<pre class="prettyprint highlight"><code>959,103 -&gt; 139,923
+899,63 -&gt; 899,53
+591,871 -&gt; 364,644
+739,913 -&gt; 310,484
+460,309 -&gt; 460,705
+351,389 -&gt; 351,837
+420,55 -&gt; 420,541
+916,520 -&gt; 382,520
+136,604 -&gt; 295,604
+343,59 -&gt; 142,59
+951,206 -&gt; 806,206
+984,950 -&gt; 61,27
+739,388 -&gt; 988,388
+374,370 -&gt; 644,370
+403,504 -&gt; 798,899
+943,535 -&gt; 229,535
+149,227 -&gt; 583,661
+62,126 -&gt; 62,352
+131,391 -&gt; 131,717
+254,944 -&gt; 254,220
+572,111 -&gt; 572,47
+336,249 -&gt; 830,743
+898,858 -&gt; 203,163
+203,320 -&gt; 825,942
+19,318 -&gt; 19,120
+740,432 -&gt; 740,39
+591,383 -&gt; 220,754
+445,592 -&gt; 19,592
+202,370 -&gt; 837,370
+473,916 -&gt; 600,789
+118,955 -&gt; 884,189
+377,376 -&gt; 533,532
+160,264 -&gt; 160,62
+627,572 -&gt; 627,679
+217,690 -&gt; 217,629
+685,323 -&gt; 866,504
+391,309 -&gt; 493,207
+872,776 -&gt; 357,776
+116,326 -&gt; 116,426
+82,900 -&gt; 832,900
+594,862 -&gt; 594,593
+802,636 -&gt; 802,223
+862,226 -&gt; 862,787
+313,573 -&gt; 834,573
+145,631 -&gt; 13,499
+545,433 -&gt; 420,308
+427,623 -&gt; 427,808
+898,120 -&gt; 511,120
+859,811 -&gt; 859,28
+715,958 -&gt; 715,893
+115,234 -&gt; 484,234
+125,253 -&gt; 50,253
+737,265 -&gt; 158,265
+523,965 -&gt; 523,983
+118,51 -&gt; 118,766
+455,774 -&gt; 455,357
+680,881 -&gt; 925,881
+191,186 -&gt; 187,186
+821,629 -&gt; 792,658
+397,906 -&gt; 397,962
+988,811 -&gt; 988,427
+91,733 -&gt; 519,733
+46,172 -&gt; 566,172
+740,619 -&gt; 880,759
+609,465 -&gt; 609,702
+289,211 -&gt; 289,620
+622,135 -&gt; 622,929
+113,53 -&gt; 872,53
+559,713 -&gt; 559,132
+894,237 -&gt; 211,920
+237,259 -&gt; 237,39
+738,542 -&gt; 976,542
+163,34 -&gt; 525,34
+681,672 -&gt; 264,255
+37,827 -&gt; 722,827
+60,803 -&gt; 514,349
+433,866 -&gt; 433,257
+379,493 -&gt; 379,643
+697,588 -&gt; 192,83
+875,646 -&gt; 318,89
+634,983 -&gt; 634,111
+636,69 -&gt; 636,41
+911,780 -&gt; 701,570
+792,71 -&gt; 956,71
+682,338 -&gt; 608,412
+257,768 -&gt; 450,575
+112,25 -&gt; 795,708
+730,86 -&gt; 730,65
+966,785 -&gt; 789,608
+390,263 -&gt; 483,356
+90,852 -&gt; 90,471
+507,914 -&gt; 769,914
+803,535 -&gt; 803,245
+710,787 -&gt; 570,787
+138,842 -&gt; 270,710
+862,988 -&gt; 862,656
+56,408 -&gt; 849,408
+16,10 -&gt; 979,973
+982,14 -&gt; 12,984
+647,915 -&gt; 38,306
+797,487 -&gt; 19,487
+539,933 -&gt; 924,933
+509,734 -&gt; 176,734
+813,505 -&gt; 976,505
+474,987 -&gt; 474,896
+21,200 -&gt; 164,200
+986,973 -&gt; 31,18
+919,830 -&gt; 111,22
+32,574 -&gt; 456,150
+743,595 -&gt; 842,595
+623,306 -&gt; 722,306
+878,367 -&gt; 519,367
+924,221 -&gt; 924,231
+86,950 -&gt; 773,263
+950,248 -&gt; 537,248
+149,155 -&gt; 962,968
+449,568 -&gt; 179,568
+186,304 -&gt; 868,986
+921,320 -&gt; 639,602
+602,262 -&gt; 602,500
+602,33 -&gt; 602,248
+380,731 -&gt; 423,774
+535,110 -&gt; 638,110
+552,317 -&gt; 552,75
+173,667 -&gt; 173,847
+707,480 -&gt; 195,480
+833,398 -&gt; 267,964
+276,716 -&gt; 413,716
+342,816 -&gt; 922,816
+24,184 -&gt; 715,875
+762,330 -&gt; 717,285
+718,886 -&gt; 718,551
+707,834 -&gt; 707,704
+479,578 -&gt; 161,896
+145,297 -&gt; 145,435
+760,651 -&gt; 536,875
+954,629 -&gt; 954,816
+305,949 -&gt; 305,919
+55,132 -&gt; 55,233
+469,85 -&gt; 439,85
+653,990 -&gt; 536,990
+876,531 -&gt; 432,87
+698,207 -&gt; 698,672
+11,70 -&gt; 766,825
+591,357 -&gt; 30,918
+697,987 -&gt; 697,823
+610,903 -&gt; 370,663
+319,678 -&gt; 319,504
+337,150 -&gt; 309,150
+876,57 -&gt; 311,57
+673,268 -&gt; 345,596
+895,364 -&gt; 518,741
+327,662 -&gt; 941,48
+77,709 -&gt; 110,742
+194,78 -&gt; 661,78
+587,24 -&gt; 825,24
+503,317 -&gt; 719,317
+459,632 -&gt; 704,387
+717,292 -&gt; 835,292
+912,927 -&gt; 72,87
+510,527 -&gt; 146,527
+336,771 -&gt; 336,266
+566,961 -&gt; 496,961
+969,335 -&gt; 122,335
+925,443 -&gt; 925,397
+316,812 -&gt; 606,812
+815,795 -&gt; 116,795
+169,36 -&gt; 354,36
+358,274 -&gt; 389,274
+302,147 -&gt; 839,684
+762,372 -&gt; 972,372
+172,721 -&gt; 682,211
+265,150 -&gt; 248,167
+753,559 -&gt; 307,559
+823,121 -&gt; 823,126
+498,856 -&gt; 498,135
+75,977 -&gt; 75,381
+541,297 -&gt; 541,320
+735,108 -&gt; 866,108
+434,907 -&gt; 868,907
+915,959 -&gt; 255,959
+967,666 -&gt; 967,209
+361,600 -&gt; 361,222
+314,580 -&gt; 314,497
+175,989 -&gt; 523,641
+957,97 -&gt; 311,743
+956,227 -&gt; 12,227
+95,364 -&gt; 95,742
+857,141 -&gt; 193,805
+388,651 -&gt; 468,731
+582,177 -&gt; 324,177
+68,272 -&gt; 68,720
+543,490 -&gt; 910,490
+508,281 -&gt; 902,281
+823,380 -&gt; 823,296
+23,10 -&gt; 946,933
+813,70 -&gt; 813,450
+881,893 -&gt; 598,893
+535,781 -&gt; 973,781
+80,890 -&gt; 909,61
+604,630 -&gt; 307,927
+836,917 -&gt; 184,917
+76,727 -&gt; 10,727
+727,235 -&gt; 727,578
+629,80 -&gt; 892,80
+110,655 -&gt; 663,102
+985,12 -&gt; 11,986
+830,656 -&gt; 830,761
+660,869 -&gt; 660,543
+381,340 -&gt; 381,562
+392,735 -&gt; 417,735
+855,24 -&gt; 320,24
+801,669 -&gt; 278,146
+730,964 -&gt; 107,964
+523,158 -&gt; 385,20
+27,833 -&gt; 27,987
+569,707 -&gt; 500,707
+527,732 -&gt; 527,424
+74,88 -&gt; 273,287
+143,974 -&gt; 143,735
+247,388 -&gt; 813,954
+577,14 -&gt; 945,382
+49,43 -&gt; 953,947
+332,210 -&gt; 332,143
+69,280 -&gt; 949,280
+25,923 -&gt; 904,44
+306,569 -&gt; 306,470
+158,273 -&gt; 113,228
+771,355 -&gt; 694,278
+515,115 -&gt; 245,385
+427,381 -&gt; 427,729
+16,987 -&gt; 987,16
+319,463 -&gt; 319,234
+854,977 -&gt; 66,189
+794,194 -&gt; 794,183
+576,65 -&gt; 576,843
+37,964 -&gt; 734,964
+740,920 -&gt; 740,877
+245,487 -&gt; 245,957
+404,794 -&gt; 853,794
+660,656 -&gt; 660,756
+921,605 -&gt; 127,605
+650,894 -&gt; 916,894
+968,893 -&gt; 481,406
+986,979 -&gt; 21,14
+154,303 -&gt; 498,647
+720,338 -&gt; 229,338
+62,936 -&gt; 62,897
+55,820 -&gt; 55,923
+812,31 -&gt; 551,31
+338,466 -&gt; 951,466
+663,492 -&gt; 775,604
+449,602 -&gt; 39,602
+44,403 -&gt; 44,144
+58,62 -&gt; 339,62
+713,730 -&gt; 713,502
+704,525 -&gt; 976,797
+372,709 -&gt; 372,680
+709,387 -&gt; 153,387
+922,103 -&gt; 615,103
+629,839 -&gt; 121,839
+206,722 -&gt; 529,722
+232,556 -&gt; 422,746
+300,470 -&gt; 300,726
+376,820 -&gt; 622,574
+834,25 -&gt; 255,604
+271,200 -&gt; 271,875
+804,934 -&gt; 872,934
+900,753 -&gt; 900,632
+604,323 -&gt; 604,70
+890,911 -&gt; 890,41
+464,169 -&gt; 812,169
+850,196 -&gt; 850,903
+34,574 -&gt; 34,54
+718,59 -&gt; 462,315
+431,923 -&gt; 737,923
+433,573 -&gt; 433,420
+297,478 -&gt; 297,775
+756,545 -&gt; 544,545
+247,708 -&gt; 247,702
+736,835 -&gt; 173,272
+319,85 -&gt; 319,827
+931,775 -&gt; 683,775
+292,315 -&gt; 451,315
+397,435 -&gt; 380,435
+987,978 -&gt; 82,73
+227,349 -&gt; 227,724
+349,741 -&gt; 899,191
+965,325 -&gt; 765,125
+849,306 -&gt; 88,306
+516,548 -&gt; 516,902
+919,395 -&gt; 568,395
+736,507 -&gt; 192,507
+960,782 -&gt; 196,18
+431,413 -&gt; 510,492
+911,696 -&gt; 911,830
+888,225 -&gt; 174,225
+57,790 -&gt; 57,953
+858,399 -&gt; 119,399
+59,302 -&gt; 290,302
+456,907 -&gt; 456,599
+374,743 -&gt; 374,565
+183,107 -&gt; 183,171
+58,699 -&gt; 288,699
+886,970 -&gt; 109,193
+940,395 -&gt; 806,261
+781,480 -&gt; 596,665
+456,724 -&gt; 265,724
+414,406 -&gt; 299,521
+115,898 -&gt; 115,863
+34,543 -&gt; 34,496
+900,843 -&gt; 900,457
+165,209 -&gt; 189,209
+976,627 -&gt; 539,190
+252,202 -&gt; 137,202
+584,339 -&gt; 550,373
+580,153 -&gt; 380,353
+232,412 -&gt; 650,830
+910,833 -&gt; 88,11
+418,245 -&gt; 829,245
+298,823 -&gt; 907,214
+91,876 -&gt; 495,876
+315,874 -&gt; 650,539
+907,635 -&gt; 365,635
+339,313 -&gt; 320,313
+362,435 -&gt; 362,938
+152,664 -&gt; 152,391
+253,210 -&gt; 272,210
+216,396 -&gt; 216,726
+852,912 -&gt; 15,75
+882,828 -&gt; 689,828
+674,533 -&gt; 674,523
+469,719 -&gt; 469,79
+733,169 -&gt; 665,101
+734,632 -&gt; 717,632
+615,565 -&gt; 615,114
+979,720 -&gt; 243,720
+827,125 -&gt; 827,919
+605,419 -&gt; 601,419
+749,13 -&gt; 433,329
+990,902 -&gt; 990,843
+186,679 -&gt; 186,457
+374,796 -&gt; 736,796
+133,867 -&gt; 133,801
+757,622 -&gt; 812,567
+351,179 -&gt; 351,509
+214,748 -&gt; 575,748
+177,903 -&gt; 861,219
+747,981 -&gt; 747,64
+588,125 -&gt; 588,557
+464,338 -&gt; 769,338
+645,669 -&gt; 125,149
+579,352 -&gt; 138,352
+77,605 -&gt; 520,605
+698,816 -&gt; 698,917
+112,943 -&gt; 112,834
+731,720 -&gt; 724,720
+887,440 -&gt; 976,351
+676,301 -&gt; 676,741
+870,732 -&gt; 870,648
+250,826 -&gt; 413,826
+399,720 -&gt; 543,864
+834,93 -&gt; 468,459
+415,475 -&gt; 415,641
+793,415 -&gt; 47,415
+365,476 -&gt; 365,31
+195,154 -&gt; 813,154
+503,605 -&gt; 773,605
+553,121 -&gt; 851,121
+25,420 -&gt; 423,818
+943,110 -&gt; 258,110
+775,436 -&gt; 826,436
+16,161 -&gt; 16,889
+702,555 -&gt; 920,555
+589,858 -&gt; 533,802
+932,404 -&gt; 932,539
+647,275 -&gt; 647,962
+87,179 -&gt; 326,179
+931,588 -&gt; 931,287
+868,96 -&gt; 557,96
+879,28 -&gt; 875,28
+375,132 -&gt; 287,44
+484,352 -&gt; 644,512
+448,566 -&gt; 448,214
+734,460 -&gt; 717,460
+550,379 -&gt; 550,674
+964,184 -&gt; 820,328
+167,504 -&gt; 387,504
+594,777 -&gt; 952,777
+328,712 -&gt; 837,712
+600,773 -&gt; 546,773
+955,954 -&gt; 82,81
+863,790 -&gt; 863,86
+831,773 -&gt; 32,773
+987,11 -&gt; 19,979
+901,878 -&gt; 901,177
+427,341 -&gt; 721,635
+690,835 -&gt; 567,835
+557,724 -&gt; 14,181
+591,20 -&gt; 205,406
+846,865 -&gt; 846,859
+644,646 -&gt; 742,548
+187,376 -&gt; 187,563
+367,806 -&gt; 250,923
+332,731 -&gt; 468,731
+378,431 -&gt; 469,431
+844,949 -&gt; 844,452
+172,320 -&gt; 735,320
+597,639 -&gt; 633,639
+353,831 -&gt; 353,307
+355,392 -&gt; 465,392
+624,179 -&gt; 548,255
+441,928 -&gt; 401,888
+442,680 -&gt; 442,569
+567,385 -&gt; 908,44
+10,561 -&gt; 603,561
+851,289 -&gt; 13,289
+832,143 -&gt; 832,64
+366,851 -&gt; 67,851
+890,404 -&gt; 333,961
+83,22 -&gt; 963,902
+10,783 -&gt; 821,783
+369,481 -&gt; 369,611
+943,356 -&gt; 846,356
+675,95 -&gt; 335,435
+442,928 -&gt; 442,764
+500,643 -&gt; 334,643
+90,207 -&gt; 620,207
+520,412 -&gt; 745,187
+586,89 -&gt; 613,89
+411,424 -&gt; 595,424
+938,650 -&gt; 232,650
+216,773 -&gt; 76,773
+895,690 -&gt; 895,294
+250,886 -&gt; 250,605
+296,422 -&gt; 863,989
+534,626 -&gt; 534,707
+577,608 -&gt; 52,83
+61,674 -&gt; 714,21
+844,126 -&gt; 844,694
+565,541 -&gt; 253,229
+62,24 -&gt; 986,948
+588,901 -&gt; 588,212
+541,508 -&gt; 541,141
+516,376 -&gt; 589,449
+390,215 -&gt; 749,215
+324,878 -&gt; 296,850
+592,408 -&gt; 592,158
+433,207 -&gt; 172,207
+139,72 -&gt; 139,121
+471,676 -&gt; 268,676
+374,433 -&gt; 374,95
+672,459 -&gt; 640,427
+348,577 -&gt; 843,82
+903,466 -&gt; 903,348
+437,759 -&gt; 726,470
+152,101 -&gt; 325,274
+933,897 -&gt; 335,897
+516,877 -&gt; 505,866
+890,715 -&gt; 570,715
+78,124 -&gt; 871,917
+360,645 -&gt; 967,645
+645,271 -&gt; 645,57
+693,878 -&gt; 693,159
+49,77 -&gt; 49,744
+935,914 -&gt; 97,76
+941,726 -&gt; 941,464
+756,985 -&gt; 756,480
+887,378 -&gt; 887,529
+405,925 -&gt; 405,533
+533,156 -&gt; 201,156
+565,535 -&gt; 120,90
+51,15 -&gt; 967,931
+660,218 -&gt; 660,339
+522,682 -&gt; 571,682
+958,899 -&gt; 729,899
+521,687 -&gt; 288,687
+643,148 -&gt; 468,323
+989,971 -&gt; 68,50
+729,273 -&gt; 311,691
+245,205 -&gt; 305,205
+634,747 -&gt; 634,605
+280,407 -&gt; 488,199
+109,931 -&gt; 706,334
+849,694 -&gt; 615,928
+794,84 -&gt; 218,84
+669,184 -&gt; 865,184
+936,834 -&gt; 234,132
+691,445 -&gt; 914,668
+423,161 -&gt; 515,69
+81,674 -&gt; 37,674
+292,423 -&gt; 292,741
+188,306 -&gt; 844,962
+204,309 -&gt; 204,705
+961,652 -&gt; 746,652
+985,987 -&gt; 11,13
+139,153 -&gt; 936,950
+436,978 -&gt; 244,978
+921,633 -&gt; 921,340
+872,63 -&gt; 233,63</code></pre>
+</div>
+</div>
+<a id="day06" />
+</div>
+</div>
+<div class="sect2">
+<h3 id="_day_06_groovy"><a class="anchor" href="#_day_06_groovy"></a><a class="link" href="#_day_06_groovy">Day 06: groovy</a></h3>
+<div class="sect3">
+<h4 id="_day06_lantern_fishes"><a class="anchor" href="#_day06_lantern_fishes"></a><a class="link" href="#_day06_lantern_fishes">Day06: Lantern fishes</a></h4>
+<div class="paragraph">
+<p>I followed the steps described in the puzzle and easily got the first star.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">#!/usr/bin/env groovy
+// export JAVA_OPTS=-Xmx2048m
+List&lt;byte&gt; input = new File("test.txt").text.split(",").collect{it as byte}
+List&lt;byte&gt; nextInput
+long sum = 0
+input.eachWithIndex { it, j -&gt;
+    input2 = [it]
+    80.times { day -&gt;
+        nextInput = []
+        input2.each { byte counter -&gt;
+            counter--
+            if (counter == -1) {
+                counter = 6 as byte
+                nextInput &lt;&lt; (8 as byte)
+            }
+            nextInput &lt;&lt; counter
+        }
+        input2 = nextInput
+    }
+    sum += input2.size()
+}
+println "&gt;&gt;&gt; "+sum</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>I thought this might be good enough for the second star.
+I was wrong: it takes up just too much memory.
+I even tried to optimize it and run it fish by fish, but it still took too long.</p>
+</div>
+<div class="paragraph">
+<p>Take a look at the solution by @uniqueck - it is quite elegant!
+And fast!</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">class Simulator {
+
+    static void main(String[] args) {
+        def countBy = new File("input.txt").readLines().collect { it.split(",") }.flatten().collect { it as int }.countBy { it }
+        long[] initialStock = [0,0,0,0,0,0,0,0,0]
+        countBy.each {initialStock[it.key] += it.value}
+        println initialStock
+        println "Star1: ${countLanternFishesAfterDays(initialStock, 80)}"
+        println "Star2: ${countLanternFishesAfterDays(initialStock, 256)}"
+    }
+
+    static long countLanternFishesAfterDays(long[] initialStock, int afterDays, int currentDay = 1) {
+        println "Day: ${currentDay} - ${initialStock}"
+        long[] newFishes = [0,0,0,0,0,0,0,0,0]
+        initialStock.eachWithIndex { long count, int index -&gt;
+            if (index &gt; 0) {
+                newFishes[index - 1] += count
+            } else {
+                newFishes[6] += count
+                newFishes[8] += count
+            }
+        }
+        if (currentDay &lt; afterDays) {
+            return countLanternFishesAfterDays(newFishes, afterDays, currentDay + 1)
+        } else {
+            return newFishes.sum()
+        }
+    }
+
+
+
+}</code></pre>
+</div>
+</div>
+<a id="day07" />
+</div>
+</div>
+<div class="sect2">
+<h3 id="_day_07_groovy"><a class="anchor" href="#_day_07_groovy"></a><a class="link" href="#_day_07_groovy">Day 07: groovy</a></h3>
+<div class="paragraph">
+<p><span class="small">this documentation is autogenerated. Add a <code>README.adoc</code> to your solution to take over the control of this :-)</span></p>
+</div>
+<div class="sect3">
+<h4 id="_groovy_3"><a class="anchor" href="#_groovy_3"></a><a class="link" href="#_groovy_3">groovy</a></h4>
+<div class="listingblock">
+<div class="title">test.txt</div>
+<div class="content">
+<pre class="prettyprint highlight"><code>16,1,2,0,4,2,7,1,2,14</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">solution.groovy</div>
+<div class="content">
+<pre class="prettyprint highlight"><code>#!/usr/bin/env groovy
+def input = new File("input.txt").text.split(",").collect{ it as Integer }
+def max = input.max()
+def min = input.min()
+def dist = [:]
+(min..max).each{ pos -&gt;
+    if (dist[pos] == null) {
+        dist[pos] = 0
+    }
+    input.each { submarine -&gt;
+        dist[pos] += Math.abs(submarine - pos)
+    }
+}
+println dist.values().min()</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">solution2.groovy</div>
+<div class="content">
+<pre class="prettyprint highlight"><code>#!/usr/bin/env groovy
+def input = new File("input.txt").text.split(",").collect{ it as Integer }
+def max = input.max()
+def min = input.min()
+def dist = [:]
+class Fuel {
+    Integer consumption (Integer dist) {
+        if (dist &lt;= 1) {
+            return dist
+        } else {
+            return dist + consumption(dist - 1)
+        }
+    }
+}
+def fuel = new Fuel()
+(min..max).each{ pos -&gt;
+    if (dist[pos] == null) {
+        dist[pos] = 0
+    }
+    input.each { submarine -&gt;
+        dist[pos] += fuel.consumption (Math.abs(submarine - pos))
+    }
+}
+println dist.values().min()</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">input.txt</div>
+<div class="content">
+<pre class="prettyprint highlight"><code>1101,1,29,67,1102,0,1,65,1008,65,35,66,1005,66,28,1,67,65,20,4,0,1001,65,1,65,1106,0,8,99,35,67,101,99,105,32,110,39,101,115,116,32,112,97,115,32,117,110,101,32,105,110,116,99,111,100,101,32,112,114,111,103,114,97,109,10,62,461,1087,183,1096,431,412,200,486,1543,25,580,1030,15,65,1186,9,226,173,77,119,691,855,451,88,741,221,1465,190,779,327,179,627,366,288,174,1147,49,773,3,5,65,20,172,601,307,611,699,1168,933,1295,832,242,62,8,4,226,768,33,566,21,10,937,15,760,100,574,181,89,72,1054,225,28,0,685,661,131,281,933,90,233,109,1345,81,106,636,1262,193,172,1056,709,1176,447,536,1054,929,171,226,127,274,710,917,218,192,25,128,321,1816,515,181,759,20,258,134,281,151,99,479,623,534,72,576,534,337,54,293,450,230,963,14,357,446,1244,964,16,865,52,1,1171,77,7,275,313,894,577,305,1119,393,285,354,136,1147,241,441,166,1024,650,101,178,1514,186,902,367,5,431,374,56,507,857,1316,0,186,63,118,1062,62,446,266,47,354,168,65,1036,447,689,160,749,728,791,1066,99,675,194,891,153,737,801,254,905,1046,21,413,386,204,603,373,218,440,137,1340,1616,121,903,722,841,731,213,219,405,336,1345,144,329,285,213,272,717,47,126,1137,548,32,21,755,219,595,187,143,636,476,397,185,70,345,89,319,80,867,26,1166,509,24,16,151,605,1415,893,814,473,289,377,407,44,184,290,447,1669,116,319,455,294,145,513,58,247,186,1565,31,297,1,226,1051,1561,1233,254,1274,422,547,1638,354,1855,419,71,1003,626,519,109,96,996,117,32,226,424,184,181,720,1311,1162,11,86,438,408,1269,887,612,327,133,1117,1390,345,10,370,175,37,1154,659,707,193,665,65,359,758,1253,498,219,601,59,919,1371,289,9,437,392,626,981,2,51,733,780,101,541,770,464,28,616,81,1708,1515,719,780,1214,673,268,246,25,252,301,205,27,160,0,298,69,285,58,809,1369,812,628,353,47,632,123,168,135,277,303,614,365,330,1385,1117,1346,737,744,1403,385,215,437,276,726,673,668,494,164,1,763,696,487,252,375,1253,42,1111,963,58,63,11,1648,1080,964,526,454,1349,1098,95,59,78,36,42,654,1441,1129,464,740,355,370,44,4,154,986,439,828,287,969,765,565,836,196,387,556,34,586,438,1205,760,798,6,61,260,25,418,1628,566,3,530,753,758,16,92,30,1388,109,240,513,1048,1056,588,1634,418,297,195,447,1145,198,466,0,607,180,57,58,72,319,221,869,744,339,195,1295,268,1336,1310,38,714,326,393,445,422,102,389,188,147,21,805,381,520,561,282,438,115,431,156,482,50,890,470,22,60,46,1588,971,1219,82,380,1061,948,455,99,255,400,1832,91,225,280,520,279,91,172,92,946,434,182,164,142,83,91,281,538,962,77,1104,1522,310,4,961,62,9,1257,596,464,733,338,1166,334,380,509,773,90,498,480,1523,1632,530,543,413,589,748,4,861,11,233,192,699,33,615,1853,205,270,624,1132,1100,227,1402,349,183,179,645,4,1120,962,317,326,128,422,281,302,701,53,179,34,802,272,1254,375,764,418,16,160,943,479,416,717,644,1029,372,140,114,449,351,159,305,1299,749,488,502,180,210,17,533,258,120,333,1097,185,1911,451,360,66,1329,1260,209,1611,454,809,336,783,1438,20,26,609,720,155,578,367,231,1715,64,610,465,752,81,108,389,995,244,1291,1144,159,161,1630,561,813,261,67,1604,124,231,833,14,15,1245,1309,1165,103,1270,228,1,133,644,581,218,481,716,237,155,360,110,1408,931,99,216,5,21,67,348,927,325,759,1127,557,584,696,428,653,548,247,1519,1682,132,3,1648,230,229,136,253,543,1153,204,669,58,81,357,85,82,749,503,139,32,1170,1352,151,653,1441,51,392,474,2,114,64,418,125,514,838,473,794,331,13,327,1476,836,37,3,0,115,18,1784,300,190,99,997,1164,31,1255,96,64,1101,354,698,372,852,1508,100,289,32,704,292,504,191,1342,231,692,12,369,1182,62,809,566,688,218,2,539,234,996,444,228,456,369,115,23,29,226,940,95,404,349,1254,171,69,711,2,1405,1181,34,8,92,173,533,20,181,921,201,1236,185,457,526,2,106,12,601,58,339,457,590,15,1583,473,451,1124,1569,401,72,154,9,1331,471,165,516,463,543,298,197,43,1294,101,1058,1025,1099,4,634,90,104,870,480,412,290,11,924,338,30,281,83,268,20,848,1722,1060,987,9,196,266,28,402,267,199,814,986,440,906,796,1403,1394,62,136,442,412,1729,571,459,91,730,269,172,202,772,305</code></pre>
+</div>
+</div>
+<a id="day08" />
+</div>
+</div>
+<div class="sect2">
+<h3 id="_day_08_groovy"><a class="anchor" href="#_day_08_groovy"></a><a class="link" href="#_day_08_groovy">Day 08: groovy</a></h3>
+<div class="paragraph">
+<p><span class="small">this documentation is autogenerated. Add a <code>README.adoc</code> to your solution to take over the control of this :-)</span></p>
+</div>
+<div class="sect3">
+<h4 id="_groovy_4"><a class="anchor" href="#_groovy_4"></a><a class="link" href="#_groovy_4">groovy</a></h4>
+<div class="listingblock">
+<div class="title">test.txt</div>
+<div class="content">
+<pre class="prettyprint highlight"><code>be cfbegad cbdgef fgaecd cgeb fdcge agebfd fecdb fabcd edb | fdgacbe cefdb cefbgd gcbe
+edbfga begcd cbg gc gcadebf fbgde acbgfd abcde gfcbed gfec | fcgedb cgb dgebacf gc
+fgaebd cg bdaec gdafb agbcfd gdcbef bgcad gfac gcb cdgabef | cg cg fdcagb cbg
+fbegcd cbd adcefb dageb afcb bc aefdc ecdab fgdeca fcdbega | efabcd cedba gadfec cb
+aecbfdg fbg gf bafeg dbefa fcge gcbea fcaegb dgceab fcbdga | gecf egdcabf bgf bfgea
+fgeab ca afcebg bdacfeg cfaedg gcfdb baec bfadeg bafgc acf | gebdcfa ecba ca fadegcb
+dbcfg fgd bdegcaf fgec aegbdf ecdfab fbedc dacgb gdcebf gf | cefg dcbef fcge gbcadfe
+bdfegc cbegaf gecbf dfcage bdacg ed bedf ced adcbefg gebcd | ed bcgafe cdgba cbgef
+egadfb cdbfeg cegd fecab cgb gbdefca cg fgcdab egfdb bfceg | gbdfcae bgc cg cgb
+gcafb gcf dcaebfg ecagb gf abcdeg gaef cafbge fdbac fegbdc | fgae cfgab fg bagce</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">solution.groovy</div>
+<div class="content">
+<pre class="prettyprint highlight"><code>#!/usr/bin/env groovy
+def input = new File("input.txt").readLines()
+        .collect { it.split(" [|] ") }
+        .collect { it.collect{ item -&gt; item.split(" ")} }
+
+def sum = 0
+input.each { line -&gt;
+    println line
+
+    def digits = line[1]
+    digits.each { digit -&gt;
+        //println pattern
+        if (digit.size() in [2,3,4,7]) {
+            sum ++
+        }
+    }
+}
+println sum
+
+// 7 is contained in 0, 3, 8, 9
+// 6 segements is 6, 9
+def possibleNums = [0:[],1:[],2:[1],3:[7],4:[4],5:[2,3,5],6:[0,6,9],7:[8]]
+def segments = [:]
+sum = 0
+input.each { line -&gt;
+    segments = [:]
+    def patterns = line[0].collect{ it.split("").sort().join()}
+    def digits = line[1].collect{ it.split("").sort().join()}
+    println patterns.toString()+" | "+digits
+    patterns.each { pattern -&gt;
+        if (pattern.size() in [2,3,4,7]) {
+            if (pattern.size()==2) {
+                segments[1] = pattern
+            }
+            if (pattern.size()==3) {
+                segments[7] = pattern
+            }
+            if (pattern.size()==4) {
+                segments[4] = pattern
+            }
+            if (pattern.size()==7) {
+                segments[8] = pattern
+            }
+        }
+    }
+    patterns.each { pattern -&gt;
+        if (pattern.size() in [5,6]) {
+            if (pattern.size()==5) {
+                //must be 2, 3 or 5
+                if (pattern.contains(segments[1][0]) &amp;&amp; pattern.contains(segments[1][1])) {
+                    segments[3] = pattern
+                }
+            }
+            if (pattern.size()==6) {
+                //must be 0, 6 or 9
+                if ((pattern - segments[4][0] - segments[4][1] - segments[4][2] - segments[4][3]).size()==2) {
+                    segments[9] = pattern
+                } else if ((pattern-segments[1][0]-segments[1][1]).size()==4){
+                    segments[0] = pattern
+                } else {
+                    segments[6] = pattern
+                }
+            }
+        }
+    }
+    def segmentC = ""
+    if (segments[6].contains(segments[1][0])) {
+        segmentC = segments[1][1]
+    } else {
+        segmentC = segments[1][0]
+    }
+    patterns.each { pattern -&gt;
+        if (pattern.size()==5) {
+            //must be 2, 3 or 5
+            if (pattern.contains(segments[1][0]) &amp;&amp; pattern.contains(segments[1][1])) {
+                segments[3] = pattern
+            } else if (pattern.contains(segmentC)) {
+                segments[2] = pattern
+            } else {
+                segments[5] = pattern
+            }
+        }
+    }
+    def number = 0
+    digits.each { digit -&gt;
+        num = -1
+        segments.each { key, value -&gt;
+            if (digit==value) {
+                num = key
+            }
+        }
+        if (num==-1) {
+            print "*"
+        } else {
+            number *= 10
+            number += num
+        }
+    }
+    sum += number
+    println()
+    println segments
+    println ()
+}
+println sum</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">solution2.groovy</div>
+<div class="content">
+<pre class="prettyprint highlight"><code>#!/usr/bin/env groovy
+def input = new File("input.txt").text.split(",").collect{ it as Integer }
+def max = input.max()
+def min = input.min()
+def dist = [:]
+class Fuel {
+    Integer consumption (Integer dist) {
+        if (dist &lt;= 1) {
+            return dist
+        } else {
+            return dist + consumption(dist - 1)
+        }
+    }
+}
+def fuel = new Fuel()
+(min..max).each{ pos -&gt;
+    if (dist[pos] == null) {
+        dist[pos] = 0
+    }
+    input.each { submarine -&gt;
+        dist[pos] += fuel.consumption (Math.abs(submarine - pos))
+    }
+}
+println dist.values().min()</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">input.txt</div>
+<div class="content">
+<pre class="prettyprint highlight"><code>gbcead cfgaeb beadf adb egafd fbeac dbfegca fdaceb dbfc bd | dfcb gedaf dcfb bcfdea
+dgfcb gcdeafb eg egb fcdebg cegf becad dfbcag fbgdea gecdb | dbfcge dacbe bge fgdbca
+bgdacf ga egab bfeacdg bfaec agc efbcda agfec cfedg abfceg | bega cga febac aebg
+cbgfad ed ecdgfb dge deabg fgdab geacb gabfced dfae dbgfea | afed dfea de eabgc
+fdaegb fae acedgfb dgbae fedcb daefb gebadc af bcfgae gafd | egadb afdbe eaf af
+cfg cegbdf fecgb fg cdageb fbgcad egfd gdcbe eafcb abdgcfe | gdbace fbgce gecfb bdfcge
+bgcfed aebgdcf gcbd edbcf ecdfag ebc efcdg bc befacg daefb | dfabe edbfc cdebf gbcfea
+dbfge cfebd dega facbge adbgcfe bfage fgdeba gfdbac gd dgb | bgd eabcfg bcdfega egafdcb
+ae egca gdeabf gcfba fcdbag dafcbge dbcfe efa ebgcaf fbcae | cdebgfa gecdfba dabcgef bfceag
+dagcfb fdegacb cbgad bedcg cbgeda cfbeg aefgdc abde ed gde | egdbfca gcbdae gde gecdaf
+fcdaeb gecaf eabcdfg efcbgd bge cadeb gbad becga cbeadg bg | ebg beg edabfc cbeda
+ed cdbfaeg ecadgf bcfde agcdfb cedbfg gedb cgdbf def acfeb | abfcdge ed bdge ed
+gfdac afg ecgfba af ecadbg bfda adcgb dbcfaeg bdcagf cgfed | gabcef bfad gbecda degbca
+faedg ba cbdgf ceadgf gdbfea adbgf aecdgb efab agcdebf dba | fedagc bgdfc ab afbdg
+eadfb ecbdg ebgadc bfc gcef egbcfd fbcdega bcefd gcbdaf cf | bagdecf bgceda beadcg fecg
+begdac eabdc cabef de facdbg acegdfb adcgb edcg dbegfa ead | gabfdc gbcfda daegfb ed
+dfgcb ef fce gcdef bcgafe gdaefcb dcgebf dfbe agcde gdafbc | ceagbf fbgdc cfged gecfd
+gefcd fcdeba bf fbgedac egadbc aedcb fcb bdecf fbeagc afbd | fbc fgabdec ebcdf gcdef
+cagdeb bed gcbfe fdae cgdfbea dgfeb eafdgb ed agfbd cgfbda | dgbef gbfdeac fgbdace ed
+bdgea eabcdf efbgc edfgcba fed df ecgdbf bedgf egacbf fdgc | efd fdbaec befcg ebcgfa
+ced edgaf gacebd ce fdabc fgcdab cdaef cefgbda fcaebd ebfc | ec fdbcae fedag aecfd
+fcgdb cfbdge agdefb af abgcfed decga cdbfag fcab dfgac dfa | agefdb adgcfb adceg cafb
+cfag fgbedac gedfc cfead cgdafe gef fdebac ebdgc fg agefbd | fg egf egdcb gcaf
+baecdg gec gefdab gcfead agcb gc acdgfbe edgbc dbcef gbade | cagb acefgd gc cabg
+cgefb bgdface ecgbfd gcebaf bface egbfad ae fea gcea bcdaf | dbcfa fea aedbcfg ae
+dfgabc cdfgeb ce gefcba fcbde degc cfbdg bce feadb defgbac | fdcbe bdfgce cfbdg abefdgc
+dageb dcbfga dg eadcgfb edcg bgcead eafbd gad fceabg egcba | bgaecf acdgbe dg dag
+edfacbg bgcadf adebgf gbdca fb becagd bfgdc cefgd dbf bafc | fb agebfd dfacgeb cbgafd
+bedgafc cbd cefdgb ebca dbeafg dfbea bdafc cb dgfac dbaecf | bfadc adfeb fcabegd fcbda
+gb ebgfdac fbag fbaecd fbdage ecfdg dceabg bdg gdbef afdbe | ecfabd bg gdb bgaf
+ebdfcag dbfgae abcf bdegfc bgfdc abd edgca bdacg ba dabcfg | bagcefd gafcdb caefbgd dcefgab
+cgfd fcbae geafd egc cg bgdcea fedbag acedfg fgeca dabegcf | caegf fcgd faegbd ecdgba
+dacefgb gdcab cbeg ge dabecg afcde daecg dfeabg fbdcga gae | egdabc deabcg ebfcdga aeg
+bgaced ebdg cgd abegfc gdfbcae bgace dg cfeda cgdea adfcgb | cfbage bgde dg aecgb
+gfedabc bc gebad facgd ebcg edcgba dfabeg cdb dbagc abdcef | gaedb abdfce gbec gecb
+ecfgd adgbcfe adgcbe bdfegc gefa dbacf cfgda ga acg fadceg | ag ga adbfc faeg
+ced edbgf afebgcd dfegbc bgfead cfge ce gbcde abedfc cbagd | cdbag ecgf edc dce
+aefcgb fbdcage bdfe cefdgb bcgde ef fgcad efdgc efc edacgb | dfacg cgabfe ecf dfcga
+aed cgbaedf eacdg dfgac dfaebc gbde bcaegd aecgb ed fagbce | ed feadbc dbeafc de
+decbaf bdeafg acbf gceda bcdgfea af afdce fgbecd fad cfbde | af bagfed eadbfc fdcae
+ebacgd fagdb dgcefa ebg fedgcba adbeg eb abce fgdbec cdage | gcdeba ecab bcae ebfdgc
+cfdb daf gacfe dfagbc ecfbagd dcbag fd adecbg fagdc dafgbe | cdfb dfa ceafg fgabed
+bgfedc beadc gecdb dcegafb gb edgacf begcaf fdgb gefcd geb | ecbadgf ebcafg fgedc ebg
+bde afcegd beadgc fcaebd edgbfac aefcd dfabe bfce gafbd be | eafdbc bcef efgdac gfabd
+bdfgae ebfad fbc bdefc afec dbagcf cgefbda acefbd fc cgbde | cebfd fgbaed gfcadb bfdagce
+abgf dabfec ebacg gdeac ebg bface egcabfd fgcbde bg eagfcb | agecd gcaebf beg fabcde
+adecb aedbgc geabc gcabef fabed afbcdg cd dbc dgabfec ecgd | beacfg dcge dceg cgde
+agcdfe egabcd cfgaedb bcgea fcgdeb eac deba agcfb ae cgbde | bfcegd fdacbeg bedcfg cfedag
+fdebagc gdefb dfabg gcabdf ba acegdf acedgb adfcg bad abcf | fgdac fgadc bdgaec abfc
+cbfd bc fdgeb eagcd becgd bce gbfecd dgeabf befgac ecgbdaf | bfgced cedgbf cb cegfbd
+fedbg ebdcf aefgd fcgeda bg ebagcf bge bdefag dbga afegcdb | bfecd gdab gbad debcf
+gcfeab bd dbe ecgabdf edfba gbacde bdfg gbaefd bgaef edfac | cefad db aecdf bfcage
+fcedba edc dc fcda gefcab ebcaf efgbdca cbeda dfbgec gebda | ced dbgfec gdebcf aebcf
+fgce eacdbf cbdfga gbfae deacfgb eagbd gaf feabc fbceag fg | afcgbd cfegba bagef fdcbea
+dfabge dge cbdfea cbgd gd fdceb gfdebac agcef edgfc bfcdeg | fcdbge dg cdefg fcadbe
+gbeca fbg cdfeb dbaceg fdacbg fgae cfegb aegcfb gf dfgbeac | abegfc fecdb efag gbeafcd
+gacfeb cd cdbaegf aebcg dgebf bdcafe adgc bdcge aebgcd bcd | fbceda edcbg edbacg befdca
+dgaeb afegdcb adfgce cabde gb gfaed gebf gbd dbagfe fbgcad | gbd gbdefa cgfadeb becda
+efg gdfa ecadf eagfc cgaeb febdcg gf edcfga befadc gebfcda | gdfa ebdacf abgce fg
+dbg cbadf gefbc egfadb bgcfd efdbgac gd ebfcgd bcgefa ecdg | dbfcg dgb fcgbd dbg
+dbfecg facdeb fbadc gf gbdfa gfb ebdag dbafcg egdfbac gcaf | dcfbag gfca gbf fgcdbe
+cefgab fgdb dge aegbf cbgaed gd bfdgcae dfega abfdeg deafc | feacd bdgf gbdfae eafcd
+dcae ea facbged efa fagbc cefab aefbdc afgebd edbcfg edfcb | fbgdce cbfga efgbcda eadc
+geafbcd fecbag fba dgbfc dbface bceadg cbdfa fa bdace eadf | af dabcfe cafdb cbaed
+efbgdc dga gcbfd agfb gfcdab dbgfeca fegdca abedc ag badgc | cbdgf febacdg cfdbg gedbfca
+edagfb gcda ebfadgc dgcbef bgc gc gbcadf gabfc agbdf abecf | ebgdcf cdga bafdg afcbg
+daebg cfaegdb fgabe agedcb bda bd fcdabg aedgc eadcfg cebd | cdeb ecdga db geabf
+dgef fcbged ef bfcage dbfcg cefdb caefbgd daceb fbe gfbadc | gdef dcgbf daefcgb dbgcf
+ga bcfeagd afbg fgead fegabd becfdg age edbgf bgdeca dface | eag ga bgfa gfdeab
+adge fbgcead dabcf de cdbfeg fbega fcaebg bed fabde faegbd | abfed gdea fbdae ebd
+gae ae gcefbd bcaefgd edbgc gdfab debag dfecga gbdcea abce | egdbca afgdb ae cdeagb
+cabgef ed fbadg ecbd edcbfa cfdaeg afedb ade ecdgabf afbec | fcgbeda cebd dabfg cafebg
+fdbcae ceadf dcgbfe cad ebdcfag ecfbd eafcg deba ad gcfabd | fecag daeb cad ebcdf
+cf egbfc cfbgeda gfc gbdce begafd facbge afbeg fcea gcdafb | fc fc afce cf
+abdecg deg gcbd efgbda gacdfeb ecagf badce dg dafbce dgcea | dcaeb abcfed efacg gd
+cbgefa dcbage abecgdf cdga fgebcd ca cbdeg eac dbcae eafdb | ace dgecb befcga cea
+gef fg dgaebf bfeac cgfea ecfbgad bgfaec acefbd cgdae bfcg | fdaegcb dceag edbgaf fadebc
+gbafde adefbcg fbaeg ged dg abgd dfbge gfedca caegfb cdebf | dgab baegf agfced bgfae
+eb caefdg dacfe baed dgfbce efbdac efcdbag baecf ebc gcbaf | cbe fcbade adcef ecb
+db deacg fabge bcagde bedc bfdagc adgbe cdeafgb bda cfgead | agdec becd abd bd
+agcdb fcba efdacg gca bgdec fagdb bafgcd beafdg ca caefbdg | dgaebcf acdfeg cedagf fdcgba
+bacdgfe ge dgeca ecdba bdcage cebafd efabdg egbc dfgac egd | egd gbce abecd afbdecg
+bdfa aegcfb gfa daefg fa gaedc dcgebf bacefgd abdefg gebfd | fadb fga dgeabf bafgec
+dfecb adcefgb dcbea bagc dfbeag bea ab degcba efgacd dcaeg | bae cfdgae daceg bfced
+fbcde fdgb deg cdfega dg cageb gbedc afdebcg bcdfeg cebdfa | bfdec dbecf abecfd cegbd
+fagdebc eafgcd gbaefc def abcde fdcgeb afgec fadg df dafce | fdagec deafgc df adceb
+bcfaegd begfda bdaef efbgca cba bdec fgcda dfebac bdcfa bc | bafdc fabdceg cebd eafcbd
+acbeg fgdbca ecdbgf abg eadgc ba adgbfce bcefga cgfeb afbe | fbgdac fadcgb cdfgba gfcbe
+fbdceg af ebadcf aedbf fbcega dfca fea fadcbeg gaedb dbcfe | abgfce dacf fa bfegacd
+ged abegfd aegbcd gaec fecbd decbg fgcdba egbdfca dgcab eg | eg gfedba efdcb gebafd
+gfb begdaf cbadf fcgedab fgec fbcedg gebdca fg gcbdf degbc | gcbdf fg bgdfc fgb
+dcgaef gca cgdabf ac gcdab fabc gfbad adefbg bgcde dbeafcg | cgbed dafegb ac ac
+fgeacb bc bfdge bcg dfgcb dacegf badcgf cadb fcbaged gafcd | fcgad cb afgcd bgdcf
+fadecg fb fcb gefb dgfcab adefcgb ebacfg cabfe becad gcafe | fcb cgefba caedgbf gdacfe
+edcab fgce dgfcbea aebfc abgfdc efa fe bcagfe dbgfae abfcg | baedc facgb acgfb ceafb
+bae aefbg dfbag afed bdcgfa fegcb afegbd agcdfbe ae bdcega | fegbc febag acgdbe fgdba
+gea dagebc efadg adcfg cfgdba edacgfb caef ea gdbef geafdc | ea gfade feac fcae
+gadc acfdb ag bfdge fbgad fbdcage abcfed agf bcdgfa cafbge | cdag cagd dbcaf gfedb
+gacedb abfced fdcbe gdfbce ea fcdga eacfd dbcafge afbe aed | edcfbg faced becadg cagdf
+dbcaf bdcfe fdgcab ca agfbd acgbed abgfedc acfg gafdeb bac | dbgecaf bfcda fgac bgdcaf
+gbaef dbagef fab fagd bedgf bdgacfe gfdebc fcdbea af acbeg | gafd cdbgaef eacdbgf fba
+gecd beacg bec badfce gbeacd bgcad gedfcab ce dbacgf fegab | ce acbgd ecabdf afbced
+cfdbae bdfcage ecdfb gfebca cagbd ge cfegdb egcdb gedf geb | ge gbaecf bfcdage cbgedaf
+fag cagefbd agce bcdfge ag fabed cgdef degfac geafd gafdbc | edfcg fcdge cegdbf gfaecdb
+gdf bacgde eabdfcg ebadg fd caegf fecdgb adfb fgade bagefd | adbfeg ceagdb baefgdc gfead
+cadgf cfabdg bfgaedc gbade cgdeaf cgef acdefb efd gaefd fe | def beagcfd deabg gecf
+ag aeg bfegacd badec badg gdecaf afbced gcaeb bfegc cbeadg | baced gabd becad egcfad
+bgad eabcdg acedfb gdfecb ab eba bcgeafd bcega edgbc gefca | egcaf gbedc ba ecbgad
+gbacf cegfab fdbcea gaec fgc fdabg cdfbgae cg egbdfc cefab | cfg fcbgdea fabdec fbceag
+debfg bdefga db gebfa gedcf bcafde edb cfaebg gbda cdbeagf | edafgb aegbdf egdcf bdga
+fabdegc eacdb baceg afdceb bdefc gfbead dab fgecdb cfda da | cbage da ecfdb dceafb
+gcfdba gacdb gabdf efbcdg cafd cbdafge dc aefbgd cdb agecb | cdegbf acbdg bcdag facd
+ebd bfacge aegfb de edfa fdgeb aefdgbc abfged gdfbc dgbeca | fbgcd ed ed de
+cdaef acfegd bfce eabfd fgdabec egcbad be gdfba bde eafdbc | be bed eb eb
+de bedf bcgaed fedgbca cabgef ead cadebf cbfea fcead dfacg | geabfc eda eacbdg bgecfa
+dfaec egfcd egc cg egfcad ebcgaf dcfbae gbfde fcebagd acdg | ceg dacfgbe begfd dbcafe
+cdbg gacfd gb ebfad agefcb efacdg cfdeagb gdfba gbdacf bga | bdfga gdcb bfgace dbcafg
+abfdeg fadec dagcbf gecadbf egabfc abefg befda edgb bdf db | dbeg db bdge dbfecag
+ebdafc gbdcf geabcfd caedf gdecf fage gce bgeadc ge egfdca | egc gec gfdec adbfce
+afdc fgdaeb dba ad acebf ecagbf daegbcf edacb eadfbc bedgc | cgeafb dgceb dba edbgaf
+ebd be cafgde gfcbed gdaef gbcad bdfaeg efab efbgdca ebgda | edcfga dafeg cefbagd gfdae
+cdefa fdceag gabefc afdb caebd ba begcd ebdcgaf dcebfa acb | cadfbe dacbe bca fabd
+edga fcbade fea egfab gebfc ae dfcagb dgbaf adgfbec dfbgea | bdfagc fbceagd fae gbcfaed
+ebgaf fgadc becfdg caeb dbfage cb gbc gadfbce bgacf gbacef | abdfeg bc begcdf ceba
+dfgac feda ecabfgd eacfg fbdgc gad aefgdc cegbaf ad egdcba | febdgca aefd fdcga cfdag
+daecb gdcabe bgdcfae decbfa efdcg cdbge dabg bg bcg bgfcea | ebcgd aecbfd debcfa bfeagc
+gf dbfcg acbdf fdbeacg dgebac gedf aefcgb cfg fgcdeb cgbed | dgfe efdg defg bedgc
+afgbdce fgcbe dgbe bcfdea gbcfd dbc febcga gecbdf dgcfa db | gacebf ebdg bcd dgeb
+fcadge geadfbc db gdcae gebcd bdg gafbde gcbfe dbgcae abdc | abegdc gfecb begafdc bd
+fc dacebf befcd fbegdca feca dafeb fedbag dbcge fadbgc fdc | ecfdb cfd acef edagbf
+aeg gfebac dbcfea fgde gadcb ge fecdag egcad cfead bgedfca | fdgcae edfg dafec dfcae
+gedca fcabdg fcabeg dgfbae eb becf fcbga eacgb bae faecgbd | fgbac fdcbgea aeb fgacb
+fbcegd badfg fdeab agdefc abecgfd dgfbc adg ga bagc gbfcad | ga abgc efacbgd agfbd
+acfebdg gbc gc cgbfae dgbea adgbc bdafc dgbeca bfgade gdce | dabfecg dagbe ebgad egcd
+cgfe gdbfae bfaecd adgcbfe bgdca fg deacf gcfad fcgead dfg | faebdg fdcaeb fg gfce
+cdebgf gb gfbe dgcbf bagced fcdge bdg bdfac fdcega dbagcfe | fgedc gdcef bcdegf cdfgae
+fgcd cfa edcfab dafcge efgab gbceda daebcfg agfce cf adecg | gafce fcgaed fac afc
+cedgba ac cabf egadf fbegcd aebfcd ecdbf dca cgadfbe dcefa | ac bgfced fecbd cbfadge
+dagb ebcgd ad bcegdfa dbcea edgfac dgceab cgbfed bcfea acd | bdfgce bcaef da bgedfc
+fgdea fgcade ebcagf cg eagbfd gce ecfgd cdebagf dcga cdebf | gc gc bfadge adcg
+fbe debg fgced fcbdae gcfab dcgfae egcbf cgabedf cdefbg eb | ebf debacf be cafbg
+fcegba cebadf efgd gaefc adfceg ade fcegabd aedgc dgabc de | aegbfc faegdbc egfd dgfe
+df bfcdag dacbefg fagdbe begaf ceadb adf afbde gdef ecbfga | geafb faebcg ebadf df
+ecfdab dcfba debfa ecfd dbacegf bcf fgcbae cbdga agedbf cf | dcbag eagbdfc edbgfa cafdb
+fed bgdfac edbafc egfab gdcfb de fgedbac gced bgedf bdcefg | defcgb gbfdec cedg ed
+gbfcdae dcab ba bgfedc ecbafd agfedb fcebd abfce cfega baf | bfa gebcdaf bfedag ebfgdc
+afdceg eacfg cbgfaed gc dceg fgdcab egfda gbeadf abcfe fgc | gdcaef gfc fdgaec gc
+bfdaegc bcaefd edfgcb edfgc fdgac faeg af cfa afgdce bagcd | geadcf fdabec acf agdcb
+ebfdc dbag eabcdfg gcd gfbaec agcfbd dagfec abfcg gd cgbfd | fgabc bgad adgb fbdgc
+efgdcb dacbg afcbe cfd fd gadceb agfd acdfb ebagfcd dgcbaf | cebgdf gdaf bfcdeg afbdcg
+defgb bfce dgeab ef dcbgf gcefad bfecgd dfgabc eacdbfg def | bfdgc fgcbeda ecafgd fdcbge
+edg bfdgeac bagce gbdae egadfb ed dfbe cbgfad dgfab gfcade | ed dcgaef acbeg ged
+abedc gafbed bgaecd beadfgc bf dfb gdcfa abfcd ecfabd ebcf | dcafg fceb dbacfe fbdgace
+eagfc acebg abedfgc feadbg adgef dfca edgacf fcg cf dfgebc | fcdgeb fgc cdbfge gdcbafe
+bcde dcafgbe ecf debfa ec bgfca bcfae bcdfae gbfdea caegdf | cef edfab cfbdae cfgab
+fdecag cd cbfage aedbcg gbcaedf cabdg dgc bagec bgfad dbce | fcbgae gbafd cgd bcfgae
+feba agfdceb gbfedc gbfca ab bca cadgf gbcfe debagc cgbaef | cadgf cfaegb gbacf dcabeg
+adceb cdgbaef cefdab ec edc dafbeg ecfbgd gdacb feca aedfb | bdfegac eafc badfe ec
+bacdfg fcbeag afdc fabegcd acgbf agbdf dag ebdfg ad edbgca | gedbf bgdcaf fdac dcfa
+aefg dgecb eafgdc gefdc afcdbe befcdga cdfag cef gbcadf fe | ebadfc efcbda efgcda bfgadce
+decf fbgdca ecbgfd gbdae df bcfeg dgbef dbf becgfad acgebf | fdb fbgec dbgfac fcgdbea
+gcaefd decab cbfea egfdbca dafb efgcb bcdega ebacfd afc fa | ecbfad caf dbeca caf
+abfdgc gebaf cb bca fdabceg becf ecadg bacge afedgb agcefb | daceg dgfeba bc cgdea
+cefgdb edfagc gc fdgbc aebcdf ebcdf fgc gbadf deagcfb gecb | gfc efacdb cg bacefd
+gbead cgdeb cg fbegcad bcefd cbfdeg ecfbga gec dgcf fecbad | cg geadb gce gc
+agebf cafeg dbfagc gecd cg gfceadb cga gafcde defac fbdcea | edcaf efdac eagcf cagfbd
+gbdefa eb cbfdag cdeb bcaefdg dcbfae febac feb gcafe adfbc | eafgc beacf gadfeb ebf
+abcfe ecgbfad ebda eca gfacb aecfgd dgfceb ea fbcde fdabec | acdbef deab ebcdf dbae
+cdaf abgfed ebcdgaf deabc fbcea cefabd edgbac fa afe fgbce | acbfe bcgeda acbef abdcge
+eabcf cd gdbecf gfcaedb dcfg gafdeb fdbge cadebg edbfc dcb | bdcegf badcegf dbc gfecbd
+dagfb bfecga efdcb ebfcagd cg cbg ebcdaf cdgbf dcbgef egcd | agfdbec gc ebfcad edcg
+cfaeg fd bgead efcbgd gdefa fcda cgeadbf gfd gfbeac adegfc | facd dfgae fd degba
+egfbd cagde fbeagcd fa aedfg ceagfd daf cfag cfedba abgdce | afcg af af fdega
+gcdfae aebdfg gfc abgec dcbf abfcg fc bdfceag fbdag bacgfd | afbged cf cfabg gfc
+fcbaged bafce cfag gbcdfe abecg cfb gbafce dgcabe dbefa cf | cf cgfa bcf fc
+cfed bdgfc bcd fcbegd eagcfb bdfag cd efcgb bdcgae dfcaegb | cbfge dcb gcdabe gcdbf
+cdg afbcg adec adgefb gebdfc dc gafde adgcf fgdeac gdfbcea | caed fadge ecbdfg ceda
+ba gfbca fdcgba egdcabf agbdce fgeacd agb cfadg fecgb fdab | gcdbfa fadb agb ba
+cbfda ga cfbag adbcge acg aefg abfgce gefbc gdbecf cadebgf | ag dbfac agc bcgeaf
+bgcdea fgdce cg cfga defcb gadfeb gacfedb gcd edagf gafdce | fagecdb gedfab gbecda facg
+fcbeg gcabe bcfed gf gfbedc cfabed bfcgead gefd fgb fgcbad | acbeg adebfc bgf bgf
+bgcfed gedbf gf egf bgeacd decbg bcfgea cdgf bfcgade bafed | bgfdce dbaef gebcd bfcgae
+abecd bfcda gcdeba dfbe efgbac fcagd bcf fgebdac fdbace fb | fgcbea cfb bfc decab
+fc cadebf acgfb dfgabc bfgae gcdf fbceagd adcgb cbf adecgb | fdbagec fc aedcgb cf
+fe abgdef daefg bgcadfe dagbf dfbegc bfae gdbafc acedg gef | dagcfb baef cgedfb cabfgd
+gef fegacd cbefd daecbg agfd cdefg fg gecbafd dceag cfebag | ecgad acbdeg dcfbe gdecba
+cae fdeag gdcbae cagdfbe ce daefcg fgce acfdb egafbd acfde | gbdaec gafdce ce eac
+fdaegc dbefgca dcfa fedag fdbegc fd dcagbe edf fgeba cedag | efdcag fed dcgbfea df
+afcegb cadbef efb beadc fcdgb ef fbdce dfea agdcbfe gceabd | dcafbe eadf fcebga baced
+cbdfgae cfaeg ebgdfa eg gbafc decg gea cbafed afgdce fcade | dceafg bdaefc ge faced
+acbdfg bfc bc dbcg afbcd bfcdgea abdgf cfeagb fcead dfabeg | egcbaf egafdb agfbd egafcb
+aefgdc bcfde gacb cgf bacefgd baegf ebfdga agcbfe cg ecgfb | fecadg bgfae aegdcf egfcba
+fdgcaeb facdbg dfc dgcab cf caefbd cebdga edgfa afcdg fbgc | dfc cf dfcga bfgc
+cdgebf fbegc cgfdea ecagfb gfbac aedbfcg ac fbagd eabc cga | faegcb ca abgcf ebfcg
+acbgfd fecgdb bcagf abeg ecdfa gcfae ge ecg cgbadfe fgbace | gec ge cgfba dfcae
+aef efadgc cagedb cfde dagef ef aedcg ecbagf dcfabeg afdbg | ceagd afe fae gefad
+dbacfe cbf acefg abecdg fdbgcae bdfe bfeca bf fgdacb bdcae | cedab cefadb edfb fcbgaed
+ebgf acdbfe adfgc baf fb fgeabc adfbecg abecg bgafc cedabg | fb bf gceadb dafgc
+fbcead gadb adebgfc ba aegcb caegf cab ecgfdb cbdeg aegbdc | decabg edcgb cgbfde dcgeb
+bafegdc becgdf cdebfa ecg bfedc gc fcbge eafgdc cdbg aefgb | fbecd acfedb gbcd cfagde</code></pre>
+</div>
+</div>
+<a id="day09" />
+</div>
+</div>
+<div class="sect2">
+<h3 id="_day_09_groovy"><a class="anchor" href="#_day_09_groovy"></a><a class="link" href="#_day_09_groovy">Day 09: groovy</a></h3>
+<div class="paragraph">
+<p><span class="small">this documentation is autogenerated. Add a <code>README.adoc</code> to your solution to take over the control of this :-)</span></p>
+</div>
+<div class="sect3">
+<h4 id="_groovy_5"><a class="anchor" href="#_groovy_5"></a><a class="link" href="#_groovy_5">groovy</a></h4>
+<div class="listingblock">
+<div class="title">test.txt</div>
+<div class="content">
+<pre class="prettyprint highlight"><code>2199943210
+3987894921
+9856789892
+8767896789
+9899965678</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">solution.groovy</div>
+<div class="content">
+<pre class="prettyprint highlight"><code>#!/usr/bin/env groovy
+def map = new File("input.txt").readLines()
+        .collect { it.split("").collect { height -&gt; height as byte} }
+
+def width = map[0].size()
+def height = map.size()
+def sum = 0
+def lowPoints = []
+map.eachWithIndex { row, y -&gt;
+    row.eachWithIndex { column, x -&gt;
+        def current = map[y][x]
+        def surroundings = [10,10,10,10]
+        if (y&gt;0) {
+            surroundings[0] = map[y-1][x]
+        } else {
+            surroundings[0] = null
+        }
+        if (y&lt;height-1) {
+            surroundings[2] = map[y+1][x]
+        } else {
+            surroundings[2] = null
+        }
+        if (x&gt;0) {
+            surroundings[4] = map[y][x-1]
+        } else {
+            surroundings[4] = null
+        }
+        if (x&lt;width-1) {
+            surroundings[1] = map[y][x+1]
+        } else {
+            surroundings[1] = null
+        }
+        def lowPoint = true
+        surroundings.each {
+            if (it != null &amp;&amp; it &lt;= current) {
+                lowPoint = false
+            }
+        }
+        if (lowPoint) {
+            sum += 1+current
+            lowPoints.add([y,x])
+        }
+    }
+}
+// 1716 too high
+println "=&gt; "+sum
+
+class Helper {
+    def fillBasin(map, y, x) {
+        def width = map[0].size()
+        def height = map.size()
+        def size = 1
+        map[y][x]=null
+        if (y&gt;0) {
+            if (map[y - 1][x] != null &amp;&amp; map[y - 1][x] != 9) {
+                size += fillBasin(map, y - 1, x)
+            }
+        }
+        if (y&lt;height-1) {
+            if (map[y + 1][x] != null &amp;&amp; map[y + 1][x] != 9) {
+                size += fillBasin(map, y + 1, x)
+            }
+        }
+        if (x&gt;0) {
+            if (map[y][x - 1] != null &amp;&amp; map[y][x - 1] != 9) {
+                size += fillBasin(map, y, x - 1)
+            }
+        }
+        if (x&lt;width-1) {
+            if (map[y][x + 1] != null &amp;&amp; map[y][x + 1] != 9) {
+                size += fillBasin(map, y, x + 1)
+            }
+        }
+        return size
+    }
+}
+def helper = new Helper()
+def result = []
+lowPoints.each { point -&gt;
+    result.add(helper.fillBasin(map, point[0], point[1]))
+}
+println "=&gt; "+result.sort()[-1]*result.sort()[-2]*result.sort()[-3]</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">input.txt</div>
+<div class="content">
+<pre class="prettyprint highlight"><code>7988912498775677899976544676789212346793989896459876543679986778999879896543234965421014567898756757
+6777924987654686789987632345678954569894978789398765432456895569998965799765459876592923458987541246
+5456896987823545569876543566789995778999765678979986544578923459987894678976599999989899567987620134
+4345699876710123499987994677897989989998754567954397755989013498765953566989989998766678978998321345
+2235689765324648578999789989976768999987643678964219876789129579654212345898767987654568989876543459
+1024569879534787689998689898765656789643212567895324989899298998732101256789959876552456898998765668
+2137978998755698798987596789843245698775103456789765693998987899899912487899849865431545587899878979
+4346899659876899987656434695432167789874312569899876964987876789987894568989723987420123456789999989
+5657896542987899998543326479943278993965643678956989899876755799876795779876545696541344678996989999
+6788976321299967987632101267895389012396864989643498798765434598765689889987656987655456789865467899
+7899985410123459998843212348996498923987878995432987659878321987654898992398997898769767897654357898
+9979876653237598999954423456789987899798989789544598434987210398765987821039998929879878986543234986
+5668987954546987899985534668899976587679998678995679645696531239878976532129999212989999775444129875
+3456799875659876899876645789989897434599902456789798956987642449989876545298789423495497654321012954
+4677999996767985689987766899876795323989893487899987897898743658999988656987679934984398767443199743
+5789989987979876789299898999975689919979789678999876789909869767919899767987567899876209976564987621
+6899979999989998992199979898754599898667699789989545678919998978909765979876456789998212987676798510
+7998769897598679999988466789876698786544578999875533569398987899998954599765347899989323598787987421
+9878656789434567898976365679988987695433489998764321239497676899987895679874267999879946679899876532
+7765347996545698987654254598999976543212568969976443998974545798946796799842157898768899789944987543
+6673234789956799798762123767899989874323678957988769887563234587897897987652046989857678996432498667
+5410123567897895699543013459989998765435989348999898765432123456789979876543135678943589789321298798
+4321244789998934987676434678979999896546990245986987654321096567898765997765647899432423578932349899
+6532345998999326799898945889768799987667899366965398965439989778987754598978956895321012456944569935
+7643496987894315698949767999654678998789978979893219878998878999996432989989767976532123467895678923
+8789989996789504987656989798773239999993467898799101989997656789987599778997978976546234678987799212
+9899879985679423498767894659982099987812456987678919999986547892198987666896989987664345799999989903
+2998769864568945589978953545894989876543667898789998899876535989019896545799993499875456896789967894
+4987654953456896678989542123799876997864789999898976789987323569198765434878932346987667985699856789
+9876543212349789789199965345698965698965678999987965679893210378999767323567891234598778974598768999
+9987764101234678991019896459987654569876789788965754598765321289898653210379990123479899653459879998
+9999853213345789432199789767899932157989893567954323459898535696799864321245689294567939778567989986
+7998765435456898953987678998999893249897902467893212699987679895999978442467890989878949889679895354
+5679979545567987894596568989998789998776212379989301989699789924889989766579931979989999998798754213
+4343498758799876789987879878987656889654323569979999876529893212679999878689999868999989989899842101
+3232349767987915679999998769898645778965434598765789765436989101567998989789987657899878978921943213
+4101234989875423467898764546789434569197545698764678976545678912345897694999996645678967967939876454
+3213445999995434898998753437678928789019678989912467998657799424556789543239865434567956756899989876
+4324557899976545699999542123569219678998789974326579349779897435678897654345986323478943445689391987
+5436898967987676789987541012789901567899898765987891298989986545679998767459875212357921534789210198
+6545989978999887899987432124567892457892949976798932397997897656792129879679954323569210123494321249
+7679978989989998999876573336678953767901234987899793976896999877891099989898765654678921234989934956
+9798867899978969899989876457789764889212346799978689875699899998932989999999878965699632349877899897
+8987656989767456789593987567999875999329987989767598986789678999545978929876989977896543659766789798
+7757645779854345995432097678999989998998998976553467987894579899999769019865699988987654599854347689
+6545434567943257896543998789998999997987899965432438998913689789887658998764569999998765987843235568
+7432123688954346789669899899876899875676789876510129999524598598766546789543488957899899876452123467
+6543334799765457899998789998965698763245678987542247896434597439854235699854567899989943995321036799
+8754455999879568999887678987654569654356789876543346789675986429863146798765679998768994987432145678
+9965667894998678998756569996543479875456799987654567898796975310954345679897789987656789876544287789
+9987878943459989989545467897695689976569898798967679969998976429865766789999898996545789998955398999
+8798989895698799879721256789789896987678999659798789954599986539876988896789956789434589219765456789
+7659395689987698765430145698999965499899998734569898893989697656987899965689345678923478909896667998
+8543234569876549876981234567998977345998989123456986789876569767898998764578956789014567896998978957
+7654109678989656999876545699997894239897878935769975678925459899999987653469987892123478945789989546
+8869298999598767975987656789876789129776767949898764599212399956798998532357898943234569435678998734
+9998987989439899864398967898985789298545456896999753479901989532987987620578999769357678924579987645
+9987675978921999872109879967454599987434345965987654567899878993986598321234899998998799314699698656
+8765423567890199943223989954323459886521239894598965679998756789765459543466789897999894323987579868
+9754313458921987654434599893012398765430456789969988789893344598764349874678994786898965545999456989
+8742102567899899876546999762124679965321345899856799899672223579653298765679563535567976659898968999
+7653212348988789997999899854345789986732456789735678987521012699862139979899432123459999798767899109
+9854323459976578989789789987467896597653468898623489996432359985989345989987541014598998987656789398
+8765434899865459876566678976578999439796589997544568987546598874695456794598672123997987897545678967
+9876646789654321995434589987689997929897699989659678998669986763498768893359987439876876989439999856
+9997797899995210987657991099999896899998789678998799879878985452349879921267896598965385678998779645
+8998998999889921298968993298899765689999894568999893656989876321245989542456987987854234567987656434
+7659789988677892989879589987698954569986953467897932347999988454346797656767898976542123457897542126
+6545679876566799878989679878567895698765432399976431349899876567857899777879979987643235578998631018
+5432398765455989766899789767458999789876591988997653498789998798767979888989765698954545678997632346
+4321298774344678954668998654345698999987989876989768987678999899878965999698913999875659789986543457
+9543987685123789543459876563234567899899878765878979876556789934989893234567899878986789998997654667
+7667898543234696432345998434145678998798765674567897687445789123499799013498998765497891237998876789
+8799999657345679321236987621012789987679974553456799543234591013987678934989987654398910956899997895
+9988998765456789910449998732334567897598763212345698987445989125696568945978999873219999899943459923
+9867899876587997892348999644645688935459754323457987896589978934987479899869345965423988798991292101
+9756799987998966789556798767856799322398767434598996987679867895699356798758996987554977657989989212
+6845789998989655678967899878997899901459878875699885998798756789898769997646889998699866545976878943
+5434677999876543489978978989298998892347989986988674899999348898989898785425677999987654439895657895
+1012346897998674568989569592129556789456796799876532789993201987878997654304556789875432129754345699
+2129578956798785679392398431012345997579985689965321679987512986767898743212347999986573098975212688
+3298989245679898789101987549124459899998764569879433598998434975859999856423467898987654987654303567
+4987892134598989898924597698939598768899878698998944567899549864348989998644568997898865699965212456
+9876989012987665967896698987898698656789989987897956778989997955287678999757689456789976799864343567
+9765678924598574456998799756789798638998799986986899889679876543124567898768794347893299899875456878
+8954689634999432347899898945899909545999698765455798997598765432013478939989894236789345976996567989
+7653499549898921258789987834978919696789569654344567996439896563123599023598943145678967895987698999
+6532368998767892345678996521467898989893498743243456789545987879234789146987654235989879954599899549
+8743456789759789557899865410356987678954987652102567898756798995365693234598964347899989893434999698
+7656587997645678969998765321269876569865698843213678929877899876876895397699895456789398732129888967
+8767899987657899878979765433345988778978789956523799545988954987999976989988796568890297643498767456
+9878999898767999989568986544578999889989898765434999796999313399987987978979689979991298764989854321
+4989398799879889995467897655678933991296929876645678989876501239876899867464578899989999879878965452
+5794219654989678976345898766989321390965410989876989667988213398995679954343456789678878998765987674
+7984398763494567898656789879995490989894321297987899545599754977894569865212367896564767999954598895
+9875459982123456789878895998976989879789432996798978923498769865323498765423498998323556789863989976
+6996569971012358997999934987899876565678949875439569212459879973212549876434569657212346999872975498
+4987698763123457895432129896798765484579898764323459103456998764301234996545879543101867896989854329
+3498987654235767996321098765789994323456789871012348914577899878412346987656989754563778965498754312
+2109998767346878976543459434679876107689896532434567899789913987523457899767999986774689764349962101</code></pre>
+</div>
+</div>
+<a id="day10" />
+</div>
+</div>
+<div class="sect2">
+<h3 id="_day_10_groovy"><a class="anchor" href="#_day_10_groovy"></a><a class="link" href="#_day_10_groovy">Day 10: groovy</a></h3>
+<div class="paragraph">
+<p><span class="small">this documentation is autogenerated. Add a <code>README.adoc</code> to your solution to take over the control of this :-)</span></p>
+</div>
+<div class="sect3">
+<h4 id="_groovy_6"><a class="anchor" href="#_groovy_6"></a><a class="link" href="#_groovy_6">groovy</a></h4>
+<div class="listingblock">
+<div class="title">test.txt</div>
+<div class="content">
+<pre class="prettyprint highlight"><code>[({(&lt;(())[]&gt;[[{[]{&lt;()&lt;&gt;&gt;
+[(()[&lt;&gt;])]({[&lt;{&lt;&lt;[]&gt;&gt;(
+{([(&lt;{}[&lt;&gt;[]}&gt;{[]{[(&lt;()&gt;
+(((({&lt;&gt;}&lt;{&lt;{&lt;&gt;}{[]{[]{}
+[[&lt;[([]))&lt;([[{}[[()]]]
+[{[{({}]{}}([{[{{{}}([]
+{&lt;[[]]&gt;}&lt;{[{[{[]{()[[[]
+[&lt;(&lt;(&lt;(&lt;{}))&gt;&lt;([]([]()
+&lt;{([([[(&lt;&gt;()){}]&gt;(&lt;&lt;{{
+&lt;{([{{}}[&lt;[[[&lt;&gt;{}]]]&gt;[]]</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">solution.groovy</div>
+<div class="content">
+<pre class="prettyprint highlight"><code>#!/usr/bin/env groovy
+def input = new File("input.txt").readLines()
+def stack = []
+def scores = [')': 3, ']': 57,'}':1197,'&gt;':25137]
+def scores2 = [')': 1, ']': 2,'}':3,'&gt;':4,'(': 1, '[': 2,'{':3,'&lt;':4]
+BigDecimal score = 0
+def opening = [')':'(','}':'{',']':'[','&gt;':'&lt;']
+input.each { line -&gt;
+    stack = []
+    def lineOK = true
+    line.each { item -&gt;
+        if (lineOK &amp;&amp; item) {
+            if ("({[&lt;".contains(item)) {
+                stack.push(item)
+            } else {
+                if (stack.isEmpty()) {
+                    // no matching opening bracket
+                    lineOK = false
+                } else {
+                    def pop = stack.pop()
+                    if (pop != opening[item]) {
+                        score += scores[item]
+                        lineOK = false
+                    }
+                }
+            }
+            println stack
+        }
+    }
+}
+println score
+score = 0
+def solution = []
+input.each { line -&gt;
+    stack = []
+    def lineOK = true
+    score = 0
+    def fix = ""
+    line.each { item -&gt;
+        if (lineOK==true &amp;&amp; item) {
+            if ("({[&lt;".contains(item)) {
+                stack.push(item)
+            } else {
+                if (stack.isEmpty()) {
+                    // no matching opening bracket
+                    lineOK = false
+                } else {
+                    def pop = stack.pop()
+                    if (pop != opening[item]) {
+                        lineOK = false
+                    }
+                }
+            }
+        }
+    }
+    if (lineOK==true) {
+        println stack
+        while (stack.size() &gt; 0) {
+            def pop = stack.pop()
+            if (pop) {
+                score *= 5
+                print pop
+                score += scores2[pop]
+                fix += pop
+            }
+        }
+        println()
+        println line + ": " + fix + " - " + score
+        solution.add(score)
+    }
+
+}
+println solution.sort()
+println solution.sort()[Math.round(solution.size()/2)-1]</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">input.txt</div>
+<div class="content">
+<pre class="prettyprint highlight"><code>{[&lt;([&lt;[[(&lt;[({&lt;&lt;&gt;&lt;&gt;&gt;&lt;()[]&gt;}&lt;(()())(())&gt;)&lt;(([]())){&lt;()()&gt;&lt;{}&lt;&gt;)}&gt;][(((()&lt;&gt;)[{}{}]){&lt;[]&lt;&gt;&gt;({}{})})]&gt;)[(({([{}[]]
+{{[[(&lt;[[[&lt;[&lt;&lt;{()()}(&lt;&gt;{})&gt;[&lt;&lt;&gt;&lt;&gt;&gt;[[]]]&gt;[{{[]&lt;&gt;}[[]]}&lt;&lt;[]{}&gt;[&lt;&gt;[]]&gt;]]([[[{}&lt;&gt;]]&lt;&lt;()[]&gt;{()&lt;&gt;}&gt;]([&lt;&lt;
+([&lt;{[[{{((([(&lt;[]&lt;&gt;&gt;{[]&lt;&gt;})&lt;([]){&lt;&gt;{}}&gt;][([&lt;&gt;[]][[]{}])])[[{{()[]}&lt;()[]&gt;}&lt;{(){}}&gt;]]]&lt;{(&lt;[{}&lt;
+(({(&lt;{(([&lt;[({([]())(&lt;&gt;())}{([]{})[{}{}]})]{(({{}()}{&lt;&gt;()}](&lt;[]&lt;&gt;&gt;(()[])))({[[]{}]&lt;[]&lt;&gt;&gt;})}&gt;[[[{&lt;&lt;&gt;[]&gt;(()
+[([&lt;([{({{[{[([]{})[{}[]]][[{}{})]}&lt;([&lt;&gt;{}]&lt;&lt;&gt;()&gt;)&gt;]}([&lt;{[()&lt;&gt;]{()&lt;&gt;}}[[{}{}]&lt;(){}&gt;]&gt;&lt;{{{}[]}[()&lt;&gt;]}[{{
+&lt;(([&lt;{{&lt;(&lt;[(&lt;{()()}&gt;(({}()){()[]}))&lt;[&lt;[]()&gt;[[]()]]&lt;{[]()}&lt;&lt;&gt;{}&gt;&gt;&gt;](&lt;[([]())]&gt;(([()()][()&lt;&gt;])({()&lt;&gt;}&lt;[]&lt;&gt;&gt;))
+[{({&lt;(&lt;[{({{{[()[]](&lt;&gt;[])}{([]{})&lt;&lt;&gt;{}&gt;}}}{{&lt;&lt;{}[]&gt;(&lt;&gt;)&gt;&lt;(&lt;&gt;&lt;&gt;)([]())&gt;}&lt;{({}&lt;&gt;)(&lt;&gt;&lt;&gt;)}{[{}{}
+([(&lt;{&lt;[&lt;{[({[&lt;[]{}&gt;&lt;&lt;&gt;&lt;&gt;&gt;]&lt;({}[])({}&lt;&gt;)&gt;}([{{}&lt;&gt;}&lt;[]()&gt;]&lt;&lt;&lt;&gt;&lt;&gt;&gt;&gt;)){({&lt;&lt;&gt;&lt;&gt;&gt;[[]{}]}(&lt;()&lt;&gt;&gt;{()}))&lt;{&lt;[
+({{([(&lt;{{{{{{([]{}){&lt;&gt;{}}}}{&lt;&lt;()&gt;{{}{}}&gt;[({}())(()&lt;&gt;)]}}[[[[{}{}](&lt;&gt;&lt;&gt;)]{&lt;()[]&gt;&lt;[][]&gt;}](([[]](()()))&lt;[[]
+(&lt;&lt;[&lt;{{{({{&lt;{{(){}}{&lt;&gt;()}}&lt;({}{}){[][]}&gt;&gt;[{&lt;[]{}&gt;{&lt;&gt;()}}&lt;{[]&lt;&gt;}[()&lt;&gt;]&gt;]}}({([({}[])(&lt;&gt;{})][{&lt;&gt;}])[{[()&lt;&gt;]&lt;{}
+{[(&lt;&lt;((&lt;[[&lt;{&lt;{&lt;&gt;()}[{}[]]&gt;}{{((){})[()&lt;&gt;]}&lt;{(){})[{}{}]&gt;}&gt;]({((&lt;&lt;&gt;()&gt;){[&lt;&gt;()]{{}()}}){{[()()][&lt;&gt;&lt;&gt;]}
+{(((([[(&lt;[({({{}()}[&lt;&gt;[]])&lt;(&lt;&gt;&lt;&gt;)([]())&gt;}{&lt;[[]&lt;&gt;]&gt;&lt;&lt;()&lt;&gt;&gt;&lt;()&lt;&gt;&gt;&gt;})&lt;[[&lt;[]{}&gt;&lt;&lt;&gt;{}&gt;]]&gt;]&lt;&lt;{{[
+[{(&lt;[[(&lt;(&lt;[{&lt;({}[])&lt;{}{}&gt;&gt;(&lt;[]&lt;&gt;&gt;)}]&lt;{(&lt;[]()&gt;[()()])}&gt;&gt;{({&lt;{{}()}[&lt;&gt;()]&gt;})&lt;[[(&lt;&gt;())(&lt;&gt;{})]{{{}[]}}][({{}[]}
+{[[&lt;([{[(&lt;&lt;[&lt;&lt;()()&gt;[[]]&gt;[{()()}]](&lt;[()]&lt;()[]&gt;&gt;&lt;&lt;{}()&gt;{()()}&gt;)&gt;&gt;&lt;[[([{}&lt;&gt;]{{}()})&lt;{{}[]}&lt;()[]&gt;&gt;]]})[([{{{&lt;&gt;()}
+((({[(&lt;&lt;{(((&lt;&lt;{}()&gt;&gt;&lt;{&lt;&gt;&lt;&gt;}&gt;)))[[{&lt;({}[])[{}[]]&gt;}(&lt;[&lt;&gt;&lt;&gt;][()()]&gt;&lt;[[][]]&lt;{}[]&gt;&gt;)]]}((({&lt;(&lt;&gt;())&gt;[({}{
+{&lt;{{[(&lt;&lt;{(&lt;{[({}&lt;&gt;)&lt;{}[]&gt;]([(){}](&lt;&gt;[]))}&lt;(({}()){[][]}}[&lt;()[]&gt;&lt;{}()&gt;]&gt;&gt;)}&lt;&lt;{(&lt;[{}()]{&lt;&gt;{}}&gt;[[[]()](()
+{(&lt;&lt;({{([&lt;[&lt;[&lt;{}&lt;&gt;&gt;{[][]}]&lt;[&lt;&gt;&lt;&gt;][()[]]&gt;&gt;{(({}{})){&lt;()&gt;&lt;()()&gt;}}]&gt;(&lt;({{()()}({}&lt;&gt;)}&lt;([]&lt;&gt;){[]{}}&gt;){([[]&lt;&gt;
+&lt;(&lt;({{{([({{&lt;&lt;{}&lt;&gt;&gt;&lt;()[]&gt;&gt;[{()&lt;&gt;}[&lt;&gt;{}]]}})({([{()[]}{(){}}]&lt;(()&lt;&gt;)&lt;{}&lt;&gt;&gt;&gt;)}&lt;{{&lt;{}&lt;&gt;&gt;[[][]]}}&lt;[{&lt;&gt;}[&lt;&gt;
+{({{(&lt;&lt;([({{[(()&lt;&gt;)[[]&lt;&gt;]][(&lt;&gt;{})({}())]}})]{(&lt;[&lt;(&lt;&gt;()){&lt;&gt;&lt;&gt;}&gt;&lt;&lt;{}()&gt;[[]]&gt;][{{&lt;&gt;()}{[]()}}{[()&lt;&gt;]{&lt;&gt;()}}]&gt;)
+([&lt;({{{([[&lt;&lt;[[()[]][&lt;&gt;&lt;&gt;]]&lt;&lt;&lt;&gt;[]&gt;&lt;()()&gt;&gt;&gt;(&lt;{()&lt;&gt;}&lt;()[]&gt;&gt;&lt;{&lt;&gt;()}&lt;[]{}&gt;&gt;)&gt;({(&lt;()[]]&lt;()()&gt;)&lt;[&lt;&gt;()][{}]&gt;
+{[{&lt;((&lt;[&lt;&lt;({&lt;{[]{}}[()()&gt;&gt;({[][]}[[]()])})(([{()}{{}()}]&lt;&lt;{}()&gt;{{}{}}&gt;)&lt;([&lt;&gt;()])(&lt;{}&lt;&gt;&gt;&lt;{}[]&gt;)&gt;)&gt;{[{
+{{([([{(&lt;[[{[{()&lt;&gt;}({}())][[[]&lt;&gt;]&lt;{}{}&gt;]}]&lt;&lt;[({}[])(()&lt;&gt;)]({(){}}[()()])&gt;{{(())&lt;(){}&gt;}}&gt;]{[&lt;{[[]()]{&lt;&gt;[]}}
+&lt;(&lt;({&lt;{&lt;&lt;&lt;([&lt;([]&lt;&gt;)([]&lt;&gt;)&gt;]&lt;{{{}{}}&lt;&lt;&gt;()&gt;}&gt;)&lt;&lt;{[[]()](&lt;&gt;{})}(([]())&lt;[]()&gt;)&gt;&lt;[{&lt;&gt;{}}[(){}]]&gt;&gt;&gt;&gt;&gt;(&lt;{&lt;[[[{
+(([({&lt;{(&lt;{[&lt;({&lt;&gt;&lt;&gt;}){{[][]}}&gt;{&lt;([]()){{}{}}&gt;[([][])&lt;{}{}&gt;]}]}[((&lt;{()&lt;&gt;}&gt;)[{{()&lt;&gt;}{[][]}}])]
+(&lt;&lt;&lt;(({{{([[&lt;{(){}}&gt;{(()())(()[])}]{({{}[]}&lt;[][]&gt;]&lt;{{}&lt;&gt;}{()}&gt;}])&lt;(({[[][]]{{}{}}}(([][])&lt;(){}&gt;)
+{&lt;{{[[({&lt;&lt;{{({{}()}({}{})&gt;&lt;[()&lt;&gt;][&lt;&gt;{}]&gt;}([&lt;()[]&gt;({}())][{()&lt;&gt;}[()]])}{&lt;[{(){}}&lt;[]{}&gt;][[[]&lt;&gt;][[][]]]&gt;([[&lt;&gt;]
+{{{[(&lt;([[[[{[[(){}}&lt;{}&gt;]&lt;{&lt;&gt;[]}{{}{}}&gt;}]&lt;[[(&lt;&gt;())((){})]((&lt;&gt;()))]{(&lt;[]{}&gt;([][])){&lt;[]&lt;&gt;&gt;(()[])}}&gt;]
+(&lt;{[([[&lt;(&lt;[&lt;{[&lt;&gt;{}]}(&lt;[]&lt;&gt;&gt;{{}&lt;&gt;})&gt;[{(())}]]&gt;){&lt;{(&lt;(&lt;&gt;())&lt;{}()&gt;&gt;]}({&lt;&lt;[]&lt;&gt;&gt;[[]&lt;&gt;]&gt;((()&lt;&gt;)[&lt;&gt;&lt;&gt;])}
+[&lt;{[[(({([((({[]{}}[()()])))]&gt;[((&lt;&lt;[&lt;&gt;&lt;&gt;][[]()]&gt;{[()&lt;&gt;][()()]}&gt;({{&lt;&gt;[]}({}&lt;&gt;)})))]})){((&lt;[&lt;[&lt;[&lt;&gt;()]&gt;
+&lt;({[{{{&lt;{[&lt;[({[]{}}&lt;[]&gt;)(({}[])({}&lt;&gt;))]&gt;&lt;{((()()))[[()&lt;&gt;]{&lt;&gt;[]}]}(&lt;((){})&lt;{}{}&gt;&gt;&lt;({}[])&gt;)]][([&lt;{
+&lt;(&lt;&lt;&lt;&lt;&lt;[(&lt;&lt;[{{[][]}{{}{}}}{{[][]}&lt;()&gt;}](&lt;([]{})[()[]]&gt;[[{}{}]{&lt;&gt;()}])&gt;([{[[]()]&lt;&lt;&gt;[]&gt;}[&lt;&lt;&gt;{}&gt;{&lt;&gt;
+&lt;(&lt;[[&lt;[[[&lt;&lt;(&lt;(()[])&lt;{}()&gt;&gt;&lt;(&lt;&gt;{})&gt;)[([{}{}]([]{}))]&gt;&lt;&lt;&lt;[&lt;&gt;[]]{&lt;&gt;[]}&gt;{(()&lt;&gt;)({}[])}&gt;&gt;&gt;&lt;[[[{&lt;
+([[{[({&lt;({(([&lt;(){}&gt;&lt;[]&lt;&gt;&gt;]&lt;{()&lt;&gt;}({})&gt;))([([{}&lt;&gt;][{}[]]){[&lt;&gt;[]]({}&lt;&gt;)}][[({}[]){[]()}]])})&gt;[({{(&lt;(()[]){&lt;&gt;
+&lt;[&lt;{&lt;[{(&lt;&lt;[[{{(){}}({}&lt;&gt;)}&lt;(()[])&gt;]&lt;&lt;&lt;()()&gt;(()&lt;&gt;)&gt;({{}})&gt;]({[(&lt;&gt;{})&lt;{}()&gt;]{&lt;{}&lt;&gt;&gt;&lt;&lt;&gt;&lt;&gt;&gt;}}&lt;&lt;{()&lt;&gt;}
+{[{({[[(({{{{&lt;()()&gt;{[]{}}}{[&lt;&gt;[]]&lt;()&lt;&gt;&gt;}}(&lt;&lt;&lt;&gt;()&gt;&lt;{}&lt;&gt;&gt;&gt;({()&lt;&gt;}[()&lt;&gt;])}}{&lt;{[()[]]{(){}}}&gt;[&lt;&lt;[]{}&gt;&gt;[((){})&lt;(
+{{(&lt;[&lt;(&lt;(&lt;{{(&lt;[]()&gt;&lt;()&lt;&gt;&gt;)}{((&lt;&gt;&lt;&gt;))[&lt;&lt;&gt;{}&gt;{()[]}]}}&gt;{{&lt;({{}{}}[()&lt;&gt;])[&lt;(){}&gt;(&lt;&gt;[])]&gt;&lt;&lt;(&lt;&gt;{}}[{}
+[{{{[[[[{(&lt;{&lt;[&lt;&gt;[]](()[])]{{&lt;&gt;{}}}}{[(()()){[][]}]{([][])}}&gt;&lt;&lt;{&lt;&lt;&gt;()&gt;([])}[[[]{}]&lt;{}{}&gt;]&gt;(([{}&lt;&gt;]&lt;[]()&gt;)
+{[[(&lt;([[[[((({&lt;&gt;{}}(&lt;&gt;())){&lt;{}[]&gt;})[([&lt;&gt;[]](&lt;&gt;[])}[({}[])([]())]])([&lt;{{}()}(&lt;&gt;())&gt;&lt;[[][]][&lt;&gt;()]&gt;][([()()]&lt;&lt;&gt;[
+&lt;[{[{({(&lt;(((&lt;&lt;&lt;&gt;{}&gt;&lt;[]()&gt;][{{}()}{[][]}])[(((){})([][]))[[()&lt;&gt;][[]{}]]])[[(((){})[()])[[(){}]&lt;{}
+[{[[&lt;[&lt;{{(({([(){}]&lt;()()&gt;](([]&lt;&gt;)[()[]])}&lt;&lt;{[][]}([][])&gt;&gt;)&lt;[[([]())&lt;{}[]&gt;]]&gt;){[[[{{}()}[&lt;&gt;[]]]{&lt;[]{}&gt;
+[[&lt;([([[&lt;&lt;&lt;{{[{}[]][&lt;&gt;&lt;&gt;]}}{{{{}{}}}}&gt;&gt;&gt;[([[(&lt;&lt;&gt;[]&gt;({}&lt;&gt;))&lt;([]())&lt;&lt;&gt;&lt;&gt;&gt;&gt;]{{&lt;&lt;&gt;[]&gt;{&lt;&gt;()}}}][&lt;{{[
+({[&lt;&lt;&lt;((&lt;&lt;&lt;&lt;&lt;&lt;[]{}&gt;[()()]&gt;{[()[]]{()&lt;&gt;}}&gt;[((&lt;&gt;()){()()}){&lt;[][]]&lt;{}{}&gt;}]&gt;{{[[{}{}]&lt;{}[]&gt;]([[]&lt;&gt;])}((
+({&lt;&lt;[[{{&lt;{[[{&lt;()&gt;&lt;&lt;&gt;&gt;}&lt;&lt;()[]&gt;([][])&gt;]]([[({}&lt;&gt;)[()[]]](([]{})&lt;&lt;&gt;[]])]&lt;[([]&lt;&gt;){[]}]&gt;)}(((&lt;&lt;{}[
+&lt;(&lt;(&lt;(([([[[{{[]()}{&lt;&gt;()}}{&lt;{}[]&gt;[{}()]}]{{[{}{}]&lt;()[]&gt;}({&lt;&gt;()}&lt;(){}&gt;)}][[{&lt;{}()&gt;&lt;[][]&gt;}](&lt;[
+[[&lt;{&lt;[&lt;[&lt;({&lt;&lt;{[]}&lt;()&lt;&gt;&gt;&gt;({&lt;&gt;&lt;&gt;}{[]&lt;&gt;})&gt;&lt;([&lt;&gt;()]([][]))&gt;}[({[{}{}]&lt;{}[]&gt;})({[&lt;&gt;&lt;&gt;]})])&gt;]([[{&lt;({
+&lt;([{[[&lt;&lt;[({&lt;&lt;[{}()]({}[])&gt;{&lt;[][]&gt;{()()}}&gt;{&lt;(&lt;&gt;[])([]{})&gt;([{}[]}[&lt;&gt;])}}{{[&lt;&lt;&gt;[]&gt;{[]&lt;&gt;}][([][]){{}{}}]
+[([({((&lt;[{{{[&lt;{}&gt;&lt;&lt;&gt;()&gt;]&lt;&lt;()[]&gt;&gt;}&lt;[{{}{}}([][])]{{()&lt;&gt;}&lt;(){}&gt;}&gt;}&lt;{&lt;[[][]]&gt;({{}&lt;&gt;}{()[]})}&gt;
+[[[{([({{{&lt;{[[[][]]{()()}]}{{&lt;&lt;&gt;[]&gt;[{}[]]}[[[]()]&lt;&lt;&gt;&gt;]}&gt;({{(&lt;&gt;[])[{}[]]}({&lt;&gt;()}[{}[]])}{{(()&lt;
+{&lt;{{{&lt;[{[&lt;{(&lt;{[]{}}{[][]}&gt;{{[]&lt;&gt;}}}}[{((()[])&lt;()()&gt;)[&lt;&lt;&gt;[]&gt;&lt;{}()&gt;]}&lt;[{&lt;&gt;{}}[()&lt;&gt;]]&lt;[&lt;&gt;[]][&lt;&gt;{}]&gt;&gt;]&gt;[&lt;[
+&lt;[&lt;{[[&lt;{&lt;[([{({}[])(()&lt;&gt;)}[[&lt;&gt;()]{()[]}]])][[&lt;{[&lt;&gt;[]][&lt;&gt;[]]}&lt;{&lt;&gt;{}}{&lt;&gt;{}}&gt;&gt;{&lt;&lt;()()&gt;&lt;()&lt;&gt;&gt;&gt;{([]()
+&lt;[{{({&lt;[&lt;([[[([]{})({}())]]&lt;[{{}}[()&lt;&gt;]]&lt;{&lt;&gt;{}}{()}&gt;&gt;])&lt;[&lt;[&lt;&lt;&gt;()&gt;]{&lt;{}{}&gt;[[]&lt;&gt;]}&gt;&lt;({[]()}&lt;&lt;&gt;&lt;&gt;&gt;)[(()&lt;&gt;)(&lt;&gt;())
+{&lt;[[[&lt;(&lt;[&lt;{&lt;({&lt;&gt;{}}[&lt;&gt;&lt;&gt;])([{}&lt;&gt;]&lt;[][]&gt;)&gt;&lt;&lt;[(){}](&lt;&gt;[])&gt;[({}[])&lt;&lt;&gt;[]}]&gt;}{{{(&lt;&gt;())(&lt;&gt;{})}}&lt;((&lt;&gt;())
+&lt;{(&lt;&lt;[{[{&lt;{&lt;&lt;((){})[[]{}]&gt;&lt;([]&lt;&gt;)&lt;{}[]&gt;&gt;&gt;{[[[][]]&lt;()()&gt;]}}{({{&lt;&gt;()}&lt;&lt;&gt;()&gt;}{&lt;{}&lt;&gt;&gt;&lt;()[]&gt;})}&gt;}&lt;[&lt;([&lt;()()&gt;{()()
+{{([&lt;{[[((&lt;&lt;{&lt;&lt;&gt;()&gt;&lt;&lt;&gt;[]&gt;}&lt;(()&lt;&gt;)&gt;&gt;&gt;&lt;&lt;[&lt;[][]&gt;&lt;{}&lt;&gt;&gt;]&gt;{&lt;([]()){[]&lt;&gt;}&gt;}&gt;))]&lt;{(((&lt;[[]&lt;&gt;]([]&lt;&gt;)&gt;[{{}()}&lt;&lt;
+([{{({{&lt;[[(((&lt;[][]&gt;{&lt;&gt;{}}){&lt;()[]&gt;{[]()}})(&lt;({}&lt;&gt;)([]&lt;&gt;)&gt;(([])[()&lt;&gt;])))(([([][]){()&lt;&gt;}]{{[]&lt;&gt;}{[](
+[{{&lt;{({[&lt;{&lt;{((&lt;&gt;())({}[]))&lt;{&lt;&gt;()}({}[])&gt;}(&lt;[{}()]&lt;{}&lt;&gt;&gt;&gt;({[][]}{()&lt;&gt;}))}{([({}[]){{}[]}]&lt;([][])&gt;)}}{&lt;{({{}(
+[{(([[[([&lt;&lt;(&lt;([]()){&lt;&gt;}&gt;(({}&lt;&gt;)(()())))[((&lt;&gt;{})){[()&lt;&gt;]&lt;&lt;&gt;{}&gt;}]&gt;&gt;][&lt;{{[&lt;()&lt;&gt;&gt;{{}[]}]&lt;&lt;{}[]&gt;&lt;{}[]&gt;]}[
+{&lt;&lt;&lt;(&lt;[&lt;[{&lt;[&lt;({}[])&gt;(([])&lt;[]&lt;&gt;&gt;)]&lt;&lt;&lt;{}{}&gt;({}())&gt;{[&lt;&gt;{}}&lt;[][]&gt;}&gt;&gt;[{[&lt;&lt;&gt;()&gt;&lt;()()&gt;]{[&lt;&gt;[]]&lt;[]&gt;}}[&lt;&lt;&lt;&gt;[]&gt;{[]()
+([(((&lt;&lt;(&lt;[[&lt;[&lt;{}&lt;&gt;&gt;(&lt;&gt;&lt;&gt;)]&gt;([&lt;{}[]&gt;{&lt;&gt;{}}]({&lt;&gt;{}}[()()]))]](&lt;({&lt;&lt;&gt;[]&gt;({}[])}&lt;[[]&lt;&gt;]{&lt;&gt;[]}&gt;)(&lt;{
+([{({{{[(((&lt;&lt;{[]()}&lt;{}&lt;&gt;&gt;&gt;((&lt;&gt;&lt;&gt;){[]()&gt;)&gt;({&lt;{}()&gt;&lt;(){}&gt;}&lt;[&lt;&gt;()]&gt;))){((([[][]]{&lt;&gt;{}})[([]&lt;&gt;){&lt;&gt;[]}]
+&lt;(({{{[(([&lt;[{&lt;(){}&gt;([]&lt;&gt;)}(&lt;[]&gt;&lt;()&lt;&gt;&gt;)]&gt;&lt;&lt;([()[]]([]()))&gt;{[(()&lt;&gt;}&lt;{}&gt;]}&gt;]){{[{(({}{})&lt;(){}&gt;){[[]]{[]
+[&lt;{(&lt;({&lt;{((&lt;&lt;&lt;[]&lt;&gt;&gt;([]())&gt;(((){})[[]()])&gt;{[[&lt;&gt;]&lt;{}&lt;&gt;&gt;]}){[&lt;[&lt;&gt;[]]({}())]{{()[]}&lt;()&gt;}]})&lt;([[([]())&lt;&lt;
+[[&lt;&lt;[&lt;{{[{({&lt;[()&lt;&gt;]{&lt;&gt;[]}&gt;{([][]){&lt;&gt;&lt;&gt;}}}&lt;[[{}()]][&lt;&lt;&gt;&lt;&gt;&gt;{{}[]}]&gt;)}{&lt;{{({}&lt;&gt;)(()())}[{{}{}}[{}()]]
+({&lt;({[{[{(([&lt;&lt;()()&gt;{&lt;&gt;[]}&gt;[([]&lt;&gt;)&lt;()&lt;&gt;&gt;]]{&lt;{&lt;&gt;()}[{}{}]&gt;((&lt;&gt;{}){&lt;&gt;{}})})([&lt;([][])[[]{}]&gt;(&lt;[]()&gt;{&lt;&gt;
+{[[((&lt;{[[&lt;&lt;({&lt;[]&lt;&gt;&gt;[()&lt;&gt;]}{[()]{&lt;&gt;}})&gt;[&lt;{&lt;&lt;&gt;()&gt;&lt;()[]&gt;}{{()[]}&lt;()&lt;&gt;&gt;}&gt;(([{}[]]))]&gt;[[{({&lt;&gt;&lt;&gt;})}
+{{(&lt;[{{[{&lt;[({(()){{}&lt;&gt;}}(&lt;{}[]&gt;[[]()]))]&gt;}({(&lt;((()[])((){}))&lt;{&lt;&gt;&lt;&gt;}[&lt;&gt;()]&gt;&gt;)}(&lt;&lt;[(())&lt;{}&lt;&gt;&gt;]{[[]]&lt;{}
+&lt;{{([&lt;&lt;&lt;&lt;[([&lt;[&lt;&gt;&lt;&gt;][[]]&gt;&lt;&lt;(){}&gt;[()()]&gt;]&lt;{(&lt;&gt;&lt;&gt;)&lt;&lt;&gt;&lt;&gt;&gt;}([{}{}])&gt;)][[([&lt;()()&gt;&lt;&lt;&gt;()&gt;])(({[]&lt;&gt;}([]{}]){&lt;[]&gt;&lt;[]
+{(&lt;&lt;[[&lt;{{((([&lt;[]&lt;&gt;&gt;[{}&lt;&gt;]][([][]){{}{}}&gt;)(&lt;&lt;&lt;&gt;&lt;&gt;&gt;&lt;[]{}&gt;&gt;{{(){}}[&lt;&gt;{}]}))({&lt;(())[&lt;&gt;()]&gt;&lt;{&lt;&gt;{}}(&lt;&gt;[])&gt;}(({
+[[[([({([&lt;&lt;[[[&lt;&gt;{}]{&lt;&gt;{}}]&lt;[&lt;&gt;&lt;&gt;]{{}&lt;&gt;}&gt;]&gt;[({[()()]&lt;&lt;&gt;()&gt;}{[()()][{}()]}){({{}()}[(){}))}]&gt;[(&lt;{[()&lt;&gt;
+[{{(&lt;&lt;&lt;[{(((&lt;&lt;()&lt;&gt;&gt;([])&gt;({&lt;&gt;{}}&lt;()[]&gt;)))[{(([]){()&lt;&gt;})(({}[])&lt;{}})}&lt;{([]{})({}())}&lt;(&lt;&gt;[])&lt;&lt;&gt;[]&gt;&gt;&gt;
+{&lt;&lt;&lt;&lt;[{[{({{[&lt;&lt;&gt;()&gt;&lt;{}[]&gt;]&lt;[[]{}][{}{}]&gt;}(&lt;({}{})&lt;()&lt;&gt;&gt;&gt;{{()&lt;&gt;}})}{[[{{}{}}[{}{}]]&lt;[&lt;&gt;&lt;&gt;](&lt;&gt;{})&gt;]})(([{[&lt;&gt;()
+&lt;(&lt;[&lt;{(&lt;{[{&lt;{[[]{}]{{}[]}}&gt;[{[[]&lt;&gt;][{}{}]}(([]())(&lt;&gt;))]}&lt;{{[{}{}]([]{})}[({}())]}{&lt;&lt;&lt;&gt;()&gt;&gt;([(
+&lt;{{[{[&lt;{[[&lt;[{&lt;[]{}&gt;&lt;&lt;&gt;{}&gt;}]{({()&lt;&gt;}(&lt;&gt;&lt;&gt;)){[&lt;&gt;[]]}}&gt;{([[&lt;&gt;{}]({}{})](({}{})&lt;[]{}&gt;))&lt;{[{}&lt;&gt;
+{{&lt;&lt;{&lt;&lt;&lt;[{[[([[]()][()()])(({}()))][[({}[])&lt;()()&gt;]]]{&lt;[&lt;{}[]&gt;{{}{}}]&gt;}}[[[[([]())]([&lt;&gt;[]][[]{}]&gt;]]
+[[&lt;&lt;[({{{(&lt;[(&lt;()&lt;&gt;&gt;[&lt;&gt;])]([(()&lt;&gt;){&lt;&gt;())]([&lt;&gt;[]][[]&lt;&gt;]))&gt;{{[[[]()]([]())]{&lt;[]{}&gt;{()&lt;&gt;}}}[&lt;([]&lt;&gt;)&lt;()&gt;&gt;({&lt;&gt;{}}[&lt;
+([[([&lt;{&lt;[&lt;((&lt;(&lt;&gt;[])(&lt;&gt;[])&gt;(&lt;&lt;&gt;&lt;&gt;&gt;&lt;{}[]&gt;)){&lt;&lt;{}&lt;&gt;&gt;&gt;({{}{}}&lt;()[]&gt;)}&gt;[{{(&lt;&gt;&lt;&gt;)(()&lt;&gt;)}[&lt;&lt;&gt;[]&gt;]}]&gt;]&lt;{{
+{{{((&lt;&lt;{[[{&lt;([[]{}][{}&lt;&gt;])&gt;}&lt;[((()())&lt;()&lt;&gt;&gt;)[[[]{}]{[][]}]]&lt;&lt;&lt;[]{}&gt;{{}[]}&gt;(&lt;&lt;&gt;()&gt;&lt;(){}&gt;)&gt;&gt;](&lt;
+{(([[{{&lt;[[&lt;{(({}&lt;&gt;)[&lt;&gt;[]])}&lt;{({}{}){{}}}[[()[]](()())]&gt;&gt;]([&lt;[{()[]})({&lt;&gt;}[&lt;&gt;{}])&gt;{[{{}{}}{(){}}]{&lt;{}{}&gt;}}])
+{([(&lt;{&lt;&lt;({[&lt;[{()()}&lt;[]&lt;&gt;&gt;]{&lt;[]{}&gt;}&gt;&lt;[[&lt;&gt;][()&lt;&gt;]]&gt;]{&lt;{{[]{}}&lt;(){}&gt;}[({})]&gt;{{&lt;{}{}&gt;&lt;()&lt;&gt;&gt;}([{}
+{{[[({{({[(([{{}()}[{}]]({{}&lt;&gt;}([][]))){({{}&lt;&gt;}[[]{}])&lt;&lt;()&lt;&gt;&gt;&gt;})]{(&lt;[&lt;{}{}&gt;{&lt;&gt;()}](({}())((){
+{&lt;({{&lt;&lt;{{([{{{[]&lt;&gt;}{&lt;&gt;{}}}((&lt;&gt;&lt;&gt;)&lt;()&lt;&gt;&gt;)}[&lt;[{}&lt;&gt;][()[]]&gt;&lt;[&lt;&gt;()][&lt;&gt;&lt;&gt;]&gt;]]{{[[()&lt;&gt;]&lt;&lt;&gt;[]&gt;]&lt;(&lt;&gt;&lt;&gt;)
+&lt;(&lt;[(&lt;&lt;[[&lt;&lt;&lt;[({}())&lt;[][]&gt;](({}&lt;&gt;)[{}&lt;&gt;])&gt;&gt;[&lt;{{{}}&lt;()&lt;&gt;&gt;}&lt;(()&lt;&gt;){{}{}}&gt;&gt;]&gt;({{&lt;[&lt;&gt;&lt;&gt;](&lt;&gt;&lt;&gt;)&gt;[(&lt;&gt;{}
+[((&lt;{[{{(&lt;{[({{}[]}((){}))([[][]]{&lt;&gt;[]})]&lt;{&lt;{}[]&gt;[{}&lt;&gt;]}[&lt;{}()&gt;&lt;{}&lt;&gt;&gt;]&gt;]&gt;)}}]}{{{(&lt;[(&lt;{{()()}}&gt;{[&lt;{}&lt;&gt;&gt;&lt;&lt;&gt;[]&gt;
+{([&lt;&lt;{(&lt;([[({{{}&lt;&gt;}&lt;(){}&gt;}&lt;&lt;()[]&gt;{&lt;&gt;{}}&gt;)((&lt;[][]&gt;[&lt;&gt;&lt;&gt;])&lt;&lt;[][]&gt;{&lt;&gt;()}&gt;)]((&lt;{&lt;&gt;[]}{[][]}&gt;[[&lt;&gt;()]{&lt;&gt;[]}]]{{[
+[&lt;{(&lt;{([{{(([&lt;&lt;&gt;()&gt;]{&lt;(){}&gt;&lt;()&lt;&gt;&gt;}){(([]{}&gt;)&lt;(&lt;&gt;&lt;&gt;)&gt;})}({({[&lt;&gt;]{&lt;&gt;[]}}[[{}&lt;&gt;]])}[{&lt;[()[]]&lt;{}&lt;&gt;
+{[(&lt;(&lt;{(&lt;&lt;[{[&lt;[]()&gt;(&lt;&gt;[])][{{}}[()[]]]}{{[[]{}]{()()}}&lt;&lt;&lt;&gt;&gt;[[]()]&gt;}]&gt;{{&lt;[&lt;{}()&gt;([]())]({(){}}(()&lt;&gt;))&gt;([(&lt;&gt;(
+{{([[([[[&lt;(({&lt;{}&lt;&gt;&gt;[&lt;&gt;[]]}{([]&lt;&gt;)&lt;&lt;&gt;{}&gt;})&lt;{{[]&lt;&gt;}{{}&lt;&gt;}}([()()]&lt;&lt;&gt;[]&gt;&gt;&gt;){{[[()&lt;&gt;]]&lt;((){})&lt;[]{}&gt;&gt;}{&lt;&lt;[]&lt;&gt;&gt;&lt;()
+&lt;({([[[[[({[[{{}&lt;&gt;}({}&lt;&gt;)]({&lt;&gt;[]}[&lt;&gt;{}])][([&lt;&gt;[]](&lt;&gt;()))&lt;([]())[{}{}]&gt;]}(((({}[])[()[]])[{{}{}}(&lt;&gt;)])(&lt;&lt;&lt;&gt;
+[({{&lt;{[([(((&lt;{[]{}}{&lt;&gt;()}&gt;&lt;[{}&lt;&gt;&gt;{&lt;&gt;[]}&gt;)){([&lt;{}{}&gt;&lt;()[]&gt;]&lt;([]{})[{}{}]&gt;){{[[]]&lt;[]{}&gt;}((()[])[(
+(({&lt;[&lt;&lt;{{[[&lt;{(&lt;&gt;{})([]())}([[]{}]{{}()})&gt;&lt;[&lt;{}()&gt;&lt;{}{}&gt;]&lt;&lt;&lt;&gt;()&gt;[[]()]&gt;&gt;]&lt;[&lt;&lt;()[]&gt;&lt;&lt;&gt;()&gt;&gt;[{{}&lt;&gt;}[&lt;&gt;]]]&gt;]
+((&lt;[[&lt;{{{[({&lt;(()[])&lt;()&lt;&gt;&gt;&gt;})]{&lt;(([()()][[]]))({[[]()]{[]&lt;&gt;}}{[&lt;&gt;()]})&gt;&lt;&lt;(({}[])[{}{}])&gt;&gt;}}}[[[{{{{[]{}}({}[
+([&lt;[&lt;{{{{[&lt;&lt;{{&lt;&gt;[]}([]&lt;&gt;)}&gt;&lt;{{()[]}[&lt;&gt;&lt;&gt;]}{&lt;[]&gt;[()&lt;&gt;]}&gt;&gt;&lt;{[{[][]}&lt;()[]&gt;]({[][]}(()&lt;&gt;))}&lt;{(&lt;&gt;())(
+{((&lt;(([[&lt;[(&lt;[{()[]}([]())&gt;&gt;[&lt;[&lt;&gt;()]&lt;[]{}&gt;&gt;(&lt;()&lt;&gt;&gt;&lt;[]&gt;)])&lt;(&lt;{()}&gt;(([]&lt;&gt;){&lt;&gt;{}}))&lt;[[[]&lt;&gt;]{[]()}
+[(&lt;[([([{{{&lt;([[]&lt;&gt;]&lt;&lt;&gt;&gt;)[{&lt;&gt;[]}{{}&lt;&gt;}]}({(())[{}()]}[&lt;{}&lt;&gt;&gt;{&lt;&gt;()}])}([&lt;[(){}]([][])&gt;&lt;(()())</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div></p>
+
+	</div>
+
+</div>
+<div id="push"></div>
+</div>
+
+
+    <div id="footer">
+      <div class="container">
+          <p class="muted credit">&copy; 2021 | Mixed with Bootstrap v3.1.1 | generated with <a href="https://doctoolchain.org">docToolchain</a> | Baked with JBake v2.6.4</p>
+      </div>
+    </div>
+    
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="../../../js/bootstrap.min.js"></script>
+    <script src="../../../js/prettify.js"></script>
+    
+
+
+</body>
+</html>
