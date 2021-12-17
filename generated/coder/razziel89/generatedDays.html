@@ -290,6 +290,36 @@
 </li>
 </ul>
 </li>
+<li><a href="#_day_15_go">Day 15: go</a>
+<ul class="sectlevel3">
+<li><a href="#_day_15_chiton">Day 15: Chiton</a>
+<ul class="sectlevel4">
+<li><a href="#_oveview_15">Oveview</a></li>
+<li><a href="#_how_to_run_15">How to run</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_day_16_go">Day 16: go</a>
+<ul class="sectlevel3">
+<li><a href="#_day_16_packet_decoder">Day 16: Packet Decoder</a>
+<ul class="sectlevel4">
+<li><a href="#_oveview_16">Oveview</a></li>
+<li><a href="#_how_to_run_16">How to run</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_day_17_go">Day 17: go</a>
+<ul class="sectlevel3">
+<li><a href="#_day_17_trick_shot">Day 17: Trick Shot</a>
+<ul class="sectlevel4">
+<li><a href="#_oveview_17">Oveview</a></li>
+<li><a href="#_how_to_run_17">How to run</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -4263,6 +4293,1249 @@ func RepFromString(str string) (Replacement, error) {
 </div>
 <div class="sect4">
 <h5 id="_how_to_run_14"><a class="anchor" href="#_how_to_run_14"></a><a class="link" href="#_how_to_run_14">How to run</a></h5>
+<div class="paragraph">
+<p>Assuming the required input is in a file <code>input.dat</code>, you only need to execute
+<code>cat input.dat | go run .</code> to run both solutions.</p>
+</div>
+<a id="day15" />
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_day_15_go"><a class="anchor" href="#_day_15_go"></a><a class="link" href="#_day_15_go">Day 15: go</a></h3>
+<div class="sect3">
+<h4 id="_day_15_chiton"><a class="anchor" href="#_day_15_chiton"></a><a class="link" href="#_day_15_chiton">Day 15: Chiton</a></h4>
+<div class="paragraph">
+<p>This is my implementation for both rounds of the chiton puzzle.</p>
+</div>
+<div class="paragraph">
+<p>This was a tough one, IMHO.
+At first, I was happy that this could be solved easily by re-using a combination
+of previous algorithms, one of which was the pathfinding one used to explore all
+possible paths through a cave.
+That turned out to be good enough for the sample, but not efficient enough for
+part 1, let alone part 2.</p>
+</div>
+<div class="paragraph">
+<p>I knew of the a-star algorithm but didn&#8217;t know it in detail.
+Only that is is rather simple but still often a very good fit for pathfinding.
+Since I see the AOC mainly as a learning experience, I was reluctant to simply
+use some off-the-shelf algorithm.</p>
+</div>
+<div class="paragraph">
+<p>To cut a long story short: I ended up writing my own implementation in Golang,
+which can be found on my GitHub here: <a href="https://github.com/razziel89/astar" class="bare">https://github.com/razziel89/astar</a></p>
+</div>
+<div class="paragraph">
+<p>The algorithm is writting in plain Go without any dependencies apart from
+standard ones for testing.
+This also allowed me to see how easy it is to distribute software that can then
+be re-used in other Go code.
+Simply create a repo and be done with it; another nice experience.
+The code using that self-written algorithm is in <code>fast.go</code>.</p>
+</div>
+<div class="sect4">
+<h5 id="_oveview_15"><a class="anchor" href="#_oveview_15"></a><a class="link" href="#_oveview_15">Oveview</a></h5>
+<div class="paragraph">
+<p>This solution contains a <code>solution.go</code>, which defines the main executable.
+There is also a <code>utils.go</code>, which is currently where all helper functions that
+might be re-used later on reside.
+There is also a <code>grid.go</code>, which contains specifications of a grid of vectors.</p>
+</div>
+<div class="paragraph">
+<p>There are two implementations here.
+The first uses goroutines and achieves some degree of parallelisation this way.
+It&#8217;s by no means great, though.
+For example, you cannot solve part 2 with it, it&#8217;s just now efficient enough.
+The second solution does not suffer from such exponential scaling.
+Thus, it can be used to solve both parts quickly.</p>
+</div>
+<div class="paragraph">
+<p><code>solution.go</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight linenums"><code class="language-go" data-lang="go">const (
+	numNeigh = 4
+	replicas = 5
+)
+
+func gridToNodes(grid Grid) (map[*astar.Node]struct{}, *astar.Node, *astar.Node, error) {
+	result := map[*astar.Node]struct{}{}
+	var start, end *astar.Node
+	// Remember which node belonged to which location.
+	convertedNodes := map[Vec]*astar.Node{}
+
+	// Our grid is not guaranteed to be square. Thus, we extract the expected positions this way and
+	// error out if we cannot find them later on.
+	startX, startY := grid.TopLeft()
+	endX, endY := grid.BottomRight()
+	startVec := Vec{startX, startY}
+	endVec := Vec{endX, endY}
+
+	// Process the nodes themselves.
+	for vec, cost := range grid {
+		if _, ok := convertedNodes[vec]; ok {
+			err := fmt.Errorf("node already present")
+			return result, start, end, err
+		}
+
+		node, err := astar.NewNode(fmt.Sprint(vec), cost, numNeigh, vec)
+		if err != nil {
+			return result, start, end, err
+		}
+
+		convertedNodes[vec] = node
+		result[node] = struct{}{}
+
+		if vec == startVec {
+			start = node
+		}
+		if vec == endVec {
+			end = node
+		}
+	}
+	if start == nil || end == nil {
+		err := fmt.Errorf("cannot find start or end node in grid")
+		return result, start, end, err
+	}
+	// Add pairwise connections. This might take a while.
+	for vec := range grid {
+		node, ok := convertedNodes[vec]
+		if !ok {
+			err := fmt.Errorf("node not found")
+			return result, start, end, err
+		}
+		for neigh := range pointEnv(vec) {
+			if !grid.Has(neigh) {
+				continue // Ignore nodes outside the grid.
+			}
+			neighNode, ok := convertedNodes[neigh]
+			if !ok {
+				err := fmt.Errorf("node not found")
+				return result, start, end, err
+			}
+			// If a connection already exists, this is a no-op.
+			node.AddConnection(neighNode)
+			neighNode.AddConnection(node)
+		}
+	}
+	return result, start, end, nil
+}
+
+//nolint: funlen
+func main() {
+	grid, err := ReadLinesAsGrid()
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+	// Part 1.
+	nodes, startNode, endNode, err := gridToNodes(grid)
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+
+	fastAlgorithm(nodes, startNode, endNode)
+
+	startX, startY := grid.TopLeft()
+	endX, endY := grid.BottomRight()
+
+	// Part 2.
+	// Replicate grid. Then, run the fast algorithm
+	largeGrid := Grid{}
+	for p := range grid {
+		for xRep := 0; xRep &lt; replicas; xRep++ {
+			for yRep := 0; yRep &lt; replicas; yRep++ {
+				newPoint := Vec{
+					x: p.x + xRep*(endX-startX+1),
+					y: p.y + yRep*(endY-startY+1),
+				}
+				newMarking := (grid.Count(p)-1+xRep+yRep)%9 + 1 //nolint:gomnd
+				if largeGrid.Has(newPoint) {
+					// Sanity check, we should never add a node twice.
+					log.Fatal("node already there")
+				}
+				_ = largeGrid.Mark(newPoint, newMarking)
+			}
+		}
+	}
+
+	nodes, startNode, endNode, err = gridToNodes(largeGrid)
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+
+	fastAlgorithm(nodes, startNode, endNode)
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>utils.go</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight linenums"><code class="language-go" data-lang="go">// ReadLinesAsGrid reads all lines from stdin as a grid. That is, each point on the grid has a
+// value and a location.
+func ReadLinesAsGrid() (Grid, error) {
+	lineIdx := 0
+	result := make(Grid)
+	for {
+		line, err := readLine()
+		if err == io.EOF {
+			// Success case, no more input to read.
+			return result, nil
+		}
+		if err != nil {
+			return Grid{}, err
+		}
+		line = strings.TrimSpace(line)
+		ints, err := strSliceToIntSlice(strings.Split(line, ""))
+		if err != nil {
+			return Grid{}, err
+		}
+		for rowIdx, val := range ints {
+			// This is lazy but I wanted to re-use old code.
+			point, err := VecFromStr(fmt.Sprintf("%d%s%d", lineIdx, vecSep, rowIdx))
+			if err != nil {
+				return Grid{}, err
+			}
+			err = result.Mark(point, val)
+			if err != nil {
+				return Grid{}, err
+			}
+		}
+		if err != nil {
+			return Grid{}, err
+		}
+		lineIdx++
+	}
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>grid.go</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight linenums"><code class="language-go" data-lang="go">// Vec is a 2D vector. Most of it has been taken from a previous solution.
+type Vec struct {
+	x, y int
+}
+
+var (
+	unitX         = Vec{x: 1}
+	unitY         = Vec{y: 1}
+	pointEnvDisps = []Vec{
+		unitX,
+		unitY,
+		unitY.Inv(),
+		unitX.Inv(),
+	}
+)
+
+// Obtain an iterator over a point's environment.
+func pointEnv(point Vec) &lt;-chan Vec {
+	channel := make(chan Vec)
+	go func() {
+		for _, disp := range pointEnvDisps {
+			displaced := point.Add(disp)
+			channel &lt;- displaced
+		}
+		close(channel)
+	}()
+	return channel
+}
+
+// VecFromStr converts a sring into a vector.
+func VecFromStr(str string) (Vec, error) {
+	fields := trimStrings(strings.Split(str, vecSep))
+	if len(fields) != tokensPerPoint {
+		return Vec{}, fmt.Errorf("cannot parse %v as vector, wrong number of fields", str)
+	}
+	ints, err := strSliceToIntSlice(fields)
+	if err != nil {
+		return Vec{}, fmt.Errorf("cannot parse %s as vector, %s", str, err.Error())
+	}
+	result := Vec{
+		x: ints[0],
+		y: ints[1],
+	}
+	return result, nil
+}
+
+// Add adds one vector to another one.
+func (v Vec) Add(delta Vec) Vec {
+	result := Vec{
+		x: v.x + delta.x,
+		y: v.y + delta.y,
+	}
+	return result
+}
+
+// Mul multiplies each component of a vector with a number.
+func (v Vec) Mul(factor int) Vec {
+	result := Vec{
+		x: v.x * factor,
+		y: v.y * factor,
+	}
+	return result
+}
+
+// Inv inverts a vector.
+func (v Vec) Inv() Vec {
+	return v.Mul(-1)
+}
+
+// Sub subtracts a vector'v data from another one'v.
+func (v Vec) Sub(delta Vec) Vec {
+	return v.Add(delta.Inv())
+}
+
+// Grid is a lazily evaluated grid that supports marking points on it. Most of it has been taken
+// from a previous solution.
+type Grid map[Vec]int
+
+// Mark marks a point on the grid n times. Don't accept numbers &lt;0.
+func (g *Grid) Mark(entry Vec, n int) error {
+	if n &lt; 0 {
+		return fmt.Errorf("can only mark non-negative times")
+	}
+	// We don't have to handle non-existing values here since Go returns the zero value (0 for
+	// integers) for such entries.
+	(*g)[entry] = (*g)[entry] + n
+	return nil
+}
+
+// Count determines how often a point has been marked.
+func (g *Grid) Count(entry Vec) int {
+	return (*g)[entry]
+}
+
+// Has determines whether a point is on the grid.
+func (g *Grid) Has(entry Vec) bool {
+	_, ok := (*g)[entry]
+	return ok
+}
+
+// RemoveAll removes all markings for a specific point.
+func (g *Grid) RemoveAll(entry Vec) {
+	delete(*g, entry)
+}
+
+// FilterThreshold returns all points whose value exceeds a threshold.
+func (g *Grid) FilterThreshold(threshold int) []Vec {
+	result := []Vec{}
+	for point := range g.Points() {
+		if g.Count(point) &gt; threshold {
+			result = append(result, point)
+		}
+	}
+	return result
+}
+
+// MarkAll maks all points in the grid with the same value.
+func (g *Grid) MarkAll(val int) error {
+	for p := range g.Points() {
+		if err := g.Mark(p, val); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+// EnvFn is a function type used to determine a point's environment.
+type EnvFn = func(point Vec) &lt;-chan Vec
+
+// MarkExistingEnv marks all points by the specified value in the environment of a given point. The
+// environment is defined by envFn. Only points that actually exist will be marked.
+func (g *Grid) MarkExistingEnv(val int, point Vec, envFn EnvFn) error {
+	for neigh := range envFn(point) {
+		if !g.Has(neigh) {
+			continue
+		}
+		if err := g.Mark(neigh, val); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+// Points returns an iterator over all points on the grid.
+func (g *Grid) Points() &lt;-chan Vec {
+	channel := make(chan Vec)
+	go func() {
+		for point := range *g {
+			channel &lt;- point
+		}
+		close(channel)
+	}()
+	return channel
+}
+
+// TopLeft returns the coordinates of the top left node.
+func (g *Grid) TopLeft() (int, int) {
+	foundX, foundY := false, false
+	minX, minY := 0, 0
+	for p := range g.Points() {
+		if !foundX || p.x &lt; minX {
+			minX = p.x
+			foundX = true
+		}
+		if !foundY || p.y &lt; minY {
+			minY = p.y
+			foundY = true
+		}
+	}
+	return minX, minY
+}
+
+// BottomRight returns the coordinates of the bottom right node.
+func (g *Grid) BottomRight() (int, int) {
+	foundX, foundY := false, false
+	maxX, maxY := 0, 0
+	for p := range g.Points() {
+		if !foundX || p.x &gt; maxX {
+			maxX = p.x
+			foundX = true
+		}
+		if !foundY || p.y &gt; maxY {
+			maxY = p.y
+			foundY = true
+		}
+	}
+	return maxX, maxY
+}
+
+// Pretty creates a pretty string representation of this grid.
+func (g *Grid) Pretty(digits int) string {
+	result := ""
+	empty := " "
+	maxVal := 10
+	for count := 1; count &lt; digits; count++ {
+		empty += " "
+		maxVal *= 10
+	}
+	formatStr := fmt.Sprintf("%%-%dd", digits)
+	minX, minY := g.TopLeft()
+	maxX, maxY := g.BottomRight()
+	for x := minX; x &lt;= maxX; x++ {
+		for y := minY; y &lt;= maxY; y++ {
+			val := g.Count(Vec{x: x, y: y})
+			if val &gt; 0 {
+				result += fmt.Sprintf(formatStr, val)
+				if val &gt;= maxVal {
+					// Return the string up to the offending point so that the caller sees what the
+					// offending number was. This is a hack at best but good enough for me right
+					// now.
+					return result + "\nINCOMPLETE"
+				}
+			} else {
+				result += empty
+			}
+		}
+		result += "\n"
+	}
+	return result
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>fast.go</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight linenums"><code class="language-go" data-lang="go">// This is an implementation using an A* algorithm implemented by me.
+
+import (
+	"fmt"
+	"log"
+
+	"github.com/razziel89/astar"
+)
+
+func fastAlgorithm(nodes map[*astar.Node]struct{}, start, end *astar.Node) {
+	// Build heuristic that measures distance to end node.
+	heuristic := astar.ConstantHeuristic{}
+	// Extract payload. We know that these are the coordinates.
+	endVec := end.Payload.(Vec)
+	for node := range nodes {
+		vec := node.Payload.(Vec)
+		// The estimate assumes a cost of 1 for the most direct connection.
+		estimate := (vec.x - endVec.x) + (vec.y - endVec.y)
+		err := heuristic.AddNode(node, estimate)
+		if err != nil {
+			log.Fatal(err.Error())
+		}
+	}
+	// Plot path.
+	path, err := astar.FindPath(nodes, start, end, heuristic.Heuristic(0))
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+	// Compute cost.
+	cost := 0
+	for _, node := range path[1:] {
+		fmt.Println(node.ToString())
+		cost += node.Cost
+	}
+	fmt.Println("Cost is", cost)
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>There are currently no tests.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_how_to_run_15"><a class="anchor" href="#_how_to_run_15"></a><a class="link" href="#_how_to_run_15">How to run</a></h5>
+<div class="paragraph">
+<p>Assuming the required input is in a file <code>input.dat</code>, you only need to execute
+<code>cat input.dat | go run .</code> to run both solutions.</p>
+</div>
+<a id="day16" />
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_day_16_go"><a class="anchor" href="#_day_16_go"></a><a class="link" href="#_day_16_go">Day 16: go</a></h3>
+<div class="sect3">
+<h4 id="_day_16_packet_decoder"><a class="anchor" href="#_day_16_packet_decoder"></a><a class="link" href="#_day_16_packet_decoder">Day 16: Packet Decoder</a></h4>
+<div class="paragraph">
+<p>This is my implementation for both rounds of the packet decoder puzzle.</p>
+</div>
+<div class="sect4">
+<h5 id="_oveview_16"><a class="anchor" href="#_oveview_16"></a><a class="link" href="#_oveview_16">Oveview</a></h5>
+<div class="paragraph">
+<p>This solution contains a <code>solution.go</code>, which defines the main executable.
+There is also a <code>utils.go</code>, which is currently where some helper functions that
+might be re-used later on reside.
+Then, there are these files describing the following things:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>package.go</code>: the general package interface definition</p>
+</li>
+<li>
+<p><code>parser.go</code>: the overall parser logic implementing a very simplistic bit stream</p>
+</li>
+<li>
+<p><code>operator.go</code>: the implementation of the operator type struct</p>
+</li>
+<li>
+<p><code>literal.go</code>: the implementation of the literal type struct</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Using interfaces meant I didn&#8217;t have to handle differences between literal
+types and operator types explicitly.</p>
+</div>
+<div class="paragraph">
+<p><code>solution.go</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight linenums"><code class="language-go" data-lang="go">//nolint: funlen
+func main() {
+	lines, err := ReadLinesAsLines()
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+	if len(lines) != 1 {
+		log.Fatal("wrong number of lines")
+	}
+
+	parsed, err := Parse(lines[0])
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+
+	// Declare here to allow recursion.
+	var addVersionsUp func([]Package) int
+
+	addVersionsUp = func(packages []Package) int {
+		result := 0
+		for _, pkg := range packages {
+			result += pkg.Version()
+			result += addVersionsUp(pkg.SubPackages())
+		}
+		return result
+	}
+
+	totalVersion := addVersionsUp(parsed)
+
+	fmt.Println("Sum of all version numbers is", totalVersion)
+
+	if len(parsed) != 1 {
+		log.Fatal("we were promised exactly one package")
+	}
+	fmt.Println("Value of outermost package is", parsed[0].Value())
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>utils.go</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight linenums"><code class="language-go" data-lang="go">// ReadLinesAsLines reads in some lines.
+func ReadLinesAsLines() ([]string, error) {
+	result := []string{}
+	for {
+		line, err := readLine()
+		if err == io.EOF {
+			// Success case, no more input to read.
+			return result, nil
+		}
+		if err != nil {
+			return []string{}, err
+		}
+		line = strings.TrimSpace(line)
+		result = append(result, line)
+	}
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>parser.go</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight linenums"><code class="language-go" data-lang="go">import (
+	"fmt"
+	"log"
+	"strconv"
+	"strings"
+)
+
+const (
+	hexBase    = 16
+	binarybase = 2
+	padding    = 4
+)
+
+func hexToBinary(char rune) ([]bool, error) {
+	num, err := strconv.ParseInt(string(char), hexBase, 0)
+	if err != nil {
+		return []bool{}, err
+	}
+	// This is being lazy, but it's fast enough here.
+	binaryString := strconv.FormatInt(num, binarybase)
+	for len(binaryString) &lt; padding {
+		binaryString = "0" + binaryString
+	}
+	result := make([]bool, 0, len(binaryString))
+	for _, char := range binaryString {
+		result = append(result, char == '1')
+	}
+	return result, nil
+}
+
+// BitStream provides a stream of bits based on hex code. I am using boolean values here to
+// represent bits.
+type BitStream struct {
+	bin  []bool
+	pad  int
+	read int
+}
+
+// Next provides the next num bits.
+func (s *BitStream) Next(num int) []bool {
+	if s.read+num &gt; len(s.bin) {
+		log.Fatalf("trying to read too much, remaining %s, reading %d", s.ToString(true), num)
+	}
+	if num &lt;= 0 {
+		return []bool{}
+	}
+	result := s.bin[s.read : s.read+num : s.read+num]
+	s.read += num
+	s.pad = (s.pad + num) % padding
+	return result
+}
+
+// Done determines whether any characters are left. If only zeroes are left, we also exit.
+func (s *BitStream) Done() bool {
+	if s.read &gt;= len(s.bin) {
+		return true
+	}
+	for _, bit := range s.bin[s.read:] {
+		if bit {
+			return false
+		}
+	}
+	return true
+}
+
+// Pad reads up to the next multiple of `padding` since one hexadecimal digit is four binary digits.
+func (s *BitStream) Pad() {
+	if s.pad &gt; 0 {
+		_ = s.Next(padding - s.pad)
+	}
+}
+
+// AddHex adds a hex string.
+func (s *BitStream) AddHex(hex string) error {
+	if len(s.bin) == 0 {
+		s.bin = make([]bool, 0, len(hex))
+	} else {
+		newBin := make([]bool, 0, len(s.bin)+len(hex))
+		_ = copy(newBin, s.bin)
+		s.bin = newBin
+	}
+	hex = strings.ToUpper(hex)
+	for _, char := range hex {
+		binarySequence, err := hexToBinary(char)
+		if err != nil {
+			return fmt.Errorf("error in hex to binary conversion: %s", err.Error())
+		}
+		s.bin = append(s.bin, binarySequence...)
+	}
+	return nil
+}
+
+// ToString converts to a binary string. Specify whether you want truncated (true) or full (false)
+func (s *BitStream) ToString(truncated bool) string {
+	result := ""
+	start := 0
+	if truncated {
+		start = s.read
+	}
+	for _, val := range s.bin[start:] {
+		if val {
+			result += "1"
+		} else {
+			result += "0"
+		}
+	}
+	fmtStr := fmt.Sprintf("%%%ds", len(s.bin))
+	return fmt.Sprintf(fmtStr, result)
+}
+
+// LimitedStream creates a limited bit stream based on the next limit bits of this one. This makes
+// it easy to read operators in the "limited number of bits" mode. Any zeroes at the end are then
+// part of the limited stream and the original one doesn't have to care.
+func (s *BitStream) LimitedStream(limit int) BitStream {
+	stream := BitStream{
+		bin:  s.Next(limit),
+		pad:  0,
+		read: 0,
+	}
+	return stream
+}
+
+// BitsToInt converts a stream of bits into an integer.
+func BitsToInt(bits []bool) int {
+	result := 0
+	for _, bit := range bits {
+		result *= 2
+		if bit {
+			result++
+		}
+	}
+	return result
+}
+
+// Parse parses a string into packages and sub-packages.
+func Parse(input string) ([]Package, error) {
+	result := []Package{}
+
+	stream := BitStream{}
+	if err := stream.AddHex(input); err != nil {
+		return []Package{}, err
+	}
+
+	for !stream.Done() {
+		pkg := FromBitStream(&amp;stream)
+		result = append(result, pkg)
+		stream.Pad()
+	}
+
+	return result, nil
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>operator.go</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight linenums"><code class="language-go" data-lang="go">const (
+	// Numerical values, there are a lot of them this time.
+	totalLengthModeBits      = 15
+	totalNumPackagesModeBits = 11
+)
+
+// Operator is an actual implementation of the package interface, operator value.
+type Operator struct {
+	version     int
+	typeInfo    int
+	subPackages []Package
+}
+
+// Version provides the version number.
+func (p *Operator) Version() int {
+	return p.version
+}
+
+// Type provides the type information.
+func (p *Operator) Type() int {
+	return p.typeInfo
+}
+
+// SubPackages provides a list of sub-packages.
+func (p *Operator) SubPackages() []Package {
+	return p.subPackages
+}
+
+// Value determines the value of this package.
+//nolint:funlen
+func (p *Operator) Value() int {
+	//nolint:gomnd
+	switch p.Type() {
+	case 0:
+		// Packets with type ID 0 are sum packets - their value is the sum of the values of their
+		// sub-packets. If they only have a single sub-packet, their value is the value of the
+		// sub-packet.
+		result := 0
+		for _, pkg := range p.SubPackages() {
+			result += pkg.Value()
+		}
+		return result
+	case 1:
+		// Packets with type ID 1 are product packets - their value is the result of multiplying
+		// together the values of their sub-packets. If they only have a single sub-packet, their
+		// value is the value of the sub-packet.
+		//
+		// Treat packages without sub-packages as having no value. This should not happen for prduct
+		// packages.
+		if len(p.subPackages) == 0 {
+			return 0
+		}
+		result := 1
+		for _, pkg := range p.subPackages {
+			result *= pkg.Value()
+		}
+		return result
+	case 2:
+		// Packets with type ID 2 are minimum packets - their value is the minimum of the values of
+		// their sub-packets.
+		result := 0
+		found := false
+		for _, pkg := range p.subPackages {
+			val := pkg.Value()
+			if !found || val &lt; result {
+				result = val
+				found = true
+			}
+		}
+		return result
+	case 3:
+		// Packets with type ID 3 are maximum packets - their value is the maximum of the values of
+		// their sub-packets.
+		result := 0
+		found := false
+		for _, pkg := range p.subPackages {
+			val := pkg.Value()
+			if !found || val &gt; result {
+				result = val
+				found = true
+			}
+		}
+		return result
+	case 5:
+		// Packets with type ID 5 are greater than packets - their value is 1 if the value of the
+		// first sub-packet is greater than the value of the second sub-packet; otherwise, their
+		// value is 0.  These packets always have exactly two sub-packets.
+		result := 0
+		if len(p.subPackages) == 2 &amp;&amp; p.subPackages[0].Value() &gt; p.subPackages[1].Value() {
+			result = 1
+		}
+		return result
+	case 6:
+		// Packets with type ID 6 are less than packets - their value is 1 if the value of the first
+		// sub-packet is less than the value of the second sub-packet; otherwise, their value is 0.
+		// These packets always have exactly two sub-packets.
+		result := 0
+		if len(p.subPackages) == 2 &amp;&amp; p.subPackages[0].Value() &lt; p.subPackages[1].Value() {
+			result = 1
+		}
+		return result
+	case 7:
+		// Packets with type ID 7 are equal to packets - their value is 1 if the value of the first
+		// sub-packet is equal to the value of the second sub-packet; otherwise, their value is 0.
+		// These packets always have exactly two sub-packets.
+		result := 0
+		if len(p.subPackages) == 2 &amp;&amp; p.subPackages[0].Value() == p.subPackages[1].Value() {
+			result = 1
+		}
+		return result
+	default:
+		// Should never happen.
+		return 0
+	}
+}
+
+// NewOperator creates a new literal package. Version and type information have to be provided.
+func NewOperator(version, typeInfo int, stream *BitStream) Operator {
+	subPackages := []Package{}
+	modeBit := stream.Next(1)
+	if !modeBit[0] {
+		// Total length mode.
+		totalLength := BitsToInt(stream.Next(totalLengthModeBits))
+		shortStream := stream.LimitedStream(totalLength)
+		for !shortStream.Done() {
+			// No padding in between according to the task.
+			pkg := FromBitStream(&amp;shortStream)
+			subPackages = append(subPackages, pkg)
+		}
+	} else {
+		// Number of packages mode.
+		numPkgs := BitsToInt(stream.Next(totalNumPackagesModeBits))
+		for count := 0; count &lt; numPkgs; count++ {
+			// No padding in between according to the task.
+			pkg := FromBitStream(stream)
+			subPackages = append(subPackages, pkg)
+		}
+	}
+	return Operator{
+		version:     version,
+		typeInfo:    typeInfo,
+		subPackages: subPackages,
+	}
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>literal.go</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight linenums"><code class="language-go" data-lang="go">const (
+	bitsPerLiteralSet = 4
+)
+
+// Literal is an actual implementation of the package interface, literal value.
+type Literal struct {
+	version  int
+	typeInfo int
+	value    int
+}
+
+// Version provides the version number.
+func (p *Literal) Version() int {
+	return p.version
+}
+
+// Type provides the type information.
+func (p *Literal) Type() int {
+	return p.typeInfo
+}
+
+// Value provides the value information.
+func (p *Literal) Value() int {
+	return p.value
+}
+
+// SubPackages provides a list of sub-packages.
+func (p *Literal) SubPackages() []Package {
+	// Literal packages have no sub-packages. To implement the interface, we return an empty slice
+	// here.
+	return []Package{}
+}
+
+// NewLiteral creates a new literal package. Version and type information have to be provided.
+func NewLiteral(version, typeInfo int, stream *BitStream) Literal {
+	bits := []bool{}
+	for notLastGroup := stream.Next(1); notLastGroup[0]; notLastGroup = stream.Next(1) {
+		bits = append(bits, stream.Next(bitsPerLiteralSet)...)
+	}
+	bits = append(bits, stream.Next(bitsPerLiteralSet)...)
+	num := BitsToInt(bits)
+	return Literal{
+		version:  version,
+		typeInfo: typeInfo,
+		value:    num,
+	}
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>package.go</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight linenums"><code class="language-go" data-lang="go">const (
+	// Numerical values, there are a lot of them this time.
+	versionBits  = 3
+	typeInfoBits = 3
+	// Type information.
+	literalType = 4
+)
+
+// Package describes a package.
+type Package interface {
+	Version() int
+	Type() int
+	SubPackages() []Package
+	Value() int
+}
+
+// FromBitStream obtains a package from a bit stream. No padding on the stream is done. Will create
+// operators or literals as mandated by the type information.
+func FromBitStream(stream *BitStream) Package {
+	version := BitsToInt(stream.Next(versionBits))
+	typeInfo := BitsToInt(stream.Next(typeInfoBits))
+	var pkg Package
+	if typeInfo == literalType {
+		lit := NewLiteral(version, typeInfo, stream)
+		pkg = &amp;lit
+	} else {
+		op := NewOperator(version, typeInfo, stream)
+		pkg = &amp;op
+	}
+	return pkg
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>There are currently no tests.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_how_to_run_16"><a class="anchor" href="#_how_to_run_16"></a><a class="link" href="#_how_to_run_16">How to run</a></h5>
+<div class="paragraph">
+<p>Assuming the required input is in a file <code>input.dat</code>, you only need to execute
+<code>cat input.dat | go run .</code> to run both solutions.</p>
+</div>
+<a id="day17" />
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_day_17_go"><a class="anchor" href="#_day_17_go"></a><a class="link" href="#_day_17_go">Day 17: go</a></h3>
+<div class="sect3">
+<h4 id="_day_17_trick_shot"><a class="anchor" href="#_day_17_trick_shot"></a><a class="link" href="#_day_17_trick_shot">Day 17: Trick Shot</a></h4>
+<div class="paragraph">
+<p>This is my implementation for both rounds of the trick shot puzzle.</p>
+</div>
+<div class="paragraph">
+<p>This one was actually really interesting in Golang.
+I&#8217;ve never had to construct an exhaustive list of velocities or an exhaustive
+list of trajectories.
+Instead, I chained one goroutine that generates velocities and another one that
+analyses trajectories based on them.
+That second one only provides solutions that are acceptable, which I count and
+whose maximum achievable height I track.</p>
+</div>
+<div class="paragraph">
+<p>The problem with this problem (haha) is, that we never know whether another,
+higher starting velocity in y direction won&#8217;t actually still allow us to reach
+the target area.
+That is, technically, a velocity of x=5, y=1million could still hit the target
+area.
+At least I could not come up with a quick way to assess when to stop.</p>
+</div>
+<div class="paragraph">
+<p>Instead, I base my solution on the assumption that acceptable velocities are
+small in magnitude.
+I then explore possible velocity vectors starting small following an increasing
+Manhattan metric from the origin.
+The algorithm quits after a maximum number of trajectories analyzed.
+Furthermore, I force the area&#8217;s x values to be all positive and the starting
+position to be at lower x values.
+The algorithm can still be used after a simple coordinate transformation for all
+other cases.</p>
+</div>
+<div class="paragraph">
+<p>I am interested to see whether others have found other solutions that actually
+find a point when to stop.</p>
+</div>
+<div class="sect4">
+<h5 id="_oveview_17"><a class="anchor" href="#_oveview_17"></a><a class="link" href="#_oveview_17">Oveview</a></h5>
+<div class="paragraph">
+<p>This solution contains a <code>solution.go</code>, which defines the main executable.
+There is also a <code>utils.go</code>, which is currently where all helper functions that
+might be re-used later on reside.
+There is also an <code>area.go</code>, which contains specifications of the target area.</p>
+</div>
+<div class="paragraph">
+<p><code>solution.go</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight linenums"><code class="language-go" data-lang="go">const (
+	// Our algorithm does not end by itself since we can never really be sure that we have found the
+	// highest y-velocity that will still result in a hit. Thus, we end after this many velocities
+	// at most. Empirically, this has been proven to be enough.
+	maxNumVelocities = 1000000
+	buffer           = 100
+	drag             = -1
+	gravity          = -1
+)
+
+// Generate valid velocity vectors up to a maximum x value and a minimum y value.
+func generateVelocities(xMax, yMin int) &lt;-chan Vec {
+	channel := make(chan Vec, buffer)
+
+	go func() {
+		numVelocities := 0
+		// Start with a Manhattan distance of 1 and successively create all values in the allowed
+		// range.
+		distance := 1
+		for {
+			// For all smaller x, explore only y==+distance and y==-distance.
+			for x := 0; x &lt; distance; x++ {
+				channel &lt;- Vec{x, distance}
+				numVelocities++
+				if -distance &gt;= yMin {
+					channel &lt;- Vec{x, -distance}
+					numVelocities++
+				}
+			}
+			if distance &lt;= xMax {
+				// For x==distance, explore all y in [-distance, +distance].
+				for y := -distance; y &lt;= distance; y++ {
+					channel &lt;- Vec{distance, y}
+					numVelocities++
+				}
+			}
+			distance++
+			// It is not guaranteed that we have found the solution, but we did ^^. So this hack is
+			// fine to make the algorithm end by itself.
+			if numVelocities &gt; maxNumVelocities {
+				break
+			}
+		}
+		close(channel)
+	}()
+
+	return channel
+}
+
+func generateTrajectory(input &lt;-chan Vec, drag, gravity int, area Area) &lt;-chan int {
+	channel := make(chan int, buffer)
+
+	go func() {
+		// Obtain one velocity vector and follow its trajectory.
+		for vel := range input {
+			if vel.x &lt; 0 {
+				log.Fatal("negative x velocity detected")
+			}
+			pos := Vec{0, 0}
+			trackedHeight := pos.y
+			inside := area.Inside(pos)
+			invalid := area.Invalid(pos)
+			for !inside &amp;&amp; !invalid {
+				// Explore the trajectory based on an initial velocity.
+				// We explore as long as our x position is not higher than the max and our y
+				// position is not lower than the min.
+
+				// Generate the next step in the trajectory.
+				pos = pos.Add(vel)
+				// Update the velocity. We will never have negative x velocities.
+				if vel.x &gt; 0 {
+					vel.x += drag
+				}
+				vel.y += gravity
+
+				if pos.y &gt; trackedHeight {
+					trackedHeight = pos.y
+				}
+
+				// Check whether we are still on track to possibly hit the area.
+				inside = area.Inside(pos)
+				invalid = area.Invalid(pos)
+			}
+			// Don't return invalid data.
+			if inside &amp;&amp; !invalid {
+				channel &lt;- trackedHeight
+			}
+		}
+		close(channel)
+	}()
+
+	return channel
+}
+
+func main() {
+	areas, err := ReadLinesAsAreas()
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+	if len(areas) != 1 {
+		log.Fatal("only one area expected")
+	}
+	area := areas[0]
+	if err := area.IsValid(); err != nil {
+		log.Fatal(err.Error())
+	}
+	velocities := generateVelocities(area.xMax, area.yMin)
+	trajectories := generateTrajectory(velocities, drag, gravity, area)
+
+	count := 1
+	maxHeight := &lt;-trajectories
+	for height := range trajectories {
+		count++
+		if height &gt; maxHeight {
+			maxHeight = height
+		}
+		fmt.Println("Max valid height is", maxHeight, "and valid trajectories found are", count)
+	}
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>utils.go</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight linenums"><code class="language-go" data-lang="go">// ReadLinesAsAreas reads all lines from stdin as areas.
+func ReadLinesAsAreas() ([]Area, error) {
+	var result []Area
+	for {
+		line, err := readLine()
+		if err == io.EOF {
+			// Success case, no more input to read.
+			return result, nil
+		}
+		if err != nil {
+			return []Area{}, err
+		}
+		fields := trimStrings(strings.Fields(line))
+		if len(fields) == 0 {
+			// Skip empty lines.
+			continue
+		}
+		if len(fields) != numExpectedFields {
+			return []Area{}, fmt.Errorf("unexpected number of fields")
+		}
+		if fields[0] != areaStart[0] || fields[1] != areaStart[1] {
+			return []Area{}, fmt.Errorf("unexpected start of line")
+		}
+		area, err := AreaFromString(strings.Join(fields[2:], " "))
+		if err != nil {
+			return []Area{}, err
+		}
+		result = append(result, area)
+	}
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>area.go</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight linenums"><code class="language-go" data-lang="go"></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>There are currently no tests.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_how_to_run_17"><a class="anchor" href="#_how_to_run_17"></a><a class="link" href="#_how_to_run_17">How to run</a></h5>
 <div class="paragraph">
 <p>Assuming the required input is in a file <code>input.dat</code>, you only need to execute
 <code>cat input.dat | go run .</code> to run both solutions.</p>
