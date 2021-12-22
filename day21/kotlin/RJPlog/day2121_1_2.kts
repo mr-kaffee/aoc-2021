@@ -99,16 +99,19 @@ var play1Wins: Long = 0
 var play2Wins: Long = 0
 
 // double ended queue
-// instead of list.forEach() {} simple remove elements at the head of the queue and add new ones at the tail of the
-// queue
+// instead of list.forEach() {} simply add and remove elements at the tail of a list (don't remove at the head of a
+// standard list, this will lead to expensive copy operations). Regular lists are typically faster than queues
+//
 // this also avoids to maintain a temporary list which is added to the overall list once the original elements are
 // consumned
-var diceVarOverall = ArrayDeque<List<Int>>()
+//
+// it actually does not matter in which order the dice variations are processed
+var diceVarOverall = mutableListOf<List<Int>>()
 var totalSeqs = 0
 
 for (dice1 in 3..9) {
     for (dice2 in 3..9) {
-        diceVarOverall.addLast(listOf(dice1, dice2))
+        diceVarOverall.add(listOf(dice1, dice2))
 
         println("-----------------")
         println("-- next turn   --")
@@ -117,8 +120,8 @@ for (dice1 in 3..9) {
         println(diceVarOverall)
 
         while (diceVarOverall.isNotEmpty()) {
-            // remove element from the head
-            val diceSeq = diceVarOverall.removeFirst()
+            // remove element from the tail
+            val diceSeq = diceVarOverall.removeLast()
             totalSeqs += 1
 
             // destructuring assignment makes code more readable
@@ -132,7 +135,7 @@ for (dice1 in 3..9) {
                     var diceSeqUpd = diceSeq.toMutableList()
                     diceSeqUpd.add(dice)
                     // add element at the tail
-                    diceVarOverall.addLast(diceSeqUpd)
+                    diceVarOverall.add(diceSeqUpd)
                 }
             }
         } // end While (diceVarOverall.isNotEmpty())
