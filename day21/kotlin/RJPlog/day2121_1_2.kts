@@ -40,7 +40,7 @@ fun standardDice(play1_init: Int, play2_init: Int): Int {
 val diracDiceCounts = listOf(0, 0, 0, 1, 3, 6, 7, 6, 3, 1)
 
 // tag::diracDice[]
-fun diracDice(play1Init: Int, play2Init: Int, dice: List<Int>): Pair<Int, Long> {
+fun diracDice(play1Init: Int, play2Init: Int, diceSeq: List<Int>): Pair<Int, Long> {
     var play1 = play1Init
     var play2 = play2Init
     var play1Score: Int = 0
@@ -49,27 +49,27 @@ fun diracDice(play1Init: Int, play2Init: Int, dice: List<Int>): Pair<Int, Long> 
 
     var i: Int = 0
     while (true) {
-        numOfVars = numOfVars * diracDiceCounts[dice[i]]
+        numOfVars = numOfVars * diracDiceCounts[diceSeq[i]]
 
-        play1 = ((play1 + dice[i] - 1) % 10) + 1
+        play1 = ((play1 + diceSeq[i] - 1) % 10) + 1
         play1Score = play1Score + play1
         i += 1
 
         if (play1Score >= 21) {
             return Pair(1, numOfVars)
-        } else if (i > dice.size - 1) {
+        } else if (i > diceSeq.size - 1) {
             return Pair(0, 0)
         }
 
-        numOfVars = numOfVars * diracDiceCounts[dice[i]]
+        numOfVars = numOfVars * diracDiceCounts[diceSeq[i]]
 
-        play2 = (play2 + dice[i] - 1) % 10 + 1
+        play2 = (play2 + diceSeq[i] - 1) % 10 + 1
         play2Score = play2Score + play2
         i += 1
 
         if (play2Score >= 21) {
             return Pair(2, numOfVars)
-        } else if (i > dice.size - 1) {
+        } else if (i > diceSeq.size - 1) {
             return Pair(0, 0)
         }
     }
@@ -98,16 +98,17 @@ var solution1 = standardDice(play1, play2)
 var play1Wins: Long = 0
 var play2Wins: Long = 0
 
-var diceVarOverall = MutableList(0) { mutableListOf<Int>() }
-var diceVarOverallNew = MutableList(0) { mutableListOf<Int>() }
-var diceVariation = mutableListOf<Int>()
+// double ended queue
+// instead of list.forEach() {} simple remove elements at the head of the queue and add new ones at the tail of the
+// queue
+// this also avoids to maintain a temporary list which is added to the overall list once the original elements are
+// consumned
+var diceVarOverall = ArrayDeque<List<Int>>()
+var totalSeqs = 0
 
-for (ii in 3..9) {
-    for (iii in 3..9) {
-        diceVariation.add(ii)
-        diceVariation.add(iii)
-        diceVarOverall.add(diceVariation.toMutableList())
-        diceVariation.clear()
+for (dice1 in 3..9) {
+    for (dice2 in 3..9) {
+        diceVarOverall.addLast(listOf(dice1, dice2))
 
         println("-----------------")
         println("-- next turn   --")
@@ -116,27 +117,24 @@ for (ii in 3..9) {
         println(diceVarOverall)
 
         while (diceVarOverall.isNotEmpty()) {
+            // remove element from the head
+            val diceSeq = diceVarOverall.removeFirst()
+            totalSeqs += 1
 
-            diceVarOverall.forEach {
-                var result = diracDice(play1, play2, it)
-                if (result.first == 1) {
-                    play1Wins = play1Wins + result.second
-                } else if (result.first == 2) {
-                    play2Wins = play2Wins + result.second
-                } else if (result.first == 0) {
-                    for (i in 3..9) {
-                        var diceVariationNew = it.toMutableList()
-                        diceVariationNew.add(i)
-                        diceVarOverallNew.add(diceVariationNew.toMutableList())
-                        //	diceVariationNew.clear()
-                    }
+            // destructuring assignment makes code more readable
+            val (winner, score) = diracDice(play1, play2, diceSeq)
+            if (winner == 1) {
+                play1Wins = play1Wins + score
+            } else if (winner == 2) {
+                play2Wins = play2Wins + score
+            } else if (winner == 0) {
+                for (dice in 3..9) {
+                    var diceSeqUpd = diceSeq.toMutableList()
+                    diceSeqUpd.add(dice)
+                    // add element at the tail
+                    diceVarOverall.addLast(diceSeqUpd)
                 }
-
             }
-            diceVarOverall.clear()
-            diceVarOverall.addAll(diceVarOverallNew)
-            diceVarOverallNew.clear()
-
         } // end While (diceVarOverall.isNotEmpty())
         println()
     }
@@ -157,6 +155,7 @@ println()
 println("*******************************")
 println("Solution for part2")
 println("   $solution2 are the most wins in all universes")
+println("   Explored a total of $totalSeqs dice sequences")
 println()
 // end::output[]
 t1 = System.currentTimeMillis() - t1
