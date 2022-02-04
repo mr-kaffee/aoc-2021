@@ -237,6 +237,83 @@
 <div class="sect3">
 <h4 id="_typescript"><a class="anchor" href="#_typescript"></a><a class="link" href="#_typescript">typescript</a></h4>
 <div class="listingblock">
+<div class="title">main.ts</div>
+<div class="content">
+<pre class="prettyprint highlight"><code>// Sonar sweeper solution by Christoph Jobmann
+
+import { SonarSweeper } from "./sonarSweeper";
+
+const sweeper = new SonarSweeper();
+sweeper.RunSilver();
+sweeper.RunGold();</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">sonarSweeper.ts</div>
+<div class="content">
+<pre class="prettyprint highlight"><code>// --- Day 1: Sonar Sweep ---
+import * as fs from 'fs';
+
+export class SonarSweeper {
+    private lines: string[];
+
+    public constructor(){
+        this.lines = this.Read();
+    }
+
+    public RunSilver(){
+        let previous: number = 0;
+        let count: number = 0;
+
+        for (let index = 0; index &lt; this.lines.length; ++index) {
+            const i = parseInt(this.lines[index]);
+            if (previous != 0 &amp;&amp; i &gt; previous){
+                ++count;
+            }
+
+            previous = i;
+        }
+
+        console.log(count);
+    }
+
+    public RunGold(){
+        let sumPrevious: number = 0;
+        let count: number = 0;
+
+        for (let index = 0; index &lt; this.lines.length - 2; ++index) {
+            const i1 = parseInt(this.lines[index]);
+            const i2 = parseInt(this.lines[index + 1]);
+            const i3 = parseInt(this.lines[index + 2]);
+
+            const sumCurrent = i1 + i2 + i3;
+            if (sumPrevious != 0 &amp;&amp; sumPrevious &lt; sumCurrent){
+                ++count;
+            }
+
+            sumPrevious = sumCurrent;
+        }
+
+        console.log(count);
+    }
+
+
+    Read() : string[] {
+        let input: string;
+
+        if (fs.existsSync('day01/typescript/aspik79/input.txt')) {
+            input = fs.readFileSync('day01/typescript/aspik79/input.txt','utf8');
+        }
+        else {
+            input = fs.readFileSync('input.txt','utf8');
+        }
+
+        return input.split('\r\n')
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
 <div class="title">input.txt</div>
 <div class="content">
 <pre class="prettyprint highlight"><code>104
@@ -2241,83 +2318,6 @@
 7440</code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="title">sonarSweeper.ts</div>
-<div class="content">
-<pre class="prettyprint highlight"><code>// --- Day 1: Sonar Sweep ---
-import * as fs from 'fs';
-
-export class SonarSweeper {
-    private lines: string[];
-
-    public constructor(){
-        this.lines = this.Read();
-    }
-
-    public RunSilver(){
-        let previous: number = 0;
-        let count: number = 0;
-
-        for (let index = 0; index &lt; this.lines.length; ++index) {
-            const i = parseInt(this.lines[index]);
-            if (previous != 0 &amp;&amp; i &gt; previous){
-                ++count;
-            }
-
-            previous = i;
-        }
-
-        console.log(count);
-    }
-
-    public RunGold(){
-        let sumPrevious: number = 0;
-        let count: number = 0;
-
-        for (let index = 0; index &lt; this.lines.length - 2; ++index) {
-            const i1 = parseInt(this.lines[index]);
-            const i2 = parseInt(this.lines[index + 1]);
-            const i3 = parseInt(this.lines[index + 2]);
-
-            const sumCurrent = i1 + i2 + i3;
-            if (sumPrevious != 0 &amp;&amp; sumPrevious &lt; sumCurrent){
-                ++count;
-            }
-
-            sumPrevious = sumCurrent;
-        }
-
-        console.log(count);
-    }
-
-
-    Read() : string[] {
-        let input: string;
-
-        if (fs.existsSync('day01/typescript/aspik79/input.txt')) {
-            input = fs.readFileSync('day01/typescript/aspik79/input.txt','utf8');
-        }
-        else {
-            input = fs.readFileSync('input.txt','utf8');
-        }
-
-        return input.split('\r\n')
-    }
-}</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">main.ts</div>
-<div class="content">
-<pre class="prettyprint highlight"><code>// Sonar sweeper solution by Christoph Jobmann
-
-import { SonarSweeper } from "./sonarSweeper";
-
-const sweeper = new SonarSweeper();
-sweeper.RunSilver();
-sweeper.RunGold();</code></pre>
-</div>
-</div>
 <a id="day02" />
 </div>
 </div>
@@ -2329,98 +2329,22 @@ sweeper.RunGold();</code></pre>
 <div class="sect3">
 <h4 id="_typescript_2"><a class="anchor" href="#_typescript_2"></a><a class="link" href="#_typescript_2">typescript</a></h4>
 <div class="listingblock">
-<div class="title">dive.ts</div>
+<div class="title">main.ts</div>
 <div class="content">
-<pre class="prettyprint highlight"><code>// --- Day 2: Dive! ---
-import * as fs from 'fs';
+<pre class="prettyprint highlight"><code>import { Dive } from "./dive";
 
-export class Dive {
+console.log('day 2');
 
-    private lines: string[];
-    private position = 0;
-    private depth = 0;
-    private aim = 0;
+// Dive solution by Christoph Jobmann
+const d = new Dive();
 
-    constructor() {
-        this.lines = this.Read();
-    }
+console.log();
+console.log('Part 1:');
+d.RunSilver();
 
-    /** Does the dive for the first part. */
-    public RunSilver() : void {
-        this.DoDive((c, n) =&gt; this.silverNavigation(c, n));
-    }
-
-    /** Does the dive for the second part. */
-    public RunGold() : void {
-        this.DoDive((c, n) =&gt; this.goldNavigation(c, n));
-    }
-
-    private DoDive(step: (c: string, a: number) =&gt; void) : void{
-        this.position = 0;
-        this.depth = 0;
-        this.aim = 0;
-
-        for (const line of this.lines) {
-            // Recover command and amount an apply them to the step function.
-            const tokens: string[] = line.split(' ');
-            const amount = parseInt(tokens[1]);
-            step(tokens[0], amount);
-        }
-
-        console.log('position: ' + this.position);
-        console.log('depth: ' + this.depth);
-        console.log('product: ' + this.position * this.depth);
-    }
-
-    private silverNavigation (command: string, amount: number) {
-        switch (command) {
-            case 'up':
-                this.depth -= amount;
-                break;
-            case 'down':
-                this.depth += amount;
-                break;
-            case 'forward':
-                this.position += amount;
-                break;
-            default:
-                console.warn(`token ${command} unexpected.`);
-        };
-    }
-
-    private goldNavigation (command: string, amount: number) {
-        switch (command) {
-            case 'up':
-                this.aim -= amount;
-                break;
-            case 'down':
-                this.aim += amount;
-                break;
-            case 'forward':
-                this.position += amount;
-                this.depth += amount * this.aim;
-                break;
-            default:
-                console.warn(`token ${command} unexpected.`);
-        };
-    }
-
-    private Read() : string[] {
-        let input: string;
-
-        const prefix = 'day02/typescript/aspik79/';
-        const path1 = prefix + 'input.txt';
-
-        if (fs.existsSync(path1)) {
-            input = fs.readFileSync(path1,'utf8');
-        }
-        else {
-            input = fs.readFileSync('input.txt','utf8');
-        }
-
-        return input.split('\r\n')
-    }
-}</code></pre>
+console.log();
+console.log('Part 2:');
+d.RunGold();</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -3429,22 +3353,98 @@ forward 2</code></pre>
 </div>
 </div>
 <div class="listingblock">
-<div class="title">main.ts</div>
+<div class="title">dive.ts</div>
 <div class="content">
-<pre class="prettyprint highlight"><code>import { Dive } from "./dive";
+<pre class="prettyprint highlight"><code>// --- Day 2: Dive! ---
+import * as fs from 'fs';
 
-console.log('day 2');
+export class Dive {
 
-// Dive solution by Christoph Jobmann
-const d = new Dive();
+    private lines: string[];
+    private position = 0;
+    private depth = 0;
+    private aim = 0;
 
-console.log();
-console.log('Part 1:');
-d.RunSilver();
+    constructor() {
+        this.lines = this.Read();
+    }
 
-console.log();
-console.log('Part 2:');
-d.RunGold();</code></pre>
+    /** Does the dive for the first part. */
+    public RunSilver() : void {
+        this.DoDive((c, n) =&gt; this.silverNavigation(c, n));
+    }
+
+    /** Does the dive for the second part. */
+    public RunGold() : void {
+        this.DoDive((c, n) =&gt; this.goldNavigation(c, n));
+    }
+
+    private DoDive(step: (c: string, a: number) =&gt; void) : void{
+        this.position = 0;
+        this.depth = 0;
+        this.aim = 0;
+
+        for (const line of this.lines) {
+            // Recover command and amount an apply them to the step function.
+            const tokens: string[] = line.split(' ');
+            const amount = parseInt(tokens[1]);
+            step(tokens[0], amount);
+        }
+
+        console.log('position: ' + this.position);
+        console.log('depth: ' + this.depth);
+        console.log('product: ' + this.position * this.depth);
+    }
+
+    private silverNavigation (command: string, amount: number) {
+        switch (command) {
+            case 'up':
+                this.depth -= amount;
+                break;
+            case 'down':
+                this.depth += amount;
+                break;
+            case 'forward':
+                this.position += amount;
+                break;
+            default:
+                console.warn(`token ${command} unexpected.`);
+        };
+    }
+
+    private goldNavigation (command: string, amount: number) {
+        switch (command) {
+            case 'up':
+                this.aim -= amount;
+                break;
+            case 'down':
+                this.aim += amount;
+                break;
+            case 'forward':
+                this.position += amount;
+                this.depth += amount * this.aim;
+                break;
+            default:
+                console.warn(`token ${command} unexpected.`);
+        };
+    }
+
+    private Read() : string[] {
+        let input: string;
+
+        const prefix = 'day02/typescript/aspik79/';
+        const path1 = prefix + 'input.txt';
+
+        if (fs.existsSync(path1)) {
+            input = fs.readFileSync(path1,'utf8');
+        }
+        else {
+            input = fs.readFileSync('input.txt','utf8');
+        }
+
+        return input.split('\r\n')
+    }
+}</code></pre>
 </div>
 </div>
 <a id="day03" />
@@ -3457,6 +3457,40 @@ d.RunGold();</code></pre>
 </div>
 <div class="sect3">
 <h4 id="_typescript_3"><a class="anchor" href="#_typescript_3"></a><a class="link" href="#_typescript_3">typescript</a></h4>
+<div class="listingblock">
+<div class="title">read.ts</div>
+<div class="content">
+<pre class="prettyprint highlight"><code>import * as fs from 'fs';
+
+export function readLines(file: string, path: string) : string[] {
+    let input: string;
+
+    const path1 = path + '/' + file;
+
+    if (fs.existsSync(path1)) {
+        input = fs.readFileSync(path1,'utf8');
+    }
+    else {
+        input = fs.readFileSync(file,'utf8');
+    }
+
+    return input.split('\r\n')
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">main.ts</div>
+<div class="content">
+<pre class="prettyprint highlight"><code>import { BinaryDiagnostic } from "./binaryDiagnostic";
+
+console.log('day 3');
+
+// Binary Diagnostic solution by Christoph Jobmann
+var bd = new BinaryDiagnostic();
+console.log(bd.EvaluatePowerConsumption());
+console.log(bd.EvaluateLifeSupport());</code></pre>
+</div>
+</div>
 <div class="listingblock">
 <div class="title">binaryDiagnostic.ts</div>
 <div class="content">
@@ -4594,40 +4628,6 @@ function binaryToInt(bits: string) : number {
 101100100111</code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="title">read.ts</div>
-<div class="content">
-<pre class="prettyprint highlight"><code>import * as fs from 'fs';
-
-export function readLines(file: string, path: string) : string[] {
-    let input: string;
-
-    const path1 = path + '/' + file;
-
-    if (fs.existsSync(path1)) {
-        input = fs.readFileSync(path1,'utf8');
-    }
-    else {
-        input = fs.readFileSync(file,'utf8');
-    }
-
-    return input.split('\r\n')
-}</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">main.ts</div>
-<div class="content">
-<pre class="prettyprint highlight"><code>import { BinaryDiagnostic } from "./binaryDiagnostic";
-
-console.log('day 3');
-
-// Binary Diagnostic solution by Christoph Jobmann
-var bd = new BinaryDiagnostic();
-console.log(bd.EvaluatePowerConsumption());
-console.log(bd.EvaluateLifeSupport());</code></pre>
-</div>
-</div>
 <a id="day04" />
 </div>
 </div>
@@ -4639,136 +4639,56 @@ console.log(bd.EvaluateLifeSupport());</code></pre>
 <div class="sect3">
 <h4 id="_typescript_4"><a class="anchor" href="#_typescript_4"></a><a class="link" href="#_typescript_4">typescript</a></h4>
 <div class="listingblock">
-<div class="title">bingoCard.ts</div>
+<div class="title">read.ts</div>
 <div class="content">
-<pre class="prettyprint highlight"><code>export class BingoCard {
-    private numbers: number[];
-    private columns: number;
-    private rows: number;
-    private columnsMatched: number[];
-    private rowsMatched: number[];
+<pre class="prettyprint highlight"><code>import * as fs from 'fs';
 
-    /**
-     * Creates a new bingo card.
-     * @param block Block of numbers describing the bingo card's content.
-     */
-    constructor(private block: string) {
-        const lines = block.split('\r\n');
+/**
+ * Reads all lines from the given file.
+ * @param file name of the file.
+ * @param path alternative location if file is not found.
+ * @returns lines of the file.
+ */
+export function readLines(file: string, path: string) : string[] {
+    return readBlocks(file, path, '\r\n');
+}
 
-        // Parse the numbers. Careful with duplicate space separation.
-        const flat = lines.flatMap(l =&gt; l.split(' '));
-        this.numbers = flat.map(s =&gt; parseInt(s)).filter(n =&gt; n &gt;= 0);
+/**
+ * Reads all blocks from the given file.
+ * @param file name of the file.
+ * @param path alternative location if file is not found.
+ * @param separator separator that is to be used for separating blocks.
+ * @returns blocks of the file.
+ */
+ export function readBlocks(file: string, path: string, separator: string) : string[] {
+    let input: string;
 
-        this.rows = lines.length;
-        this.columns = this.numbers.length / this.rows;
+    const path1 = path + '/' + file;
 
-        // Initialize match counts; no matches yet.
-        this.rowsMatched = Array&lt;number&gt;(this.rows).fill(0);
-        this.columnsMatched = Array&lt;number&gt;(this.columns).fill(0);
+    if (fs.existsSync(path1)) {
+        input = fs.readFileSync(path1,'utf8');
+    }
+    else {
+        input = fs.readFileSync(file,'utf8');
     }
 
-    /**
-     * Marks the given number on the bingo card if it exists. Also contains a win-check.
-     * @param n number that is to be marked.
-     * @returns true if there is a bingo match, otherwise false.
-     */
-    public markNumber(n: number) : boolean {
-        let result = false;
-
-        const index = this.numbers.indexOf(n);
-        if (index &gt;= 0) {
-            // There is a match! Calculate row and column.
-            const col = index % this.columns;
-            const row = Math.floor(index / this.columns);
-
-            // Take the number off the list.
-            this.numbers[index] = NaN;
-
-            // Update match counts and check for win.
-            result ||= ++this.columnsMatched[row] == this.columns;
-            result ||= ++this.rowsMatched[col] == this.rows;
-        }
-
-        return result;
-    }
-
-    /**
-     * Calculates the sum of the remaining numbers.
-     * @returns Sum of remaining numbers.
-     */
-    public sumOfRemaining() : number {
-        return this.numbers.filter(n =&gt; n).reduce((sum, current) =&gt; sum + current, 0);
-    }
+    return input.split(separator);
 }</code></pre>
 </div>
 </div>
 <div class="listingblock">
-<div class="title">bingoGame.ts</div>
+<div class="title">main.ts</div>
 <div class="content">
-<pre class="prettyprint highlight"><code>import * as r from './read';
+<pre class="prettyprint highlight"><code>// Day 04: Giant Squid by Christoph Jobmann
 
-import { BingoCard } from "./bingoCard";
+import { BingoGame } from "./bingoGame";
 
-export class BingoGame {
-    private blocks: string[];
-    private draws: number[] = [];
-    private cards: BingoCard[] = [];
+const game = new BingoGame();
+let score = game.selectFirstWinningCardScore();
+console.log(score);
 
-    constructor() {
-        this.blocks = r.readBlocks('input.txt', 'day04/typescript/aspik79', '\r\n\r\n');
-    }
-
-    /**
-     * Simulate a bingo game with all cards and find the first winner.
-     * @returns First winner card's score.
-     */
-    public selectFirstWinningCardScore() : number {
-        this.initializeGame();
-        for (let n of this.draws) {
-            for (let c of this.cards) {
-                if (c.markNumber(n)) {
-                    // We have the first winner.
-                    const cardScore = c.sumOfRemaining();
-                    return n * cardScore;
-                }
-            }
-        }
-
-        return -1;
-    }
-
-    /**
-     * Simulate a bingo game with all cards and find the last winner.
-     * @returns Last winner card's score.
-     */
-     public selectLastWinningCardScore() : number {
-        this.initializeGame();
-
-        let lastScore = 0;
-
-        // Keep track of cards that already won.
-        let winners: BingoCard[] = [];
-
-        for (let n of this.draws) {
-            for (let c of this.cards) {
-                if (winners.findIndex(x =&gt; c == x) &lt; 0 &amp;&amp; c.markNumber(n)) {
-                    // We have a new winner.
-                    lastScore = c.sumOfRemaining() * n;
-                    winners = winners.concat(c);
-                }
-            }
-        }
-
-        return lastScore;
-    }
-
-    private initializeGame() {
-        this.draws = this.blocks[0].split(',').map(s =&gt; parseInt(s));
-
-        const cardTexts = this.blocks.slice(1);
-        this.cards = cardTexts.map(card =&gt; new BingoCard(card));
-    }
-}</code></pre>
+score = game.selectLastWinningCardScore();
+console.log(score);</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -5378,6 +5298,149 @@ export class BingoGame {
 </div>
 </div>
 <div class="listingblock">
+<div class="title">bingoGame.ts</div>
+<div class="content">
+<pre class="prettyprint highlight"><code>import * as r from './read';
+
+import { BingoCard } from "./bingoCard";
+
+export class BingoGame {
+    private blocks: string[];
+    private draws: number[] = [];
+    private cards: BingoCard[] = [];
+
+    constructor() {
+        this.blocks = r.readBlocks('input.txt', 'day04/typescript/aspik79', '\r\n\r\n');
+    }
+
+    /**
+     * Simulate a bingo game with all cards and find the first winner.
+     * @returns First winner card's score.
+     */
+    public selectFirstWinningCardScore() : number {
+        this.initializeGame();
+        for (let n of this.draws) {
+            for (let c of this.cards) {
+                if (c.markNumber(n)) {
+                    // We have the first winner.
+                    const cardScore = c.sumOfRemaining();
+                    return n * cardScore;
+                }
+            }
+        }
+
+        return -1;
+    }
+
+    /**
+     * Simulate a bingo game with all cards and find the last winner.
+     * @returns Last winner card's score.
+     */
+     public selectLastWinningCardScore() : number {
+        this.initializeGame();
+
+        let lastScore = 0;
+
+        // Keep track of cards that already won.
+        let winners: BingoCard[] = [];
+
+        for (let n of this.draws) {
+            for (let c of this.cards) {
+                if (winners.findIndex(x =&gt; c == x) &lt; 0 &amp;&amp; c.markNumber(n)) {
+                    // We have a new winner.
+                    lastScore = c.sumOfRemaining() * n;
+                    winners = winners.concat(c);
+                }
+            }
+        }
+
+        return lastScore;
+    }
+
+    private initializeGame() {
+        this.draws = this.blocks[0].split(',').map(s =&gt; parseInt(s));
+
+        const cardTexts = this.blocks.slice(1);
+        this.cards = cardTexts.map(card =&gt; new BingoCard(card));
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">bingoCard.ts</div>
+<div class="content">
+<pre class="prettyprint highlight"><code>export class BingoCard {
+    private numbers: number[];
+    private columns: number;
+    private rows: number;
+    private columnsMatched: number[];
+    private rowsMatched: number[];
+
+    /**
+     * Creates a new bingo card.
+     * @param block Block of numbers describing the bingo card's content.
+     */
+    constructor(private block: string) {
+        const lines = block.split('\r\n');
+
+        // Parse the numbers. Careful with duplicate space separation.
+        const flat = lines.flatMap(l =&gt; l.split(' '));
+        this.numbers = flat.map(s =&gt; parseInt(s)).filter(n =&gt; n &gt;= 0);
+
+        this.rows = lines.length;
+        this.columns = this.numbers.length / this.rows;
+
+        // Initialize match counts; no matches yet.
+        this.rowsMatched = Array&lt;number&gt;(this.rows).fill(0);
+        this.columnsMatched = Array&lt;number&gt;(this.columns).fill(0);
+    }
+
+    /**
+     * Marks the given number on the bingo card if it exists. Also contains a win-check.
+     * @param n number that is to be marked.
+     * @returns true if there is a bingo match, otherwise false.
+     */
+    public markNumber(n: number) : boolean {
+        let result = false;
+
+        const index = this.numbers.indexOf(n);
+        if (index &gt;= 0) {
+            // There is a match! Calculate row and column.
+            const col = index % this.columns;
+            const row = Math.floor(index / this.columns);
+
+            // Take the number off the list.
+            this.numbers[index] = NaN;
+
+            // Update match counts and check for win.
+            result ||= ++this.columnsMatched[row] == this.columns;
+            result ||= ++this.rowsMatched[col] == this.rows;
+        }
+
+        return result;
+    }
+
+    /**
+     * Calculates the sum of the remaining numbers.
+     * @returns Sum of remaining numbers.
+     */
+    public sumOfRemaining() : number {
+        return this.numbers.filter(n =&gt; n).reduce((sum, current) =&gt; sum + current, 0);
+    }
+}</code></pre>
+</div>
+</div>
+<a id="day05" />
+</div>
+</div>
+<div class="sect2">
+<h3 id="_day_05_typescript"><a class="anchor" href="#_day_05_typescript"></a><a class="link" href="#_day_05_typescript">Day 05: typescript</a></h3>
+<div class="paragraph">
+<p><span class="small">this documentation is autogenerated. Add a <code>README.adoc</code> to your solution to take over the control of this :-)</span></p>
+</div>
+<div class="sect3">
+<h4 id="_typescript_5"><a class="anchor" href="#_typescript_5"></a><a class="link" href="#_typescript_5">typescript</a></h4>
+<div class="listingblock">
 <div class="title">read.ts</div>
 <div class="content">
 <pre class="prettyprint highlight"><code>import * as fs from 'fs';
@@ -5415,31 +5478,6 @@ export function readLines(file: string, path: string) : string[] {
 }</code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="title">main.ts</div>
-<div class="content">
-<pre class="prettyprint highlight"><code>// Day 04: Giant Squid by Christoph Jobmann
-
-import { BingoGame } from "./bingoGame";
-
-const game = new BingoGame();
-let score = game.selectFirstWinningCardScore();
-console.log(score);
-
-score = game.selectLastWinningCardScore();
-console.log(score);</code></pre>
-</div>
-</div>
-<a id="day05" />
-</div>
-</div>
-<div class="sect2">
-<h3 id="_day_05_typescript"><a class="anchor" href="#_day_05_typescript"></a><a class="link" href="#_day_05_typescript">Day 05: typescript</a></h3>
-<div class="paragraph">
-<p><span class="small">this documentation is autogenerated. Add a <code>README.adoc</code> to your solution to take over the control of this :-)</span></p>
-</div>
-<div class="sect3">
-<h4 id="_typescript_5"><a class="anchor" href="#_typescript_5"></a><a class="link" href="#_typescript_5">typescript</a></h4>
 <div class="listingblock">
 <div class="title">ventLine.ts</div>
 <div class="content">
@@ -5516,6 +5554,70 @@ console.log(score);</code></pre>
 
     public isDiagonal(): boolean {
         return Math.abs(this.x2 - this.x1) == Math.abs(this.y2 - this.y1);
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">main.ts</div>
+<div class="content">
+<pre class="prettyprint highlight"><code>import { VentAnalysis } from "./ventAnalysis";
+
+// Day 5: Hydrothermal Venture by Christoph Jobmann
+const ventAnalysis = new VentAnalysis();
+console.log(ventAnalysis.countHighVentAreas(false));
+
+console.log(ventAnalysis.countHighVentAreas(true));</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">ventAnalysis.ts</div>
+<div class="content">
+<pre class="prettyprint highlight"><code>import * as r from './read';
+import { VentLine } from './ventLine';
+
+export class VentAnalysis {
+    private lines: string[];
+
+    constructor() {
+        this.lines = r.readLines('input.txt', 'day05/typescript/aspik79');
+    }
+
+    /**
+     * Counts the number of cells with heat vent counts greater than one.
+     * @param includeDiagonal if false only horizontal and vertical vents count.
+     * @returns count of cells with vent count greater than one.
+     */
+    public countHighVentAreas(includeDiagonal: boolean): number {
+        const vents = this.lines.map(l =&gt; new VentLine(l, includeDiagonal));
+        let heatMap = this.buildHeatMap(vents);
+
+        return heatMap.flat().filter(n =&gt; n &gt; 1).length;
+    }
+
+    private buildHeatMap(vents: VentLine[]) : number[][] {
+        let heatMap: number[][] = [];
+
+        for (const v of vents) {
+            for (const c of v.listCovered()) {
+                let row = heatMap[c[0]];
+                if (row == undefined) {
+                    // Make sure the row exists.
+                    heatMap[c[0]] = [];
+                }
+
+                let n1 = heatMap[c[0]][c[1]];
+                if (n1 == undefined) {
+                    // Make sure the cell is initialized.
+                    n1 = 0;
+                }
+
+                // Increment the heat map's cell value.
+                heatMap[c[0]][c[1]] = n1 + 1;
+            }
+        }
+
+        return heatMap;
     }
 }</code></pre>
 </div>
@@ -6040,58 +6142,16 @@ console.log(score);</code></pre>
 5,5 -&gt; 8,2</code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="title">ventAnalysis.ts</div>
-<div class="content">
-<pre class="prettyprint highlight"><code>import * as r from './read';
-import { VentLine } from './ventLine';
-
-export class VentAnalysis {
-    private lines: string[];
-
-    constructor() {
-        this.lines = r.readLines('input.txt', 'day05/typescript/aspik79');
-    }
-
-    /**
-     * Counts the number of cells with heat vent counts greater than one.
-     * @param includeDiagonal if false only horizontal and vertical vents count.
-     * @returns count of cells with vent count greater than one.
-     */
-    public countHighVentAreas(includeDiagonal: boolean): number {
-        const vents = this.lines.map(l =&gt; new VentLine(l, includeDiagonal));
-        let heatMap = this.buildHeatMap(vents);
-
-        return heatMap.flat().filter(n =&gt; n &gt; 1).length;
-    }
-
-    private buildHeatMap(vents: VentLine[]) : number[][] {
-        let heatMap: number[][] = [];
-
-        for (const v of vents) {
-            for (const c of v.listCovered()) {
-                let row = heatMap[c[0]];
-                if (row == undefined) {
-                    // Make sure the row exists.
-                    heatMap[c[0]] = [];
-                }
-
-                let n1 = heatMap[c[0]][c[1]];
-                if (n1 == undefined) {
-                    // Make sure the cell is initialized.
-                    n1 = 0;
-                }
-
-                // Increment the heat map's cell value.
-                heatMap[c[0]][c[1]] = n1 + 1;
-            }
-        }
-
-        return heatMap;
-    }
-}</code></pre>
+<a id="day06" />
 </div>
 </div>
+<div class="sect2">
+<h3 id="_day_06_typescript"><a class="anchor" href="#_day_06_typescript"></a><a class="link" href="#_day_06_typescript">Day 06: typescript</a></h3>
+<div class="paragraph">
+<p><span class="small">this documentation is autogenerated. Add a <code>README.adoc</code> to your solution to take over the control of this :-)</span></p>
+</div>
+<div class="sect3">
+<h4 id="_typescript_6"><a class="anchor" href="#_typescript_6"></a><a class="link" href="#_typescript_6">typescript</a></h4>
 <div class="listingblock">
 <div class="title">read.ts</div>
 <div class="content">
@@ -6130,28 +6190,6 @@ export function readLines(file: string, path: string) : string[] {
 }</code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="title">main.ts</div>
-<div class="content">
-<pre class="prettyprint highlight"><code>import { VentAnalysis } from "./ventAnalysis";
-
-// Day 5: Hydrothermal Venture by Christoph Jobmann
-const ventAnalysis = new VentAnalysis();
-console.log(ventAnalysis.countHighVentAreas(false));
-
-console.log(ventAnalysis.countHighVentAreas(true));</code></pre>
-</div>
-</div>
-<a id="day06" />
-</div>
-</div>
-<div class="sect2">
-<h3 id="_day_06_typescript"><a class="anchor" href="#_day_06_typescript"></a><a class="link" href="#_day_06_typescript">Day 06: typescript</a></h3>
-<div class="paragraph">
-<p><span class="small">this documentation is autogenerated. Add a <code>README.adoc</code> to your solution to take over the control of this :-)</span></p>
-</div>
-<div class="sect3">
-<h4 id="_typescript_6"><a class="anchor" href="#_typescript_6"></a><a class="link" href="#_typescript_6">typescript</a></h4>
 <div class="listingblock">
 <div class="title">fishPopulation.ts</div>
 <div class="content">
@@ -6251,6 +6289,18 @@ export class FishPopulation {
 </div>
 </div>
 <div class="listingblock">
+<div class="title">main.ts</div>
+<div class="content">
+<pre class="prettyprint highlight"><code>// Day 06: Lanternfish  by Christoph Jobmann
+
+import { FishPopulation } from "./fishPopulation";
+
+const fp = new FishPopulation();
+console.log(fp.getPopulationSmartAfter(80));
+console.log(fp.getPopulationSmartAfter(256));</code></pre>
+</div>
+</div>
+<div class="listingblock">
 <div class="title">input.txt</div>
 <div class="content">
 <pre class="prettyprint highlight"><code>5,1,2,1,5,3,1,1,1,1,1,2,5,4,1,1,1,1,2,1,2,1,1,1,1,1,2,1,5,1,1,1,3,1,1,1,3,1,1,3,1,1,4,3,1,1,4,1,1,1,1,2,1,1,1,5,1,1,5,1,1,1,4,4,2,5,1,1,5,1,1,2,2,1,2,1,1,5,3,1,2,1,1,3,1,4,3,3,1,1,3,1,5,1,1,3,1,1,4,4,1,1,1,5,1,1,1,4,4,1,3,1,4,1,1,4,5,1,1,1,4,3,1,4,1,1,4,4,3,5,1,2,2,1,2,2,1,1,1,2,1,1,1,4,1,1,3,1,1,2,1,4,1,1,1,1,1,1,1,1,2,2,1,1,5,5,1,1,1,5,1,1,1,1,5,1,3,2,1,1,5,2,3,1,2,2,2,5,1,1,3,1,1,1,5,1,4,1,1,1,3,2,1,3,3,1,3,1,1,1,1,1,1,1,2,3,1,5,1,4,1,3,5,1,1,1,2,2,1,1,1,1,5,4,1,1,3,1,2,4,2,1,1,3,5,1,1,1,3,1,1,1,5,1,1,1,1,1,3,1,1,1,4,1,1,1,1,2,2,1,1,1,1,5,3,1,2,3,4,1,1,5,1,2,4,2,1,1,1,2,1,1,1,1,1,1,1,4,1,5</code></pre>
@@ -6262,6 +6312,16 @@ export class FishPopulation {
 <pre class="prettyprint highlight"><code>3,4,3,1,2</code></pre>
 </div>
 </div>
+<a id="day07" />
+</div>
+</div>
+<div class="sect2">
+<h3 id="_day_07_typescript"><a class="anchor" href="#_day_07_typescript"></a><a class="link" href="#_day_07_typescript">Day 07: typescript</a></h3>
+<div class="paragraph">
+<p><span class="small">this documentation is autogenerated. Add a <code>README.adoc</code> to your solution to take over the control of this :-)</span></p>
+</div>
+<div class="sect3">
+<h4 id="_typescript_7"><a class="anchor" href="#_typescript_7"></a><a class="link" href="#_typescript_7">typescript</a></h4>
 <div class="listingblock">
 <div class="title">read.ts</div>
 <div class="content">
@@ -6303,25 +6363,15 @@ export function readLines(file: string, path: string) : string[] {
 <div class="listingblock">
 <div class="title">main.ts</div>
 <div class="content">
-<pre class="prettyprint highlight"><code>// Day 06: Lanternfish  by Christoph Jobmann
+<pre class="prettyprint highlight"><code>// Day 07: The Treachery of Whales
+// Solution by Christoph Jobmann
 
-import { FishPopulation } from "./fishPopulation";
+import { CrabAligner } from "./crabAligner";
 
-const fp = new FishPopulation();
-console.log(fp.getPopulationSmartAfter(80));
-console.log(fp.getPopulationSmartAfter(256));</code></pre>
+console.log(new CrabAligner(true).countMinAlignmentFuel());
+console.log(new CrabAligner(false).countMinAlignmentFuel());</code></pre>
 </div>
 </div>
-<a id="day07" />
-</div>
-</div>
-<div class="sect2">
-<h3 id="_day_07_typescript"><a class="anchor" href="#_day_07_typescript"></a><a class="link" href="#_day_07_typescript">Day 07: typescript</a></h3>
-<div class="paragraph">
-<p><span class="small">this documentation is autogenerated. Add a <code>README.adoc</code> to your solution to take over the control of this :-)</span></p>
-</div>
-<div class="sect3">
-<h4 id="_typescript_7"><a class="anchor" href="#_typescript_7"></a><a class="link" href="#_typescript_7">typescript</a></h4>
 <div class="listingblock">
 <div class="title">crabAligner.ts</div>
 <div class="content">
@@ -6384,6 +6434,16 @@ export class CrabAligner {
 <pre class="prettyprint highlight"><code>16,1,2,0,4,2,7,1,2,14</code></pre>
 </div>
 </div>
+<a id="day08" />
+</div>
+</div>
+<div class="sect2">
+<h3 id="_day_08_typescript"><a class="anchor" href="#_day_08_typescript"></a><a class="link" href="#_day_08_typescript">Day 08: typescript</a></h3>
+<div class="paragraph">
+<p><span class="small">this documentation is autogenerated. Add a <code>README.adoc</code> to your solution to take over the control of this :-)</span></p>
+</div>
+<div class="sect3">
+<h4 id="_typescript_8"><a class="anchor" href="#_typescript_8"></a><a class="link" href="#_typescript_8">typescript</a></h4>
 <div class="listingblock">
 <div class="title">read.ts</div>
 <div class="content">
@@ -6425,25 +6485,203 @@ export function readLines(file: string, path: string) : string[] {
 <div class="listingblock">
 <div class="title">main.ts</div>
 <div class="content">
-<pre class="prettyprint highlight"><code>// Day 07: The Treachery of Whales
+<pre class="prettyprint highlight"><code>// Day 8: Seven Segment Search
 // Solution by Christoph Jobmann
 
-import { CrabAligner } from "./crabAligner";
+import { DigitSearcher } from "./digitSearcher";
 
-console.log(new CrabAligner(true).countMinAlignmentFuel());
-console.log(new CrabAligner(false).countMinAlignmentFuel());</code></pre>
+const ds = new DigitSearcher();
+const simpleNumbers = ds.countSimpleDigits();
+console.log(simpleNumbers.reduce((s, v) =&gt; s + v, 0));
+
+const outputs = ds.collectOutputs();
+console.log(outputs.reduce((s, v) =&gt; s + v, 0));</code></pre>
 </div>
 </div>
-<a id="day08" />
+<div class="listingblock">
+<div class="title">digitSearcher.ts</div>
+<div class="content">
+<pre class="prettyprint highlight"><code>import * as r from './read';
+
+export class DigitSearcher {
+    private lines: string[];
+
+    private patterns: string[] = [
+        'abcefg',
+        'cf',
+        'acdeg',
+        'acdfg',
+        'bcdf',
+        'abdfg',
+        'abdefg',
+        'acf',
+        'abcdefg',
+        'abcdfg'
+    ];
+
+    private segmentCountForNumber = this.patterns.map(p =&gt; p.length);
+
+    private simpleNumbers = [1, 4, 7, 8];
+
+    /**
+     * Initializes a new instance of the DigitSearcher class.
+     */
+    constructor() {
+        this.lines = r.readLines('input.txt', '');
+    }
+
+    /**
+     * Counts the occurrence of easy-to-decode digits.
+     * @returns Amount of decoded digits (if they were easy to decode).
+     */
+    public countSimpleDigits() : number[] {
+        let result: number[] = new Array&lt;number&gt;(10).fill(0);
+
+        for (let line of this.lines) {
+            let [signal, output] = line.split(' | ');
+
+            const tokens = output.split(' ');
+            for (let token of tokens) {
+                for (let n of this.simpleNumbers) {
+                    if (token.length == this.segmentCountForNumber[n]) {
+                        ++result[n];
+                    }
+                }
+            }
+        }
+
+        return result;
+    }
+
+    /**
+     * Collect all translated outputs.
+     * @returns Translated outputs.
+     */
+    public collectOutputs() : number[] {
+        let result: number[] = [];
+
+        for (let line of this.lines) {
+            result.push(this.processLine(line));
+        }
+
+        return result;
+    }
+
+    private processLine(line: string) : number {
+        const [signal, output] = line.split(' | ');
+
+        const pattern: string[] =  this.determinePatterns(signal);
+
+        let result = 0;
+
+        let otokens = sortedTokens(output.split(' '));
+        for (let otoken of otokens) {
+            const idx = pattern.indexOf(otoken);
+            if (idx &gt;= 0) {
+                result = result * 10 + idx;
+            }
+        }
+
+        return result;
+    }
+
+    private determinePatterns(signal: string) : string[] {
+        let tokens: string[] = sortedTokens(signal.split(' '));
+
+        let pattern: string[] = Array&lt;string&gt;(10).fill('0');
+
+        // Pattern extraction was solved by human - not sure how to do this via code without trying all permutations.
+        pattern[1] = this.tokensCandidatesForNumber(tokens, 1)[0];
+        pattern[4] = this.tokensCandidatesForNumber(tokens, 4)[0];
+        pattern[7] = this.tokensCandidatesForNumber(tokens, 7)[0];
+        pattern[8] = this.tokensCandidatesForNumber(tokens, 8)[0];
+
+        pattern[6] = tokens.filter(t =&gt; t.length == this.segmentCountForNumber[6]
+            &amp;&amp; except(pattern[1], t).length == 1)[0];
+
+        pattern[9] = tokens.filter(t =&gt; t.length == this.segmentCountForNumber[9]
+            &amp;&amp; intersect(pattern[4], t).length == 4)[0];
+
+        pattern[0] = tokens.filter(t =&gt; t.length == this.segmentCountForNumber[0]
+            &amp;&amp; t != pattern[6] &amp;&amp; t != pattern[9])[0];
+
+        pattern[3] = this.tokensCandidatesForNumber(tokens, 3)
+            .filter(t =&gt; intersect(t, pattern[1]).length == 2)[0];
+
+        pattern[5] = this.tokensCandidatesForNumber(tokens, 5)
+            .filter(t =&gt; intersect(t, pattern[6]).length == 5)[0];
+
+        pattern[2] = this.tokensCandidatesForNumber(tokens, 2)
+            .filter(t =&gt; !pattern.some(p =&gt; p == t))[0];
+
+        return pattern;
+    }
+
+    private tokensCandidatesForNumber(tokens: string[], n: number) : string[] {
+        return tokens.filter(t =&gt; t.length == this.segmentCountForNumber[n]);
+    }
+}
+
+/**
+ * Creates an array of sorted single characters from the string.
+ */
+function toSortedCharArray(s: string) : string[] {
+    let result: string[] = [];
+    for (let i = 0; i &lt; s.length; ++i) {
+        result.push(s.charAt(i));
+    }
+
+    result.sort((s1, s2) =&gt; s1.localeCompare(s2));
+
+    return result;
+}
+
+/**
+ * Processes the given tokens, creating a sorted representation of each token.
+ * The order of tokens is preserved.
+ */
+function sortedTokens(tokens: string[]) : string[] {
+    return tokens.map(t =&gt; toSortedCharArray(t).join(''));
+}
+
+/**
+ * Determines the characters that are part of both strings.
+ * @param s1 First string.
+ * @param s2 Second string.
+ * @returns Array of single characters that are part of both string.
+ */
+function intersect(s1: string, s2: string) : string[] {
+    const expanded = toSortedCharArray(s2);
+    let result: string[] = [];
+
+    for (let x1 of toSortedCharArray(s1)) {
+        if (expanded.includes(x1)) {
+            result.push(x1);
+        }
+    }
+
+    return result;
+}
+
+/**
+ * Determines the characters that are part of the first but not the second string.
+ * @param s1 First string.
+ * @param s2 Second string.
+ * @returns Array of single characters that are part of the first but not the second string.
+ */
+ function except(s1: string, s2: string) : string[] {
+    const expanded = toSortedCharArray(s2);
+    let result: string[] = [];
+    for (let x1 of toSortedCharArray(s1)) {
+        if (!s2.includes(x1)) {
+            result.push(x1);
+        }
+    }
+
+    return result;
+}</code></pre>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_day_08_typescript"><a class="anchor" href="#_day_08_typescript"></a><a class="link" href="#_day_08_typescript">Day 08: typescript</a></h3>
-<div class="paragraph">
-<p><span class="small">this documentation is autogenerated. Add a <code>README.adoc</code> to your solution to take over the control of this :-)</span></p>
-</div>
-<div class="sect3">
-<h4 id="_typescript_8"><a class="anchor" href="#_typescript_8"></a><a class="link" href="#_typescript_8">typescript</a></h4>
 <div class="listingblock">
 <div class="title">input.txt</div>
 <div class="content">
@@ -6649,190 +6887,16 @@ bg gacbe cefgad cbgf cbead gba fcedagb ebdafg gcfbae gacfe | gabec cedfgab acgef
 afedg edabg fcdg bfcega ebfdca decaf gf gfa acegfbd afedcg | dgcf efacgdb dcgf ebdfcag</code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="title">digitSearcher.ts</div>
-<div class="content">
-<pre class="prettyprint highlight"><code>import * as r from './read';
-
-export class DigitSearcher {
-    private lines: string[];
-
-    private patterns: string[] = [
-        'abcefg',
-        'cf',
-        'acdeg',
-        'acdfg',
-        'bcdf',
-        'abdfg',
-        'abdefg',
-        'acf',
-        'abcdefg',
-        'abcdfg'
-    ];
-
-    private segmentCountForNumber = this.patterns.map(p =&gt; p.length);
-
-    private simpleNumbers = [1, 4, 7, 8];
-
-    /**
-     * Initializes a new instance of the DigitSearcher class.
-     */
-    constructor() {
-        this.lines = r.readLines('input.txt', '');
-    }
-
-    /**
-     * Counts the occurrence of easy-to-decode digits.
-     * @returns Amount of decoded digits (if they were easy to decode).
-     */
-    public countSimpleDigits() : number[] {
-        let result: number[] = new Array&lt;number&gt;(10).fill(0);
-
-        for (let line of this.lines) {
-            let [signal, output] = line.split(' | ');
-
-            const tokens = output.split(' ');
-            for (let token of tokens) {
-                for (let n of this.simpleNumbers) {
-                    if (token.length == this.segmentCountForNumber[n]) {
-                        ++result[n];
-                    }
-                }
-            }
-        }
-
-        return result;
-    }
-
-    /**
-     * Collect all translated outputs.
-     * @returns Translated outputs.
-     */
-    public collectOutputs() : number[] {
-        let result: number[] = [];
-
-        for (let line of this.lines) {
-            result.push(this.processLine(line));
-        }
-
-        return result;
-    }
-
-    private processLine(line: string) : number {
-        const [signal, output] = line.split(' | ');
-
-        const pattern: string[] =  this.determinePatterns(signal);
-
-        let result = 0;
-
-        let otokens = sortedTokens(output.split(' '));
-        for (let otoken of otokens) {
-            const idx = pattern.indexOf(otoken);
-            if (idx &gt;= 0) {
-                result = result * 10 + idx;
-            }
-        }
-
-        return result;
-    }
-
-    private determinePatterns(signal: string) : string[] {
-        let tokens: string[] = sortedTokens(signal.split(' '));
-
-        let pattern: string[] = Array&lt;string&gt;(10).fill('0');
-
-        // Pattern extraction was solved by human - not sure how to do this via code without trying all permutations.
-        pattern[1] = this.tokensCandidatesForNumber(tokens, 1)[0];
-        pattern[4] = this.tokensCandidatesForNumber(tokens, 4)[0];
-        pattern[7] = this.tokensCandidatesForNumber(tokens, 7)[0];
-        pattern[8] = this.tokensCandidatesForNumber(tokens, 8)[0];
-
-        pattern[6] = tokens.filter(t =&gt; t.length == this.segmentCountForNumber[6]
-            &amp;&amp; except(pattern[1], t).length == 1)[0];
-
-        pattern[9] = tokens.filter(t =&gt; t.length == this.segmentCountForNumber[9]
-            &amp;&amp; intersect(pattern[4], t).length == 4)[0];
-
-        pattern[0] = tokens.filter(t =&gt; t.length == this.segmentCountForNumber[0]
-            &amp;&amp; t != pattern[6] &amp;&amp; t != pattern[9])[0];
-
-        pattern[3] = this.tokensCandidatesForNumber(tokens, 3)
-            .filter(t =&gt; intersect(t, pattern[1]).length == 2)[0];
-
-        pattern[5] = this.tokensCandidatesForNumber(tokens, 5)
-            .filter(t =&gt; intersect(t, pattern[6]).length == 5)[0];
-
-        pattern[2] = this.tokensCandidatesForNumber(tokens, 2)
-            .filter(t =&gt; !pattern.some(p =&gt; p == t))[0];
-
-        return pattern;
-    }
-
-    private tokensCandidatesForNumber(tokens: string[], n: number) : string[] {
-        return tokens.filter(t =&gt; t.length == this.segmentCountForNumber[n]);
-    }
-}
-
-/**
- * Creates an array of sorted single characters from the string.
- */
-function toSortedCharArray(s: string) : string[] {
-    let result: string[] = [];
-    for (let i = 0; i &lt; s.length; ++i) {
-        result.push(s.charAt(i));
-    }
-
-    result.sort((s1, s2) =&gt; s1.localeCompare(s2));
-
-    return result;
-}
-
-/**
- * Processes the given tokens, creating a sorted representation of each token.
- * The order of tokens is preserved.
- */
-function sortedTokens(tokens: string[]) : string[] {
-    return tokens.map(t =&gt; toSortedCharArray(t).join(''));
-}
-
-/**
- * Determines the characters that are part of both strings.
- * @param s1 First string.
- * @param s2 Second string.
- * @returns Array of single characters that are part of both string.
- */
-function intersect(s1: string, s2: string) : string[] {
-    const expanded = toSortedCharArray(s2);
-    let result: string[] = [];
-
-    for (let x1 of toSortedCharArray(s1)) {
-        if (expanded.includes(x1)) {
-            result.push(x1);
-        }
-    }
-
-    return result;
-}
-
-/**
- * Determines the characters that are part of the first but not the second string.
- * @param s1 First string.
- * @param s2 Second string.
- * @returns Array of single characters that are part of the first but not the second string.
- */
- function except(s1: string, s2: string) : string[] {
-    const expanded = toSortedCharArray(s2);
-    let result: string[] = [];
-    for (let x1 of toSortedCharArray(s1)) {
-        if (!s2.includes(x1)) {
-            result.push(x1);
-        }
-    }
-
-    return result;
-}</code></pre>
+<a id="day09" />
 </div>
 </div>
+<div class="sect2">
+<h3 id="_day_09_typescript"><a class="anchor" href="#_day_09_typescript"></a><a class="link" href="#_day_09_typescript">Day 09: typescript</a></h3>
+<div class="paragraph">
+<p><span class="small">this documentation is autogenerated. Add a <code>README.adoc</code> to your solution to take over the control of this :-)</span></p>
+</div>
+<div class="sect3">
+<h4 id="_typescript_9"><a class="anchor" href="#_typescript_9"></a><a class="link" href="#_typescript_9">typescript</a></h4>
 <div class="listingblock">
 <div class="title">read.ts</div>
 <div class="content">
@@ -6874,186 +6938,19 @@ export function readLines(file: string, path: string) : string[] {
 <div class="listingblock">
 <div class="title">main.ts</div>
 <div class="content">
-<pre class="prettyprint highlight"><code>// Day 8: Seven Segment Search
+<pre class="prettyprint highlight"><code>// Day 9: Smoke Basin
 // Solution by Christoph Jobmann
 
-import { DigitSearcher } from "./digitSearcher";
+import { RiskEvaluator } from "./riskEvaluator";
 
-const ds = new DigitSearcher();
-const simpleNumbers = ds.countSimpleDigits();
-console.log(simpleNumbers.reduce((s, v) =&gt; s + v, 0));
+const re = new RiskEvaluator();
 
-const outputs = ds.collectOutputs();
-console.log(outputs.reduce((s, v) =&gt; s + v, 0));</code></pre>
-</div>
-</div>
-<a id="day09" />
-</div>
-</div>
-<div class="sect2">
-<h3 id="_day_09_typescript"><a class="anchor" href="#_day_09_typescript"></a><a class="link" href="#_day_09_typescript">Day 09: typescript</a></h3>
-<div class="paragraph">
-<p><span class="small">this documentation is autogenerated. Add a <code>README.adoc</code> to your solution to take over the control of this :-)</span></p>
-</div>
-<div class="sect3">
-<h4 id="_typescript_9"><a class="anchor" href="#_typescript_9"></a><a class="link" href="#_typescript_9">typescript</a></h4>
-<div class="listingblock">
-<div class="title">tsconfig.json</div>
-<div class="content">
-<pre class="prettyprint highlight"><code>{
-  "compilerOptions": {
-    "target": "es2016",
-    "module": "commonjs",
-    "sourceMap": true,
-    "outDir": "./dist",
-    "strict": true,
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "baseUrl": "./",
-    "paths": {
-      "*": ["./dist"]
-    },
-    "typeRoots": ["node_modules/@types", "src/types"],
-    "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
-  },
-  "exclude": []
-}</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">package.json</div>
-<div class="content">
-<pre class="prettyprint highlight"><code>{
-  "name": "aoc2021",
-  "version": "1.0.0",
-  "description": "",
-  "scripts": {
-    "main": "ts-node main.ts"
-  },
-  "author": "Christoph Jobmann &lt;christoph.jobmann@deutschebahn.com&gt;",
-  "license": "ISC",
-  "devDependencies": {
-    "@types/node": "^16.11.12",
-    "typescript": "^4.5.2"
-  },
-  "dependencies": {
-    "ts-node": "^10.4.0",
-    "tslint": "^5.20.1",
-    "typescript": "^3.9.10"
-  }
-}</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">riskEvaluator.ts</div>
-<div class="content">
-<pre class="prettyprint highlight"><code>import * as r from './read';
+const highRisk = re.getHighRiskValues();
+console.log(highRisk.reduce((s, v) =&gt; s + v, 0));
 
-export class RiskEvaluator {
-    private heightMap: number[][] = [];
-
-    constructor() {
-        const lines = r.readLines('input.txt', '');
-        this.heightMap = lines.map(l =&gt; l.split('').map(s =&gt; parseInt(s)));
-    }
-
-    /**
-     * Recovers the values of high risk.
-     * @returns High risk values.
-     */
-    public getHighRiskValues() : number[] {
-        const locs = this.getHighRiskLocations();
-
-        return locs.map(l =&gt; 1 + this.heightMap[l[0]][l[1]]);
-    }
-
-    /**
-     * Gets the sizes of the individual basins, extending from a low point.
-     * @returns Sizes of basins.
-     */
-    public getBasins() : number[] {
-        let result: number[] = [];
-        const lowPoints = this.getHighRiskLocations();
-
-        for (let origin of lowPoints) {
-
-            let seen: number[][] = [];
-            let basin = [origin];
-            let unexplored = basin.slice(0);
-
-            do {
-                unexplored = this.tryExtendBasin(basin, unexplored, seen);
-            }
-            while (unexplored.length &gt; 0);
-
-            result.push(basin.length);
-        }
-
-        return result;
-    }
-
-    private getHighRiskLocations(): number[][] {
-        let result: number[][] = [];
-        for (let row = 0; row &lt; this.heightMap.length; ++row) {
-            const rowData = this.heightMap[row];
-            for (let col = 0; col &lt; rowData.length; ++col) {
-                const v = rowData[col];
-                if (this.calcRisk(v, row - 1, col)
-                    &amp;&amp; this.calcRisk(v, row, col - 1)
-                    &amp;&amp; this.calcRisk(v, row + 1, col)
-                    &amp;&amp; this.calcRisk(v, row, col + 1)) {
-                    result.push([row, col]);
-                }
-            }
-        }
-
-        return result;
-
-    }
-
-    private tryExtendBasin(basin: number[][], unexplored: number[][], seen: number[][]) : number[][] {
-        let nextUnexplored: number[][] = [];
-
-        for (let point of unexplored) {
-            if (!seen.some(b =&gt; b[0] == point[0] &amp;&amp; b[1] == point[1])) {
-                const v = this.heightMap[point[0]][point[1]];
-                this.tryExtendBasinStep(basin, nextUnexplored, v, point[0] - 1, point[1]);
-                this.tryExtendBasinStep(basin, nextUnexplored, v, point[0] + 1, point[1]);
-                this.tryExtendBasinStep(basin, nextUnexplored, v, point[0], point[1] - 1);
-                this.tryExtendBasinStep(basin, nextUnexplored, v, point[0], point[1] + 1);
-                seen.push(point);
-            }
-        }
-
-        return nextUnexplored;
-    }
-
-    private tryExtendBasinStep(basin: number[][], nextUnexplored: number[][], v: number, r: number, c: number) {
-
-        if (r &gt;= 0 &amp;&amp; r &lt;= this.heightMap.length - 1 &amp;&amp; c &gt;= 0 &amp;&amp; c &lt;= this.heightMap[r].length - 1) {
-            if (this.heightMap[r][c] &lt; 9 &amp;&amp; v &lt;= this.heightMap[r][c] &amp;&amp; !basin.includes([r,c])) {
-
-                if (basin.some(b =&gt; b[0] == r &amp;&amp; b[1] == c)) {
-                }
-                else {
-                    basin.push([r, c]);
-                }
-
-                nextUnexplored.push([r, c]);
-            }
-        }
-    }
-
-    private calcRisk(v: number, r: number, c: number): boolean {
-        if (r &gt;= 0 &amp;&amp; r &lt;= this.heightMap.length - 1 &amp;&amp; c &gt;= 0 &amp;&amp; c &lt;= this.heightMap[r].length - 1) {
-            return v &lt; this.heightMap[r][c];
-        }
-
-        return true;
-    }
-}</code></pre>
+const basins = re.getBasins();
+basins.sort((a, b) =&gt; b - a);
+console.log(basins.slice(0, 3).reduce((p, v) =&gt; p * v, 1));</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -7172,71 +7069,115 @@ export class RiskEvaluator {
 </div>
 </div>
 <div class="listingblock">
-<div class="title">read.ts</div>
+<div class="title">riskEvaluator.ts</div>
 <div class="content">
-<pre class="prettyprint highlight"><code>import * as fs from 'fs';
+<pre class="prettyprint highlight"><code>import * as r from './read';
 
-/**
- * Reads all lines from the given file.
- * @param file name of the file.
- * @param path alternative location if file is not found.
- * @returns lines of the file.
- */
-export function readLines(file: string, path: string) : string[] {
-    return readBlocks(file, path, '\r\n');
-}
+export class RiskEvaluator {
+    private heightMap: number[][] = [];
 
-/**
- * Reads all blocks from the given file.
- * @param file name of the file.
- * @param path alternative location if file is not found.
- * @param separator separator that is to be used for separating blocks.
- * @returns blocks of the file.
- */
- export function readBlocks(file: string, path: string, separator: string) : string[] {
-    let input: string;
-
-    const path1 = path + '/' + file;
-
-    if (fs.existsSync(path1)) {
-        input = fs.readFileSync(path1,'utf8');
-    }
-    else {
-        input = fs.readFileSync(file,'utf8');
+    constructor() {
+        const lines = r.readLines('input.txt', '');
+        this.heightMap = lines.map(l =&gt; l.split('').map(s =&gt; parseInt(s)));
     }
 
-    return input.split(separator);
+    /**
+     * Recovers the values of high risk.
+     * @returns High risk values.
+     */
+    public getHighRiskValues() : number[] {
+        const locs = this.getHighRiskLocations();
+
+        return locs.map(l =&gt; 1 + this.heightMap[l[0]][l[1]]);
+    }
+
+    /**
+     * Gets the sizes of the individual basins, extending from a low point.
+     * @returns Sizes of basins.
+     */
+    public getBasins() : number[] {
+        let result: number[] = [];
+        const lowPoints = this.getHighRiskLocations();
+
+        for (let origin of lowPoints) {
+
+            let seen: number[][] = [];
+            let basin = [origin];
+            let unexplored = basin.slice(0);
+
+            do {
+                unexplored = this.tryExtendBasin(basin, unexplored, seen);
+            }
+            while (unexplored.length &gt; 0);
+
+            result.push(basin.length);
+        }
+
+        return result;
+    }
+
+    private getHighRiskLocations(): number[][] {
+        let result: number[][] = [];
+        for (let row = 0; row &lt; this.heightMap.length; ++row) {
+            const rowData = this.heightMap[row];
+            for (let col = 0; col &lt; rowData.length; ++col) {
+                const v = rowData[col];
+                if (this.calcRisk(v, row - 1, col)
+                    &amp;&amp; this.calcRisk(v, row, col - 1)
+                    &amp;&amp; this.calcRisk(v, row + 1, col)
+                    &amp;&amp; this.calcRisk(v, row, col + 1)) {
+                    result.push([row, col]);
+                }
+            }
+        }
+
+        return result;
+
+    }
+
+    private tryExtendBasin(basin: number[][], unexplored: number[][], seen: number[][]) : number[][] {
+        let nextUnexplored: number[][] = [];
+
+        for (let point of unexplored) {
+            if (!seen.some(b =&gt; b[0] == point[0] &amp;&amp; b[1] == point[1])) {
+                const v = this.heightMap[point[0]][point[1]];
+                this.tryExtendBasinStep(basin, nextUnexplored, v, point[0] - 1, point[1]);
+                this.tryExtendBasinStep(basin, nextUnexplored, v, point[0] + 1, point[1]);
+                this.tryExtendBasinStep(basin, nextUnexplored, v, point[0], point[1] - 1);
+                this.tryExtendBasinStep(basin, nextUnexplored, v, point[0], point[1] + 1);
+                seen.push(point);
+            }
+        }
+
+        return nextUnexplored;
+    }
+
+    private tryExtendBasinStep(basin: number[][], nextUnexplored: number[][], v: number, r: number, c: number) {
+
+        if (r &gt;= 0 &amp;&amp; r &lt;= this.heightMap.length - 1 &amp;&amp; c &gt;= 0 &amp;&amp; c &lt;= this.heightMap[r].length - 1) {
+            if (this.heightMap[r][c] &lt; 9 &amp;&amp; v &lt;= this.heightMap[r][c] &amp;&amp; !basin.includes([r,c])) {
+
+                if (basin.some(b =&gt; b[0] == r &amp;&amp; b[1] == c)) {
+                }
+                else {
+                    basin.push([r, c]);
+                }
+
+                nextUnexplored.push([r, c]);
+            }
+        }
+    }
+
+    private calcRisk(v: number, r: number, c: number): boolean {
+        if (r &gt;= 0 &amp;&amp; r &lt;= this.heightMap.length - 1 &amp;&amp; c &gt;= 0 &amp;&amp; c &lt;= this.heightMap[r].length - 1) {
+            return v &lt; this.heightMap[r][c];
+        }
+
+        return true;
+    }
 }</code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="title">main.ts</div>
-<div class="content">
-<pre class="prettyprint highlight"><code>// Day 9: Smoke Basin
-// Solution by Christoph Jobmann
-
-import { RiskEvaluator } from "./riskEvaluator";
-
-const re = new RiskEvaluator();
-
-const highRisk = re.getHighRiskValues();
-console.log(highRisk.reduce((s, v) =&gt; s + v, 0));
-
-const basins = re.getBasins();
-basins.sort((a, b) =&gt; b - a);
-console.log(basins.slice(0, 3).reduce((p, v) =&gt; p * v, 1));</code></pre>
-</div>
-</div>
-<a id="day10" />
-</div>
-</div>
-<div class="sect2">
-<h3 id="_day_10_typescript"><a class="anchor" href="#_day_10_typescript"></a><a class="link" href="#_day_10_typescript">Day 10: typescript</a></h3>
-<div class="paragraph">
-<p><span class="small">this documentation is autogenerated. Add a <code>README.adoc</code> to your solution to take over the control of this :-)</span></p>
-</div>
-<div class="sect3">
-<h4 id="_typescript_10"><a class="anchor" href="#_typescript_10"></a><a class="link" href="#_typescript_10">typescript</a></h4>
 <div class="listingblock">
 <div class="title">tsconfig.json</div>
 <div class="content">
@@ -7284,6 +7225,168 @@ console.log(basins.slice(0, 3).reduce((p, v) =&gt; p * v, 1));</code></pre>
     "typescript": "^3.9.10"
   }
 }</code></pre>
+</div>
+</div>
+<a id="day10" />
+</div>
+</div>
+<div class="sect2">
+<h3 id="_day_10_typescript"><a class="anchor" href="#_day_10_typescript"></a><a class="link" href="#_day_10_typescript">Day 10: typescript</a></h3>
+<div class="paragraph">
+<p><span class="small">this documentation is autogenerated. Add a <code>README.adoc</code> to your solution to take over the control of this :-)</span></p>
+</div>
+<div class="sect3">
+<h4 id="_typescript_10"><a class="anchor" href="#_typescript_10"></a><a class="link" href="#_typescript_10">typescript</a></h4>
+<div class="listingblock">
+<div class="title">read.ts</div>
+<div class="content">
+<pre class="prettyprint highlight"><code>import * as fs from 'fs';
+
+/**
+ * Reads all lines from the given file.
+ * @param file name of the file.
+ * @param path alternative location if file is not found.
+ * @returns lines of the file.
+ */
+export function readLines(file: string, path: string) : string[] {
+    return readBlocks(file, path, '\r\n');
+}
+
+/**
+ * Reads all blocks from the given file.
+ * @param file name of the file.
+ * @param path alternative location if file is not found.
+ * @param separator separator that is to be used for separating blocks.
+ * @returns blocks of the file.
+ */
+ export function readBlocks(file: string, path: string, separator: string) : string[] {
+    let input: string;
+
+    const path1 = path + '/' + file;
+
+    if (fs.existsSync(path1)) {
+        input = fs.readFileSync(path1,'utf8');
+    }
+    else {
+        input = fs.readFileSync(file,'utf8');
+    }
+
+    return input.split(separator);
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">main.ts</div>
+<div class="content">
+<pre class="prettyprint highlight"><code>// Day 10: Syntax Scoring
+// Solution by Christoph Jobmann
+
+import { SyntaxChecker } from "./syntaxChecker";
+
+let checker = new SyntaxChecker();
+const scores = checker.getErrorScores();
+console.log(scores.reduce((sum, v) =&gt; sum + v, 0));
+
+console.log(checker.getMiddleCompletionScore());</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">input.txt</div>
+<div class="content">
+<pre class="prettyprint highlight"><code>[{&lt;(&lt;[&lt;&lt;(&lt;{[[&lt;[]{}&gt;&lt;()[]&gt;]]&lt;(([]&lt;&gt;)&lt;(){}&gt;)({[]{}}([]()))&gt;}&gt;{{{&lt;(()&lt;&gt;)[[]()]&gt;&lt;(&lt;&gt;())[[]&lt;&gt;]&gt;}{({()
+&lt;&lt;[{([[{{[[[({()()}[&lt;&gt;[]]){&lt;&lt;&gt;[]&gt;([]&lt;&gt;)}]{[{{}{}}&lt;{}{}&gt;]{{[]&lt;&gt;}{[]{}}}}][{{{(){}}&lt;&lt;&gt;[]&gt;}}]]}{
+([&lt;{([&lt;[([({[{[]{}}{{}{}}]}{[{&lt;&gt;{}}{(){}}]})[{[[(){}][(){}]]{&lt;&lt;&gt;[]}{{}[]}}}]])]&gt;&lt;({{{[[{{}{}}]&lt;{&lt;&gt;
+{{((&lt;([&lt;[&lt;[((&lt;{}&gt;{()()})&lt;[{}[]]{&lt;&gt;{}}&gt;)&lt;({[]{}}([][])){{[]&lt;&gt;}{{}&lt;&gt;}}&gt;]&gt;]&gt;&lt;[[[[[&lt;&lt;&gt;()&gt;(()[])](&lt;[][]&gt;{&lt;&gt;{}}
+{[[&lt;[[((&lt;[{{&lt;[[]{}](()[])&gt;}{&lt;({}[])[[]&lt;&gt;]&gt;}}{[(&lt;()()&gt;&lt;()&gt;)({[]()}[&lt;&gt;()&gt;)]}]((&lt;{[&lt;&gt;[]]{{}()}}&gt;[{&lt;()&lt;&gt;&gt;{[]
+({{((&lt;[{{{([{[(){}][&lt;&gt;]}([&lt;&gt;()][[]()])]{&lt;{{}&lt;&gt;}&lt;{}&lt;&gt;&gt;&gt;{{()[]}{()()}}})&lt;&lt;[(&lt;&gt;&lt;&gt;)&lt;[]()&gt;][((){}){[]{}}]&gt;&gt;}}
+{&lt;(&lt;{[[([[(&lt;[(&lt;&gt;[])]&lt;{()}&lt;()[]&gt;&gt;&gt;&lt;{&lt;{}[]&gt;&lt;[]&gt;}(&lt;&lt;&gt;{}&gt;&lt;()()&gt;)&gt;)]]{((({{&lt;&gt;&lt;&gt;}{{}{}}}{&lt;[]()&gt;&lt;{}&lt;&gt;&gt;})&lt;[{(
+&lt;[{(&lt;{&lt;((&lt;(&lt;{(&lt;&gt;{})}&lt;&lt;[]&gt;(&lt;&gt;{})&gt;&gt;){{(&lt;()[]&gt;[[]&lt;&gt;])}[{[[][]]&lt;&lt;&gt;()&gt;}{[{}()]&lt;(){}&gt;}]}&gt;{(((&lt;&lt;&gt;
+(&lt;[{[&lt;((((&lt;[[[{}{}]{{}&lt;&gt;}]({[][]}[(){}])][{(&lt;&gt;[])&lt;[]&lt;&gt;&gt;}&lt;[(){}]&gt;]&gt;)))&lt;({{[&lt;([]&lt;&gt;)&lt;()&lt;&gt;&gt;&gt;[{
+{{&lt;&lt;[&lt;({[{([(&lt;[][]&gt;{[][]})&lt;&lt;&lt;&gt;[]&gt;([]())&gt;])[(&lt;&lt;[]&lt;&gt;&gt;[{}()]&gt;{([]{})})]}](&lt;[&lt;(&lt;&lt;&gt;[]&gt;)&gt;{(&lt;[]{}&gt;[&lt;&gt;[]])&lt;&lt;[]()&gt;((
+[[[{&lt;{[[[([[&lt;&lt;&lt;&gt;&gt;[{}()]}[({}[])&lt;()&lt;&gt;&gt;]]]{&lt;&lt;&lt;[]{}&gt;[&lt;&gt;[]]&gt;&lt;{[]&lt;&gt;}{[]{}}&gt;&gt;{(&lt;{}{}&gt;{&lt;&gt;&lt;&gt;})({[]()}{{}&lt;&gt;})}})]&lt;&lt;&lt;[(
+(({([&lt;{{{{&lt;&lt;&lt;({}())[()&lt;&gt;]&gt;{[[]()][()[]}}&gt;&gt;}&lt;({({{}&lt;&gt;}[[]{}])(({}{}){()()})}{[(&lt;&gt;{}){&lt;&gt;{}}]{[&lt;&gt;[]]({}&lt;&gt;)}})&gt;}(
+{(([{(([&lt;[{(&lt;{[]&lt;&gt;}&lt;()&lt;&gt;&gt;&gt;[([]{}}(&lt;&gt;{})])}({[&lt;&lt;&gt;[]&gt;&lt;&lt;&gt;{}&gt;]}&lt;[&lt;()[]&gt;[&lt;&gt;{}]]{&lt;()&lt;&gt;&gt;{(){}}}&gt;)]&gt;([&lt;((&lt;{}()&gt;
+({{&lt;{{{{{{({&lt;{&lt;&gt;{}}&gt;(&lt;&lt;&gt;[]&gt;[[][]])})]{[{{{(){}}[()&lt;&gt;]}&lt;[&lt;&gt;][[]{}]&gt;}{[&lt;{}&lt;&gt;&gt;{&lt;&gt;}]{{[]{}}(&lt;&gt;{})
+{{(([{([{([&lt;([[]{}]{&lt;&gt;[]})&gt;{(((){})[()()]){{{}&lt;&gt;]&lt;()()&gt;}}])(({{{&lt;&gt;{}}{[]{}}}[((){})[&lt;&gt;]]}&lt;{(()[])[
+{&lt;[((&lt;&lt;(([{{&lt;{[][]}&gt;{[()&lt;&gt;]{()[]}}}}]))&lt;&lt;((&lt;[&lt;[][]&gt;[[]()]][({}){[]&lt;&gt;}]&gt;))&gt;&gt;&gt;&gt;))&lt;(&lt;&lt;([&lt;&lt;[{&lt;&lt;&gt;&lt;&gt;&gt;[(
+[([[(&lt;([(({&lt;([{}][&lt;&gt;[]]){&lt;{}{}&gt;&lt;{}[]&gt;}&gt;(&lt;({}[])&gt;(&lt;()()&gt;))}{[[{{}()}{&lt;&gt;&lt;&gt;}][{()[]}&lt;()()&gt;]&gt;[{&lt;&lt;&gt;&lt;&gt;&gt;{
+[{[&lt;{(&lt;[([[[{[{}&lt;&gt;]({}())}(&lt;&lt;&gt;&gt;[[]&lt;&gt;])]{({&lt;&gt;()}{()()}){{[]()&gt;{[]()}}}]]{[[{({}()){[][]}}((&lt;&gt;&lt;&gt;))][[
+&lt;{(&lt;[&lt;&lt;&lt;{{[{{&lt;{}&lt;&gt;&gt;[[]&lt;&gt;]}[{()&lt;&gt;}[()&lt;&gt;]]}{[{{}[]}{()}]{&lt;[]&lt;&gt;&gt;([][])}}]({[[{}]{()&lt;&gt;}](({}{}))}&gt;}{&lt;[&lt;({}()){()
+&lt;(&lt;[&lt;([({[&lt;([&lt;[]{}&gt;{[]&lt;&gt;}]{{[]{}}{{}{}}})&lt;&lt;{()&lt;&gt;}({}{})&gt;&lt;&lt;[]()&gt;{()&lt;&gt;]&gt;&gt;&gt;(([{[]()}({}())]([[]()]&lt;{}()&gt;))
+{[&lt;&lt;([[&lt;([&lt;&lt;(&lt;[]&lt;&gt;&gt;){&lt;&lt;&gt;()&gt;(&lt;&gt;&lt;&gt;)}&gt;&lt;&lt;{&lt;&gt;&lt;&gt;}[{}[]]&gt;([{}()])&gt;&gt;])&gt;][{({[&lt;&lt;[&lt;&gt;]{&lt;&gt;()}&gt;&gt;&lt;&lt;[&lt;&gt;()]{{
+&lt;&lt;&lt;[&lt;&lt;{[&lt;&lt;(({&lt;{}&lt;&gt;&gt;{{}&lt;&gt;}}[&lt;[]&lt;&gt;&gt;({}[])]))&gt;&lt;{{&lt;[[]()][(){}]&gt;&lt;{{}()}(&lt;&gt;)&gt;}[((&lt;&gt;{})(()&lt;&gt;))&lt;[(){}][[][]]&gt;]&gt;&gt;&gt;]}
+(([{{[{{&lt;&lt;{{[({}&lt;&gt;)(&lt;&gt;{})](&lt;(){}&gt;&lt;{}{}))}}([{({}())&lt;&lt;&gt;&lt;&gt;&gt;}{&lt;(){}&gt;}]{{[{}{}]{(){}}}&lt;([]&lt;&gt;){()()}&gt;})
+({{([{{({[{&lt;&lt;({}[])(()[])&gt;[{{}()}[{}{}]]&gt;&lt;&lt;{()&lt;&gt;}{{}}&gt;&gt;}&lt;[((()&lt;&gt;)([]{}))[{()()}(()&lt;&gt;)]]{[{(){}}{()
+&lt;[&lt;{&lt;[{({(([((&lt;&gt;{}){()[]}){{{}{}}{[]&lt;&gt;}}]{{({}&lt;&gt;)&lt;{}[]&gt;}&lt;(()&lt;&gt;}(()[])&gt;}))(&lt;{({&lt;&gt;&lt;&gt;}[[]()])&lt;[{}()](
+[[{[({{&lt;{{{{[&lt;&lt;&gt;[]]({}{})]&lt;([]{})(&lt;&gt;{})&gt;}{{({}{})[{}{}]}{&lt;&lt;&gt;[]&gt;&lt;{}&gt;}}}{&lt;(&lt;&lt;&gt;[]&gt;{{}{}})[(()&lt;
+[([(&lt;{{[&lt;[{[&lt;(&lt;&gt;())&lt;[]()&gt;&gt;{{{}}&lt;[][]&gt;}][[{[][]}&lt;{}[]&gt;]({{}()}[[][]])]}{{{&lt;{}{}&gt;&lt;{}&lt;&gt;&gt;}{[()[]]&lt;()[]&gt;}}&lt;&lt;{[]{}}
+[[(((({&lt;&lt;[&lt;&lt;({{}()}){&lt;()()&gt;&lt;&lt;&gt;[]&gt;}&gt;{((&lt;&gt;&lt;&gt;)({}())){&lt;[]{}&gt;&lt;()[]&gt;}}&gt;&lt;[{&lt;{}&gt;}({{}{}}[&lt;&gt;()])]{{({}{})}[&lt;
+((&lt;&lt;[{{[[([[&lt;[{}()]((){})&gt;[{()[]}&lt;&lt;&gt;{}&gt;]]([&lt;{}()&gt;][{{}[]}[()]])]{({[()()][[]()]}(((){}){{}{}}))[{(&lt;&gt;())}
+{[[&lt;{&lt;{[{{[(&lt;&lt;&lt;&gt;[]&gt;([]())&gt;{(()[])[&lt;&gt;{}]}){&lt;(&lt;&gt;())(&lt;&gt;{})&gt;{&lt;[]&lt;&gt;&gt;[{}[]]}}]({&lt;&lt;&lt;&gt;[]&gt;&lt;{}()&gt;&gt;([[][]])}&lt;[&lt;{
+[(&lt;[&lt;{&lt;[([[{{{&lt;&gt;[]}[[]{}]&gt;({[][]}[[][]])}{[(&lt;&gt;[])[[]]]({()()}({}[]))}]])&lt;[&lt;&lt;&lt;{&lt;&gt;{}}{[][]}&gt;((()){()&lt;&gt;})&gt;&gt;
+({&lt;[&lt;&lt;[{[&lt;({&lt;{{}{}}{&lt;&gt;[]}&gt;{{()}{[]&lt;&gt;}}}[&lt;[{}&lt;&gt;][()[]]&gt;])((&lt;([]())((){})&gt;&lt;[(){}]{{}()}&gt;)[{&lt;[]{}&gt;[{}{}]}[
+&lt;[[([([(&lt;(&lt;[[(()[])]{[[]&lt;&gt;]({}{})}]&gt;)&gt;[&lt;[{&lt;&lt;&lt;&gt;()&gt;({}{})&gt;&lt;([][])&lt;{}{}&gt;&gt;}&lt;([()[]]&lt;(){}&gt;)[([]{})[{}&lt;&gt;]]&gt;]&gt;&lt;[{({
+[&lt;{([([(&lt;{&lt;&lt;{[()[]][()}}&lt;&lt;{}{}&gt;&gt;&gt;&lt;&lt;{[]&lt;&gt;}((){})&gt;[{[]()}]&gt;&gt;}[(({{&lt;&gt;[]}[&lt;&gt;()]}&lt;({}{})[{}[]]&gt;)&lt;[{&lt;&gt;{}}([][])
+[&lt;{([((&lt;{({{[&lt;&lt;&gt;()&gt;{[]{}}](&lt;[]()&gt;[{}{}])}})(&lt;{([&lt;&gt;()]{[][]})[{{}()}]}&lt;((()[])(())){([]&lt;&gt;)([]&lt;&gt;)}&gt;&gt;{((({}()){
+((&lt;{{{&lt;&lt;[[&lt;[[{[]&lt;&gt;}&lt;{}[]&gt;]&lt;&lt;(){}&gt;&lt;&lt;&gt;&gt;&gt;]&lt;&lt;[[][]&gt;[[][]]&gt;{{&lt;&gt;&lt;&gt;}{[]{}}}&gt;&gt;{{{{&lt;&gt;[]}{&lt;&gt;{}}}[[[]&lt;&gt;]&lt;{
+[&lt;&lt;[{[&lt;({[[{{{{}[]}[&lt;&gt;&lt;&gt;]}{&lt;&lt;&gt;[]&gt;[{}[]]}}&lt;&lt;(()[])[&lt;&gt;()]&gt;[[&lt;&gt;{}]]&gt;]]}{&lt;({&lt;([]())(&lt;&gt;())&gt;[[{}[]][&lt;&gt;{}]]}){([
+([&lt;{({({{&lt;[({(&lt;&gt;&lt;&gt;){(){}}}&lt;{[]{}}{[]())&gt;)({&lt;(){}&gt;[&lt;&gt;[]]})]&lt;[([{}{}]&lt;{}[]&gt;)[[()[]]]]{[{{}&lt;&gt;}]&lt;(()&lt;&gt;)
+[([{&lt;{&lt;{(&lt;&lt;(({[]{}}({}()))){{(&lt;&gt;())(&lt;&gt;&lt;&gt;)}(([]{})&lt;{}[]&gt;)}&gt;&lt;[&lt;[{}{}]({}{})&gt;]{[&lt;[]()&gt;(&lt;&gt;{})]&lt;({}()
+((&lt;{[(&lt;&lt;[([&lt;{([]{}){&lt;&gt;&lt;&gt;)}[[[][]]({}())]&gt;[[{&lt;&gt;()}[()&lt;&gt;]](({}&lt;&gt;)([]))]][&lt;((()[])&lt;()[]&gt;)[[&lt;&gt;()]]&gt;])&lt;&lt;{[
+{[[&lt;{&lt;&lt;[{{(((&lt;{}[]&gt;(()))[&lt;&lt;&gt;()&gt;{[][]}])){&lt;([[]{}]{{}[]})&lt;{{}()}{()()}&gt;}}}[{[[&lt;(){}&gt;{{}()}]
+{[{[&lt;&lt;[{[{([(&lt;[]()&gt;(()&lt;&gt;))]&lt;{[{}&lt;&gt;]&lt;{}()&gt;}&lt;{{}{}}[()[]]&gt;&gt;)[{{&lt;{}&gt;(())}&lt;(&lt;&gt;)[&lt;&gt;[]]&gt;}(&lt;{[]&lt;&gt;}[()()]]&lt;{&lt;&gt;{}}
+[{{[{{[&lt;{[(&lt;{[()()][&lt;&gt;[]]}&lt;([][])(()&lt;&gt;)&gt;&gt;({{{}()}[()&lt;&gt;]}[&lt;[]{}&gt;&lt;[]}]))([&lt;&lt;&lt;&gt;&lt;&gt;&gt;({}[])&gt;({()[]}[&lt;&gt;])][([(
+[({&lt;[[&lt;{&lt;[(&lt;(&lt;[][]&gt;&lt;[]()&gt;){[()()]{()()}}&gt;)[&lt;[&lt;()&gt;(()[])][(&lt;&gt;&lt;&gt;)]&gt;((({}())&lt;&lt;&gt;[]&gt;))]]&lt;[{[&lt;&lt;&gt;{}&gt;[{}&lt;&gt;]](&lt;{}{}&gt;((
+&lt;{&lt;(&lt;((&lt;&lt;[[&lt;([&lt;&gt;&lt;&gt;][()[]])(&lt;&lt;&gt;{}&gt;[&lt;&gt;[]])&gt;]({&lt;&lt;[]&gt;(()&lt;&gt;)&gt;(((){}){&lt;&gt;[]})}{[[[]](&lt;&gt;())]&lt;&lt;(){}&gt;&lt;&lt;&gt;[]&gt;&gt;
+[&lt;{(&lt;{{&lt;(({(&lt;&lt;[]()&gt;&gt;&lt;&lt;()&lt;&gt;&gt;&gt;)&lt;{&lt;{}()&gt;&lt;()()}}(&lt;[][]&gt;{{}{}})&gt;}[{[{[][]}[()&lt;&gt;]]{([][])(&lt;&gt;[])}}[{[{}()][
+{{(([[[{[{({([()()]([]&lt;&gt;))&lt;[{}{}](&lt;&gt;())&gt;}{{{()&lt;&gt;}{()()}}({()[]}[{}{}])})&lt;([([]{})&lt;()[]&gt;]{&lt;&lt;&gt;()&gt;})&gt;}[[
+(((&lt;[{&lt;[{([[{[[]&lt;&gt;]{&lt;&gt;{}}}[[{}&lt;&gt;](&lt;&gt;{})]]&lt;&lt;[(){}][[]{}}&gt;{[[][]]}&gt;][{{[[]{}]([]{})}[([])&lt;&lt;&gt;&gt;]}
+&lt;[&lt;[[([[[[{{{([]()){(){}}}&lt;[[]{}](&lt;&gt;&lt;&gt;)&gt;}}]]]{([[&lt;[(()())(()[]]][[&lt;&gt;{}]&lt;&lt;&gt;[]&gt;]&gt;(&lt;[&lt;&gt;]&lt;&lt;&gt;&lt;&gt;&gt;&gt;({{}{}}([]{
+({(([&lt;&lt;[{{[(&lt;({}&lt;&gt;)&lt;[]&lt;&gt;&gt;&gt;(&lt;{}&lt;&gt;&gt;{(){}}))]{(({{}[]})({{}&lt;&gt;}((){}]))[({{}()}[()&lt;&gt;])&lt;({}()){&lt;&gt;()}&gt;]}}}[&lt;
+&lt;[&lt;({[[&lt;&lt;([[((&lt;&gt;())[&lt;&gt;&lt;&gt;]){[&lt;&gt;[]]&lt;&lt;&gt;&gt;}]]{([&lt;{}[]&gt;{&lt;&gt;&lt;&gt;}])})&lt;&lt;[&lt;([]&lt;&gt;)(()&lt;&gt;)&gt;(&lt;{}()&gt;([]&lt;&gt;))]&gt;[
+({({{[[&lt;&lt;([[({()[]}[&lt;&gt;&lt;&gt;]){(()&lt;&gt;){&lt;&gt;&lt;&gt;}}][{{&lt;&gt;[]}(&lt;&gt;&lt;&gt;)}{[[]&lt;&gt;]&lt;[]&gt;}]])&gt;([[&lt;(({}[])&lt;()&gt;)(&lt;()&gt;[&lt;&gt;{
+&lt;([{(({&lt;[{([&lt;[[]&lt;&gt;]&lt;()&lt;&gt;&gt;&gt;&lt;(&lt;&gt;())({})&gt;][[(&lt;&gt;[]){[]{}}]{(&lt;&gt;[])&lt;()[]&gt;}])({[{{}()}{[]()}]}{{[[]{}]({}&lt;&gt;)
+[([{({(({{&lt;&lt;&lt;&lt;(){}&gt;[&lt;&gt;[]]&gt;([&lt;&gt;()][&lt;&gt;[]])&gt;[{(()())[()&lt;&gt;]}&lt;{[][]}[&lt;&gt;{}]&gt;]&gt;}&lt;[&lt;([[]()][&lt;&gt;()])((&lt;&gt;&lt;&gt;){[]})&gt;
+&lt;({[{{[{{[([{({}()){{}{}}}&lt;(()())[[][]]&gt;][&lt;[&lt;&gt;()][{}[]]&gt;&lt;&lt;&lt;&gt;&lt;&gt;&gt;&gt;])([[({}{})(()&lt;&gt;)]{&lt;&lt;&gt;&lt;&gt;&gt;([]&lt;&gt;)}]{{&lt;()[]
+&lt;{{&lt;{(([(&lt;&lt;&lt;{{[]()}[[]()]}&gt;{{[{}&lt;&gt;]&lt;()&lt;&gt;&gt;}[{{}{}}[{}[]]]}&gt;&gt;([([&lt;()()&gt;[{}&lt;&gt;]])([&lt;()[]&gt;[&lt;&gt;()]]{([]{})}
+{&lt;({&lt;{[{{({[&lt;{{}()}[()()]&gt;{({}&lt;&gt;)}][&lt;&lt;()()&gt;{[][]}&gt;{&lt;&lt;&gt;()&gt;&lt;{}{}&gt;}]})}{(&lt;{&lt;[()()]&gt;}&lt;{({}){()()}}(&lt;[]&lt;&gt;&gt;&lt;
+(({{({{{&lt;[[({((){})[&lt;&gt;[]]}[{&lt;&gt;{}}[[]()]])]{&lt;&lt;(&lt;&gt;){{}()}&gt;[&lt;&lt;&gt;&gt;{{}{}}]&gt;([(()[])][([]())&lt;&lt;&gt;()&gt;])}][&lt;[[
+[{[[[{&lt;&lt;&lt;[&lt;{({[]()}({}{}))[{&lt;&gt;}{&lt;&gt;[]}]}&gt;[((&lt;&lt;&gt;&lt;&gt;&gt;[[]&lt;&gt;])[[[]&lt;&gt;]&lt;[][]&gt;]){[[{}()][{}&lt;&gt;]]({[]
+&lt;&lt;[{({[[[&lt;[[[&lt;[][]&gt;]{{[]()}(()&lt;&gt;)}]{[[(){}}&lt;{}()&gt;][{&lt;&gt;{}}({}{})]}](({([]{})&lt;()()&gt;}[({}())]))&gt;(&lt;{(&lt;(){}&gt;)}
+({&lt;([[(&lt;(({{&lt;{{}[]}[[]&lt;&gt;]&gt;}[&lt;(&lt;&gt;[])&lt;{}{}&gt;&gt;&lt;[[]&lt;&gt;][[]{}]&gt;]}&lt;[({&lt;&gt;{}}{{}()})(&lt;[]()&gt;(()&lt;&gt;))]([&lt;{}()
+((&lt;[{[{[{{&lt;[{[&lt;&gt;{}]}[&lt;[][]&gt;&lt;()&gt;]]{{&lt;()[]&gt;}&lt;[(){}]{{}&lt;&gt;}&gt;}&gt;}&lt;(([[[]{}]&lt;[]&lt;&gt;&gt;]{[{}{}]&lt;()[]&gt;})[[{[]{}}{{}
+[([(&lt;([&lt;(&lt;&lt;{(&lt;{}{}&gt;{()&lt;&gt;})[([]())[[]]]}[{{[]&lt;&gt;}((){})}&lt;{{}[]}([]())&gt;]&gt;&lt;{[[&lt;&gt;()]]&lt;({}())[{}&lt;&gt;]&gt;}{[({}&lt;&gt;)
+[{[&lt;([&lt;{&lt;{{[[{{}{}}{&lt;&gt;&lt;&gt;}]&lt;[[]()]{[]{}}&gt;][{({}{}){[][]}}&lt;&lt;{}{}&gt;([]()]&gt;]}[&lt;&lt;({}&lt;&gt;){()&lt;&gt;}&gt;({(){}}&lt;{}{}&gt;)&gt;&lt;([{}
+&lt;{((&lt;{{&lt;{({(([&lt;&gt;{}]{()&lt;&gt;}))(&lt;({}[])(&lt;&gt;())&gt;&lt;{{}()}[&lt;&gt;[]]&gt;)}]}(&lt;{{(({}&lt;&gt;)[{}{}])&lt;&lt;&lt;&gt;[]&gt;&gt;}}((&lt;&lt;&lt;
+&lt;[&lt;({&lt;({{([{&lt;&lt;&lt;&gt;[]&gt;&lt;[]{}&gt;&gt;(&lt;()()&gt;({}[]))}(((()())&lt;{}[]&gt;))][[[&lt;(){}&gt;[()()]][[{}[]]]]])}([(([{[][]}(()())][{()
+[({{[&lt;((&lt;{{{&lt;[[][]]({}{})&gt;{(&lt;&gt;[]){[]}}}([{()[]}{[]{}}])]}{[&lt;&lt;[(){}]&lt;[]&lt;&gt;&gt;&gt;{({}&lt;&gt;)([]())}&gt;]
+{[{(&lt;({&lt;[[(&lt;&lt;({}&lt;&gt;){[]{}}&gt;(({}{})(&lt;&gt;[]))&gt;({[()[]]&lt;&lt;&gt;{}&gt;}&lt;[[][]]({}())&gt;))(([[&lt;&gt;[]]([]{})][&lt;{}&gt;&gt;){{[[]
+{&lt;([[(&lt;&lt;[(&lt;{&lt;&lt;&lt;&gt;{}&gt;&lt;&lt;&gt;&gt;&gt;(({}[])&lt;()&lt;&gt;&gt;)}&lt;{&lt;[]{}&gt;&lt;()()&gt;}[{(){}}]&gt;&gt;){&lt;&lt;&lt;{{}{}}{()&lt;&gt;}&gt;{{()[]}{()}&gt;&gt;&lt;&lt;&lt;&lt;&gt;[
+&lt;{[{(&lt;{[&lt;&lt;(&lt;&lt;([]{})(())&gt;[({}[]){{}()}]&gt;)(&lt;{[[]()]}&gt;[{(()&lt;&gt;)(()&lt;&gt;)}{[{}&lt;&gt;]{()()}}])&gt;[(({&lt;&lt;&gt;[]&gt;({}[]}}{([]
+{{{([{[([[[{[{(){}}{[]()}][&lt;&lt;&gt;()&gt;]}([[[][]](&lt;&gt;&lt;&gt;)])]]]{(&lt;[(&lt;&lt;&gt;[]&gt;[{}&lt;&gt;])(({}[])({}{}))]{&lt;([]{})&lt;[][]&gt;&gt;((
+({{[(&lt;&lt;&lt;[({&lt;[{[]&lt;&gt;}&lt;{}&lt;&gt;&gt;]&lt;&lt;()&gt;[(){}]&gt;&gt;[&lt;&lt;&lt;&gt;{}&gt;{{}[]}&gt;&lt;({}{})&gt;]})][(&lt;{[(&lt;&gt;())]}(([&lt;&gt;&lt;&gt;){[][]})
+([[([{[&lt;&lt;{(&lt;{&lt;[]()&gt;[(){}]}[(&lt;&gt;&lt;&gt;){()&lt;&gt;}]&gt;){{[&lt;()()&gt;&lt;&lt;&gt;[]&gt;](&lt;[][]&gt;{[]&lt;&gt;})}&lt;[{&lt;&gt;()}{()[]}]{{&lt;&gt;&lt;&gt;}[&lt;&gt;&lt;&gt;]}&gt;}}{&lt;&lt;
+&lt;[&lt;([&lt;[(({&lt;{{&lt;(){}&gt;&lt;&lt;&gt;[]&gt;}{{&lt;&gt;{}}((){})}}&lt;&lt;[{}]({}[])}{&lt;()()&gt;&lt;()&lt;&gt;&gt;}&gt;&gt;[[[{&lt;&gt;&lt;&gt;}([][])](({}&lt;&gt;)((){}
+&lt;&lt;[&lt;[[&lt;(&lt;{(&lt;{[[][]]{(){}}}&lt;{{}()}&lt;()[]&gt;&gt;&gt;&lt;{&lt;{}&gt;}{{&lt;&gt;{}}[()&lt;&gt;]}&gt;)}&gt;&lt;{[&lt;{(()[]]&lt;()()&gt;}&lt;{(){}}
+([([(&lt;({{(&lt;&lt;{[[]&lt;&gt;]({}())}{{[][]}&lt;()[]&gt;}&gt;&gt;)}})(&lt;{{&lt;({&lt;()[]&gt;([]{})}[{{}&lt;&gt;}[&lt;&gt;()]])&gt;&lt;[({&lt;&gt;()}{&lt;&gt;[
+&lt;(({{(&lt;(&lt;[{&lt;[{{}[]}[&lt;&gt;{}])(&lt;()&lt;&gt;&gt;({}{}))&gt;[&lt;[&lt;&gt;[]]{{}}&gt;[({}&lt;&gt;)[[]{}]]]}&lt;[[{[]&lt;&gt;}{[]&lt;&gt;}]&lt;(()()){&lt;
+{(&lt;(([{([&lt;({[[&lt;&gt;[]]{&lt;&gt;[]}]{{[]&lt;&gt;}{()}}})&lt;[&lt;[[]()][&lt;&gt;{}]&gt;{[&lt;&gt;{}]&lt;()&lt;&gt;&gt;}]&lt;(&lt;[]&gt;[[]()])([&lt;&gt;()](()&lt;&gt;))]&gt;&gt;])
+{{[([[&lt;&lt;([(&lt;{{{}[]}&lt;()[]&gt;}({[]{}}[[]{}])&gt;(&lt;{(){}}&lt;(){}&gt;&gt;&lt;[[]{}]&gt;))])&gt;{{&lt;&lt;{&lt;[()[]]&lt;[]&lt;&gt;&gt;&gt;}{{(()
+{{&lt;[{[&lt;([({&lt;[{[][]}&lt;&lt;&gt;()&gt;]{{[]{}}({}())}]({{[]&lt;&gt;}}(&lt;()&lt;&gt;&gt;(&lt;&gt;[])))}([&lt;[()()][[][]]&gt;((&lt;&gt;{}){()&lt;&gt;})]
+{[[{&lt;{&lt;&lt;{((&lt;&lt;&lt;&lt;&gt;&lt;&gt;&gt;&lt;[][]&gt;&gt;([()&lt;&gt;]&lt;{}[]&gt;)&gt;{((&lt;&gt;&lt;&gt;)({}()))([{}{}][&lt;&gt;])})&lt;({({}[])({}())}&lt;[()[]][{}&lt;&gt;]
+&lt;({{{(&lt;{({&lt;&lt;(&lt;[]&lt;&gt;&gt;{{}})&gt;[[({}&lt;&gt;)(()())]{[[]{}]({}{})&gt;]&gt;({&lt;&lt;()&lt;&gt;&gt;[&lt;&gt;[]]&gt;((()&lt;&gt;)([]{}))}[[([]&lt;&gt;)&lt;[]&lt;&gt;&gt;]{{{}&lt;&gt;}
+{&lt;[{([([{&lt;[{&lt;[&lt;&gt;&lt;&gt;]([]())&gt;((&lt;&gt;[])([][]))}]&gt;(({[&lt;[]&gt;[[]&lt;&gt;]]{{{}[]}{[]{}}}}){(&lt;{{}{}}([]&lt;&gt;)&gt;)})}
+(&lt;[{{&lt;([&lt;[({&lt;{{}{}}&gt;&lt;{{}&lt;&gt;}([]{})&gt;}&lt;&lt;[()()]{{}()}&gt;[[[]()]({}{})]&gt;)[[{&lt;()[]&gt;&lt;[]()&gt;}&lt;[&lt;&gt;()][(){}]&gt;]]]&lt;{(&lt;&lt;[]{}&gt;
+&lt;{([[&lt;{&lt;([({{[&lt;&gt;{}]({}[])](&lt;[][]&gt;{{}[]})}{{{&lt;&gt;[]}&lt;{}()&gt;}&lt;[{}[]]{{}()}&gt;})([&lt;[[][]]{&lt;&gt;()}&gt;[&lt;&lt;&gt;()&gt;({
+&lt;{[{(&lt;&lt;{[&lt;(&lt;{{()&lt;&gt;}{[]()}}[([][])&lt;{}[]&gt;]&gt;[[[{}&lt;&gt;}[()[]]][({}[]){()&lt;&gt;}]]){[&lt;[{}[]][[][]]&gt;(&lt;{}&gt;([][]))][[
+{[{&lt;([&lt;&lt;({&lt;&lt;(&lt;&lt;&gt;&lt;&gt;&gt;&lt;{}[]&gt;)[(&lt;&gt;()){[]{}}]&gt;(&lt;{{}&lt;&gt;}[[]&lt;&gt;]&gt;([{}{}]))&gt;}([{&lt;(()[])[()&lt;&gt;]&gt;{{()()}}}[[&lt;[][
+&lt;{(&lt;[{&lt;&lt;[[[({([]{})([]&lt;&gt;)}{([][])([][])})[[&lt;[]{}&gt;&lt;&lt;&gt;&lt;&gt;&gt;]&lt;[{}&lt;&gt;]({}[])&gt;]]&lt;{[[{}{}]({}[])]&lt;{[]&lt;&gt;}(()&lt;&gt;)&gt;}[({&lt;
+(&lt;[{([[[{[&lt;([&lt;{}[]&gt;][(&lt;&gt;[])(()&lt;&gt;)])&lt;[{[][]}([]())]&gt;&gt;][{([(&lt;&gt;())[()[]]])}({({()[]}[{}{}])}{[&lt;[]&lt;&gt;&gt;([]()
+&lt;({{[([[&lt;&lt;[(({{}}{{}()})&lt;&lt;()()&gt;&lt;&lt;&gt;&lt;&gt;&gt;&gt;)&lt;[&lt;{}[]&gt;&lt;()&lt;&gt;&gt;][&lt;&lt;&gt;{}]([]{})]&gt;]&gt;&gt;{&lt;((&lt;&lt;[]&gt;(())&gt;{{()&lt;&gt;}}
+[[[[&lt;{[[({[{{[()[]]([]())}}&lt;&lt;{{}&lt;&gt;}(&lt;&gt;)&gt;({{}{}}&lt;[][]&gt;)&gt;]&lt;{(&lt;&lt;&gt;()&gt;{(){}})[{()()}&lt;&lt;&gt;&gt;]}([{{}]&lt;{}&lt;&gt;&gt;][[()()](
+(([[&lt;(([{&lt;({&lt;&lt;()()&gt;&gt;{&lt;()&lt;&gt;&gt;&lt;{}{}&gt;}}{((&lt;&gt;()){()[]})&lt;([]{}){()[]}&gt;})&gt;(&lt;[[&lt;[]()&gt;{[][]&gt;][[[]]&lt;&lt;&gt;
+{[&lt;[({&lt;(&lt;&lt;[[((&lt;&gt;())(&lt;&gt;[])){(&lt;&gt;[])(&lt;&gt;[])}][({[]{}}{{}&lt;&gt;})[&lt;(){}&gt;((){})]]]&gt;&gt;[&lt;&lt;{&lt;&lt;()[]&gt;[[][]&gt;&gt;(
+{&lt;&lt;(&lt;([&lt;&lt;&lt;((({[][]}{&lt;&gt;&lt;&gt;})[{[][]}([]{})])&lt;[&lt;{}{}&gt;({}())][((){})[[]()]]&gt;)&lt;[{(()&lt;&gt;)(()[])}](&lt;[</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -7389,168 +7492,6 @@ export class SyntaxChecker {
 </div>
 </div>
 <div class="listingblock">
-<div class="title">input.txt</div>
-<div class="content">
-<pre class="prettyprint highlight"><code>[{&lt;(&lt;[&lt;&lt;(&lt;{[[&lt;[]{}&gt;&lt;()[]&gt;]]&lt;(([]&lt;&gt;)&lt;(){}&gt;)({[]{}}([]()))&gt;}&gt;{{{&lt;(()&lt;&gt;)[[]()]&gt;&lt;(&lt;&gt;())[[]&lt;&gt;]&gt;}{({()
-&lt;&lt;[{([[{{[[[({()()}[&lt;&gt;[]]){&lt;&lt;&gt;[]&gt;([]&lt;&gt;)}]{[{{}{}}&lt;{}{}&gt;]{{[]&lt;&gt;}{[]{}}}}][{{{(){}}&lt;&lt;&gt;[]&gt;}}]]}{
-([&lt;{([&lt;[([({[{[]{}}{{}{}}]}{[{&lt;&gt;{}}{(){}}]})[{[[(){}][(){}]]{&lt;&lt;&gt;[]}{{}[]}}}]])]&gt;&lt;({{{[[{{}{}}]&lt;{&lt;&gt;
-{{((&lt;([&lt;[&lt;[((&lt;{}&gt;{()()})&lt;[{}[]]{&lt;&gt;{}}&gt;)&lt;({[]{}}([][])){{[]&lt;&gt;}{{}&lt;&gt;}}&gt;]&gt;]&gt;&lt;[[[[[&lt;&lt;&gt;()&gt;(()[])](&lt;[][]&gt;{&lt;&gt;{}}
-{[[&lt;[[((&lt;[{{&lt;[[]{}](()[])&gt;}{&lt;({}[])[[]&lt;&gt;]&gt;}}{[(&lt;()()&gt;&lt;()&gt;)({[]()}[&lt;&gt;()&gt;)]}]((&lt;{[&lt;&gt;[]]{{}()}}&gt;[{&lt;()&lt;&gt;&gt;{[]
-({{((&lt;[{{{([{[(){}][&lt;&gt;]}([&lt;&gt;()][[]()])]{&lt;{{}&lt;&gt;}&lt;{}&lt;&gt;&gt;&gt;{{()[]}{()()}}})&lt;&lt;[(&lt;&gt;&lt;&gt;)&lt;[]()&gt;][((){}){[]{}}]&gt;&gt;}}
-{&lt;(&lt;{[[([[(&lt;[(&lt;&gt;[])]&lt;{()}&lt;()[]&gt;&gt;&gt;&lt;{&lt;{}[]&gt;&lt;[]&gt;}(&lt;&lt;&gt;{}&gt;&lt;()()&gt;)&gt;)]]{((({{&lt;&gt;&lt;&gt;}{{}{}}}{&lt;[]()&gt;&lt;{}&lt;&gt;&gt;})&lt;[{(
-&lt;[{(&lt;{&lt;((&lt;(&lt;{(&lt;&gt;{})}&lt;&lt;[]&gt;(&lt;&gt;{})&gt;&gt;){{(&lt;()[]&gt;[[]&lt;&gt;])}[{[[][]]&lt;&lt;&gt;()&gt;}{[{}()]&lt;(){}&gt;}]}&gt;{(((&lt;&lt;&gt;
-(&lt;[{[&lt;((((&lt;[[[{}{}]{{}&lt;&gt;}]({[][]}[(){}])][{(&lt;&gt;[])&lt;[]&lt;&gt;&gt;}&lt;[(){}]&gt;]&gt;)))&lt;({{[&lt;([]&lt;&gt;)&lt;()&lt;&gt;&gt;&gt;[{
-{{&lt;&lt;[&lt;({[{([(&lt;[][]&gt;{[][]})&lt;&lt;&lt;&gt;[]&gt;([]())&gt;])[(&lt;&lt;[]&lt;&gt;&gt;[{}()]&gt;{([]{})})]}](&lt;[&lt;(&lt;&lt;&gt;[]&gt;)&gt;{(&lt;[]{}&gt;[&lt;&gt;[]])&lt;&lt;[]()&gt;((
-[[[{&lt;{[[[([[&lt;&lt;&lt;&gt;&gt;[{}()]}[({}[])&lt;()&lt;&gt;&gt;]]]{&lt;&lt;&lt;[]{}&gt;[&lt;&gt;[]]&gt;&lt;{[]&lt;&gt;}{[]{}}&gt;&gt;{(&lt;{}{}&gt;{&lt;&gt;&lt;&gt;})({[]()}{{}&lt;&gt;})}})]&lt;&lt;&lt;[(
-(({([&lt;{{{{&lt;&lt;&lt;({}())[()&lt;&gt;]&gt;{[[]()][()[]}}&gt;&gt;}&lt;({({{}&lt;&gt;}[[]{}])(({}{}){()()})}{[(&lt;&gt;{}){&lt;&gt;{}}]{[&lt;&gt;[]]({}&lt;&gt;)}})&gt;}(
-{(([{(([&lt;[{(&lt;{[]&lt;&gt;}&lt;()&lt;&gt;&gt;&gt;[([]{}}(&lt;&gt;{})])}({[&lt;&lt;&gt;[]&gt;&lt;&lt;&gt;{}&gt;]}&lt;[&lt;()[]&gt;[&lt;&gt;{}]]{&lt;()&lt;&gt;&gt;{(){}}}&gt;)]&gt;([&lt;((&lt;{}()&gt;
-({{&lt;{{{{{{({&lt;{&lt;&gt;{}}&gt;(&lt;&lt;&gt;[]&gt;[[][]])})]{[{{{(){}}[()&lt;&gt;]}&lt;[&lt;&gt;][[]{}]&gt;}{[&lt;{}&lt;&gt;&gt;{&lt;&gt;}]{{[]{}}(&lt;&gt;{})
-{{(([{([{([&lt;([[]{}]{&lt;&gt;[]})&gt;{(((){})[()()]){{{}&lt;&gt;]&lt;()()&gt;}}])(({{{&lt;&gt;{}}{[]{}}}[((){})[&lt;&gt;]]}&lt;{(()[])[
-{&lt;[((&lt;&lt;(([{{&lt;{[][]}&gt;{[()&lt;&gt;]{()[]}}}}]))&lt;&lt;((&lt;[&lt;[][]&gt;[[]()]][({}){[]&lt;&gt;}]&gt;))&gt;&gt;&gt;&gt;))&lt;(&lt;&lt;([&lt;&lt;[{&lt;&lt;&gt;&lt;&gt;&gt;[(
-[([[(&lt;([(({&lt;([{}][&lt;&gt;[]]){&lt;{}{}&gt;&lt;{}[]&gt;}&gt;(&lt;({}[])&gt;(&lt;()()&gt;))}{[[{{}()}{&lt;&gt;&lt;&gt;}][{()[]}&lt;()()&gt;]&gt;[{&lt;&lt;&gt;&lt;&gt;&gt;{
-[{[&lt;{(&lt;[([[[{[{}&lt;&gt;]({}())}(&lt;&lt;&gt;&gt;[[]&lt;&gt;])]{({&lt;&gt;()}{()()}){{[]()&gt;{[]()}}}]]{[[{({}()){[][]}}((&lt;&gt;&lt;&gt;))][[
-&lt;{(&lt;[&lt;&lt;&lt;{{[{{&lt;{}&lt;&gt;&gt;[[]&lt;&gt;]}[{()&lt;&gt;}[()&lt;&gt;]]}{[{{}[]}{()}]{&lt;[]&lt;&gt;&gt;([][])}}]({[[{}]{()&lt;&gt;}](({}{}))}&gt;}{&lt;[&lt;({}()){()
-&lt;(&lt;[&lt;([({[&lt;([&lt;[]{}&gt;{[]&lt;&gt;}]{{[]{}}{{}{}}})&lt;&lt;{()&lt;&gt;}({}{})&gt;&lt;&lt;[]()&gt;{()&lt;&gt;]&gt;&gt;&gt;(([{[]()}({}())]([[]()]&lt;{}()&gt;))
-{[&lt;&lt;([[&lt;([&lt;&lt;(&lt;[]&lt;&gt;&gt;){&lt;&lt;&gt;()&gt;(&lt;&gt;&lt;&gt;)}&gt;&lt;&lt;{&lt;&gt;&lt;&gt;}[{}[]]&gt;([{}()])&gt;&gt;])&gt;][{({[&lt;&lt;[&lt;&gt;]{&lt;&gt;()}&gt;&gt;&lt;&lt;[&lt;&gt;()]{{
-&lt;&lt;&lt;[&lt;&lt;{[&lt;&lt;(({&lt;{}&lt;&gt;&gt;{{}&lt;&gt;}}[&lt;[]&lt;&gt;&gt;({}[])]))&gt;&lt;{{&lt;[[]()][(){}]&gt;&lt;{{}()}(&lt;&gt;)&gt;}[((&lt;&gt;{})(()&lt;&gt;))&lt;[(){}][[][]]&gt;]&gt;&gt;&gt;]}
-(([{{[{{&lt;&lt;{{[({}&lt;&gt;)(&lt;&gt;{})](&lt;(){}&gt;&lt;{}{}))}}([{({}())&lt;&lt;&gt;&lt;&gt;&gt;}{&lt;(){}&gt;}]{{[{}{}]{(){}}}&lt;([]&lt;&gt;){()()}&gt;})
-({{([{{({[{&lt;&lt;({}[])(()[])&gt;[{{}()}[{}{}]]&gt;&lt;&lt;{()&lt;&gt;}{{}}&gt;&gt;}&lt;[((()&lt;&gt;)([]{}))[{()()}(()&lt;&gt;)]]{[{(){}}{()
-&lt;[&lt;{&lt;[{({(([((&lt;&gt;{}){()[]}){{{}{}}{[]&lt;&gt;}}]{{({}&lt;&gt;)&lt;{}[]&gt;}&lt;(()&lt;&gt;}(()[])&gt;}))(&lt;{({&lt;&gt;&lt;&gt;}[[]()])&lt;[{}()](
-[[{[({{&lt;{{{{[&lt;&lt;&gt;[]]({}{})]&lt;([]{})(&lt;&gt;{})&gt;}{{({}{})[{}{}]}{&lt;&lt;&gt;[]&gt;&lt;{}&gt;}}}{&lt;(&lt;&lt;&gt;[]&gt;{{}{}})[(()&lt;
-[([(&lt;{{[&lt;[{[&lt;(&lt;&gt;())&lt;[]()&gt;&gt;{{{}}&lt;[][]&gt;}][[{[][]}&lt;{}[]&gt;]({{}()}[[][]])]}{{{&lt;{}{}&gt;&lt;{}&lt;&gt;&gt;}{[()[]]&lt;()[]&gt;}}&lt;&lt;{[]{}}
-[[(((({&lt;&lt;[&lt;&lt;({{}()}){&lt;()()&gt;&lt;&lt;&gt;[]&gt;}&gt;{((&lt;&gt;&lt;&gt;)({}())){&lt;[]{}&gt;&lt;()[]&gt;}}&gt;&lt;[{&lt;{}&gt;}({{}{}}[&lt;&gt;()])]{{({}{})}[&lt;
-((&lt;&lt;[{{[[([[&lt;[{}()]((){})&gt;[{()[]}&lt;&lt;&gt;{}&gt;]]([&lt;{}()&gt;][{{}[]}[()]])]{({[()()][[]()]}(((){}){{}{}}))[{(&lt;&gt;())}
-{[[&lt;{&lt;{[{{[(&lt;&lt;&lt;&gt;[]&gt;([]())&gt;{(()[])[&lt;&gt;{}]}){&lt;(&lt;&gt;())(&lt;&gt;{})&gt;{&lt;[]&lt;&gt;&gt;[{}[]]}}]({&lt;&lt;&lt;&gt;[]&gt;&lt;{}()&gt;&gt;([[][]])}&lt;[&lt;{
-[(&lt;[&lt;{&lt;[([[{{{&lt;&gt;[]}[[]{}]&gt;({[][]}[[][]])}{[(&lt;&gt;[])[[]]]({()()}({}[]))}]])&lt;[&lt;&lt;&lt;{&lt;&gt;{}}{[][]}&gt;((()){()&lt;&gt;})&gt;&gt;
-({&lt;[&lt;&lt;[{[&lt;({&lt;{{}{}}{&lt;&gt;[]}&gt;{{()}{[]&lt;&gt;}}}[&lt;[{}&lt;&gt;][()[]]&gt;])((&lt;([]())((){})&gt;&lt;[(){}]{{}()}&gt;)[{&lt;[]{}&gt;[{}{}]}[
-&lt;[[([([(&lt;(&lt;[[(()[])]{[[]&lt;&gt;]({}{})}]&gt;)&gt;[&lt;[{&lt;&lt;&lt;&gt;()&gt;({}{})&gt;&lt;([][])&lt;{}{}&gt;&gt;}&lt;([()[]]&lt;(){}&gt;)[([]{})[{}&lt;&gt;]]&gt;]&gt;&lt;[{({
-[&lt;{([([(&lt;{&lt;&lt;{[()[]][()}}&lt;&lt;{}{}&gt;&gt;&gt;&lt;&lt;{[]&lt;&gt;}((){})&gt;[{[]()}]&gt;&gt;}[(({{&lt;&gt;[]}[&lt;&gt;()]}&lt;({}{})[{}[]]&gt;)&lt;[{&lt;&gt;{}}([][])
-[&lt;{([((&lt;{({{[&lt;&lt;&gt;()&gt;{[]{}}](&lt;[]()&gt;[{}{}])}})(&lt;{([&lt;&gt;()]{[][]})[{{}()}]}&lt;((()[])(())){([]&lt;&gt;)([]&lt;&gt;)}&gt;&gt;{((({}()){
-((&lt;{{{&lt;&lt;[[&lt;[[{[]&lt;&gt;}&lt;{}[]&gt;]&lt;&lt;(){}&gt;&lt;&lt;&gt;&gt;&gt;]&lt;&lt;[[][]&gt;[[][]]&gt;{{&lt;&gt;&lt;&gt;}{[]{}}}&gt;&gt;{{{{&lt;&gt;[]}{&lt;&gt;{}}}[[[]&lt;&gt;]&lt;{
-[&lt;&lt;[{[&lt;({[[{{{{}[]}[&lt;&gt;&lt;&gt;]}{&lt;&lt;&gt;[]&gt;[{}[]]}}&lt;&lt;(()[])[&lt;&gt;()]&gt;[[&lt;&gt;{}]]&gt;]]}{&lt;({&lt;([]())(&lt;&gt;())&gt;[[{}[]][&lt;&gt;{}]]}){([
-([&lt;{({({{&lt;[({(&lt;&gt;&lt;&gt;){(){}}}&lt;{[]{}}{[]())&gt;)({&lt;(){}&gt;[&lt;&gt;[]]})]&lt;[([{}{}]&lt;{}[]&gt;)[[()[]]]]{[{{}&lt;&gt;}]&lt;(()&lt;&gt;)
-[([{&lt;{&lt;{(&lt;&lt;(({[]{}}({}()))){{(&lt;&gt;())(&lt;&gt;&lt;&gt;)}(([]{})&lt;{}[]&gt;)}&gt;&lt;[&lt;[{}{}]({}{})&gt;]{[&lt;[]()&gt;(&lt;&gt;{})]&lt;({}()
-((&lt;{[(&lt;&lt;[([&lt;{([]{}){&lt;&gt;&lt;&gt;)}[[[][]]({}())]&gt;[[{&lt;&gt;()}[()&lt;&gt;]](({}&lt;&gt;)([]))]][&lt;((()[])&lt;()[]&gt;)[[&lt;&gt;()]]&gt;])&lt;&lt;{[
-{[[&lt;{&lt;&lt;[{{(((&lt;{}[]&gt;(()))[&lt;&lt;&gt;()&gt;{[][]}])){&lt;([[]{}]{{}[]})&lt;{{}()}{()()}&gt;}}}[{[[&lt;(){}&gt;{{}()}]
-{[{[&lt;&lt;[{[{([(&lt;[]()&gt;(()&lt;&gt;))]&lt;{[{}&lt;&gt;]&lt;{}()&gt;}&lt;{{}{}}[()[]]&gt;&gt;)[{{&lt;{}&gt;(())}&lt;(&lt;&gt;)[&lt;&gt;[]]&gt;}(&lt;{[]&lt;&gt;}[()()]]&lt;{&lt;&gt;{}}
-[{{[{{[&lt;{[(&lt;{[()()][&lt;&gt;[]]}&lt;([][])(()&lt;&gt;)&gt;&gt;({{{}()}[()&lt;&gt;]}[&lt;[]{}&gt;&lt;[]}]))([&lt;&lt;&lt;&gt;&lt;&gt;&gt;({}[])&gt;({()[]}[&lt;&gt;])][([(
-[({&lt;[[&lt;{&lt;[(&lt;(&lt;[][]&gt;&lt;[]()&gt;){[()()]{()()}}&gt;)[&lt;[&lt;()&gt;(()[])][(&lt;&gt;&lt;&gt;)]&gt;((({}())&lt;&lt;&gt;[]&gt;))]]&lt;[{[&lt;&lt;&gt;{}&gt;[{}&lt;&gt;]](&lt;{}{}&gt;((
-&lt;{&lt;(&lt;((&lt;&lt;[[&lt;([&lt;&gt;&lt;&gt;][()[]])(&lt;&lt;&gt;{}&gt;[&lt;&gt;[]])&gt;]({&lt;&lt;[]&gt;(()&lt;&gt;)&gt;(((){}){&lt;&gt;[]})}{[[[]](&lt;&gt;())]&lt;&lt;(){}&gt;&lt;&lt;&gt;[]&gt;&gt;
-[&lt;{(&lt;{{&lt;(({(&lt;&lt;[]()&gt;&gt;&lt;&lt;()&lt;&gt;&gt;&gt;)&lt;{&lt;{}()&gt;&lt;()()}}(&lt;[][]&gt;{{}{}})&gt;}[{[{[][]}[()&lt;&gt;]]{([][])(&lt;&gt;[])}}[{[{}()][
-{{(([[[{[{({([()()]([]&lt;&gt;))&lt;[{}{}](&lt;&gt;())&gt;}{{{()&lt;&gt;}{()()}}({()[]}[{}{}])})&lt;([([]{})&lt;()[]&gt;]{&lt;&lt;&gt;()&gt;})&gt;}[[
-(((&lt;[{&lt;[{([[{[[]&lt;&gt;]{&lt;&gt;{}}}[[{}&lt;&gt;](&lt;&gt;{})]]&lt;&lt;[(){}][[]{}}&gt;{[[][]]}&gt;][{{[[]{}]([]{})}[([])&lt;&lt;&gt;&gt;]}
-&lt;[&lt;[[([[[[{{{([]()){(){}}}&lt;[[]{}](&lt;&gt;&lt;&gt;)&gt;}}]]]{([[&lt;[(()())(()[]]][[&lt;&gt;{}]&lt;&lt;&gt;[]&gt;]&gt;(&lt;[&lt;&gt;]&lt;&lt;&gt;&lt;&gt;&gt;&gt;({{}{}}([]{
-({(([&lt;&lt;[{{[(&lt;({}&lt;&gt;)&lt;[]&lt;&gt;&gt;&gt;(&lt;{}&lt;&gt;&gt;{(){}}))]{(({{}[]})({{}&lt;&gt;}((){}]))[({{}()}[()&lt;&gt;])&lt;({}()){&lt;&gt;()}&gt;]}}}[&lt;
-&lt;[&lt;({[[&lt;&lt;([[((&lt;&gt;())[&lt;&gt;&lt;&gt;]){[&lt;&gt;[]]&lt;&lt;&gt;&gt;}]]{([&lt;{}[]&gt;{&lt;&gt;&lt;&gt;}])})&lt;&lt;[&lt;([]&lt;&gt;)(()&lt;&gt;)&gt;(&lt;{}()&gt;([]&lt;&gt;))]&gt;[
-({({{[[&lt;&lt;([[({()[]}[&lt;&gt;&lt;&gt;]){(()&lt;&gt;){&lt;&gt;&lt;&gt;}}][{{&lt;&gt;[]}(&lt;&gt;&lt;&gt;)}{[[]&lt;&gt;]&lt;[]&gt;}]])&gt;([[&lt;(({}[])&lt;()&gt;)(&lt;()&gt;[&lt;&gt;{
-&lt;([{(({&lt;[{([&lt;[[]&lt;&gt;]&lt;()&lt;&gt;&gt;&gt;&lt;(&lt;&gt;())({})&gt;][[(&lt;&gt;[]){[]{}}]{(&lt;&gt;[])&lt;()[]&gt;}])({[{{}()}{[]()}]}{{[[]{}]({}&lt;&gt;)
-[([{({(({{&lt;&lt;&lt;&lt;(){}&gt;[&lt;&gt;[]]&gt;([&lt;&gt;()][&lt;&gt;[]])&gt;[{(()())[()&lt;&gt;]}&lt;{[][]}[&lt;&gt;{}]&gt;]&gt;}&lt;[&lt;([[]()][&lt;&gt;()])((&lt;&gt;&lt;&gt;){[]})&gt;
-&lt;({[{{[{{[([{({}()){{}{}}}&lt;(()())[[][]]&gt;][&lt;[&lt;&gt;()][{}[]]&gt;&lt;&lt;&lt;&gt;&lt;&gt;&gt;&gt;])([[({}{})(()&lt;&gt;)]{&lt;&lt;&gt;&lt;&gt;&gt;([]&lt;&gt;)}]{{&lt;()[]
-&lt;{{&lt;{(([(&lt;&lt;&lt;{{[]()}[[]()]}&gt;{{[{}&lt;&gt;]&lt;()&lt;&gt;&gt;}[{{}{}}[{}[]]]}&gt;&gt;([([&lt;()()&gt;[{}&lt;&gt;]])([&lt;()[]&gt;[&lt;&gt;()]]{([]{})}
-{&lt;({&lt;{[{{({[&lt;{{}()}[()()]&gt;{({}&lt;&gt;)}][&lt;&lt;()()&gt;{[][]}&gt;{&lt;&lt;&gt;()&gt;&lt;{}{}&gt;}]})}{(&lt;{&lt;[()()]&gt;}&lt;{({}){()()}}(&lt;[]&lt;&gt;&gt;&lt;
-(({{({{{&lt;[[({((){})[&lt;&gt;[]]}[{&lt;&gt;{}}[[]()]])]{&lt;&lt;(&lt;&gt;){{}()}&gt;[&lt;&lt;&gt;&gt;{{}{}}]&gt;([(()[])][([]())&lt;&lt;&gt;()&gt;])}][&lt;[[
-[{[[[{&lt;&lt;&lt;[&lt;{({[]()}({}{}))[{&lt;&gt;}{&lt;&gt;[]}]}&gt;[((&lt;&lt;&gt;&lt;&gt;&gt;[[]&lt;&gt;])[[[]&lt;&gt;]&lt;[][]&gt;]){[[{}()][{}&lt;&gt;]]({[]
-&lt;&lt;[{({[[[&lt;[[[&lt;[][]&gt;]{{[]()}(()&lt;&gt;)}]{[[(){}}&lt;{}()&gt;][{&lt;&gt;{}}({}{})]}](({([]{})&lt;()()&gt;}[({}())]))&gt;(&lt;{(&lt;(){}&gt;)}
-({&lt;([[(&lt;(({{&lt;{{}[]}[[]&lt;&gt;]&gt;}[&lt;(&lt;&gt;[])&lt;{}{}&gt;&gt;&lt;[[]&lt;&gt;][[]{}]&gt;]}&lt;[({&lt;&gt;{}}{{}()})(&lt;[]()&gt;(()&lt;&gt;))]([&lt;{}()
-((&lt;[{[{[{{&lt;[{[&lt;&gt;{}]}[&lt;[][]&gt;&lt;()&gt;]]{{&lt;()[]&gt;}&lt;[(){}]{{}&lt;&gt;}&gt;}&gt;}&lt;(([[[]{}]&lt;[]&lt;&gt;&gt;]{[{}{}]&lt;()[]&gt;})[[{[]{}}{{}
-[([(&lt;([&lt;(&lt;&lt;{(&lt;{}{}&gt;{()&lt;&gt;})[([]())[[]]]}[{{[]&lt;&gt;}((){})}&lt;{{}[]}([]())&gt;]&gt;&lt;{[[&lt;&gt;()]]&lt;({}())[{}&lt;&gt;]&gt;}{[({}&lt;&gt;)
-[{[&lt;([&lt;{&lt;{{[[{{}{}}{&lt;&gt;&lt;&gt;}]&lt;[[]()]{[]{}}&gt;][{({}{}){[][]}}&lt;&lt;{}{}&gt;([]()]&gt;]}[&lt;&lt;({}&lt;&gt;){()&lt;&gt;}&gt;({(){}}&lt;{}{}&gt;)&gt;&lt;([{}
-&lt;{((&lt;{{&lt;{({(([&lt;&gt;{}]{()&lt;&gt;}))(&lt;({}[])(&lt;&gt;())&gt;&lt;{{}()}[&lt;&gt;[]]&gt;)}]}(&lt;{{(({}&lt;&gt;)[{}{}])&lt;&lt;&lt;&gt;[]&gt;&gt;}}((&lt;&lt;&lt;
-&lt;[&lt;({&lt;({{([{&lt;&lt;&lt;&gt;[]&gt;&lt;[]{}&gt;&gt;(&lt;()()&gt;({}[]))}(((()())&lt;{}[]&gt;))][[[&lt;(){}&gt;[()()]][[{}[]]]]])}([(([{[][]}(()())][{()
-[({{[&lt;((&lt;{{{&lt;[[][]]({}{})&gt;{(&lt;&gt;[]){[]}}}([{()[]}{[]{}}])]}{[&lt;&lt;[(){}]&lt;[]&lt;&gt;&gt;&gt;{({}&lt;&gt;)([]())}&gt;]
-{[{(&lt;({&lt;[[(&lt;&lt;({}&lt;&gt;){[]{}}&gt;(({}{})(&lt;&gt;[]))&gt;({[()[]]&lt;&lt;&gt;{}&gt;}&lt;[[][]]({}())&gt;))(([[&lt;&gt;[]]([]{})][&lt;{}&gt;&gt;){{[[]
-{&lt;([[(&lt;&lt;[(&lt;{&lt;&lt;&lt;&gt;{}&gt;&lt;&lt;&gt;&gt;&gt;(({}[])&lt;()&lt;&gt;&gt;)}&lt;{&lt;[]{}&gt;&lt;()()&gt;}[{(){}}]&gt;&gt;){&lt;&lt;&lt;{{}{}}{()&lt;&gt;}&gt;{{()[]}{()}&gt;&gt;&lt;&lt;&lt;&lt;&gt;[
-&lt;{[{(&lt;{[&lt;&lt;(&lt;&lt;([]{})(())&gt;[({}[]){{}()}]&gt;)(&lt;{[[]()]}&gt;[{(()&lt;&gt;)(()&lt;&gt;)}{[{}&lt;&gt;]{()()}}])&gt;[(({&lt;&lt;&gt;[]&gt;({}[]}}{([]
-{{{([{[([[[{[{(){}}{[]()}][&lt;&lt;&gt;()&gt;]}([[[][]](&lt;&gt;&lt;&gt;)])]]]{(&lt;[(&lt;&lt;&gt;[]&gt;[{}&lt;&gt;])(({}[])({}{}))]{&lt;([]{})&lt;[][]&gt;&gt;((
-({{[(&lt;&lt;&lt;[({&lt;[{[]&lt;&gt;}&lt;{}&lt;&gt;&gt;]&lt;&lt;()&gt;[(){}]&gt;&gt;[&lt;&lt;&lt;&gt;{}&gt;{{}[]}&gt;&lt;({}{})&gt;]})][(&lt;{[(&lt;&gt;())]}(([&lt;&gt;&lt;&gt;){[][]})
-([[([{[&lt;&lt;{(&lt;{&lt;[]()&gt;[(){}]}[(&lt;&gt;&lt;&gt;){()&lt;&gt;}]&gt;){{[&lt;()()&gt;&lt;&lt;&gt;[]&gt;](&lt;[][]&gt;{[]&lt;&gt;})}&lt;[{&lt;&gt;()}{()[]}]{{&lt;&gt;&lt;&gt;}[&lt;&gt;&lt;&gt;]}&gt;}}{&lt;&lt;
-&lt;[&lt;([&lt;[(({&lt;{{&lt;(){}&gt;&lt;&lt;&gt;[]&gt;}{{&lt;&gt;{}}((){})}}&lt;&lt;[{}]({}[])}{&lt;()()&gt;&lt;()&lt;&gt;&gt;}&gt;&gt;[[[{&lt;&gt;&lt;&gt;}([][])](({}&lt;&gt;)((){}
-&lt;&lt;[&lt;[[&lt;(&lt;{(&lt;{[[][]]{(){}}}&lt;{{}()}&lt;()[]&gt;&gt;&gt;&lt;{&lt;{}&gt;}{{&lt;&gt;{}}[()&lt;&gt;]}&gt;)}&gt;&lt;{[&lt;{(()[]]&lt;()()&gt;}&lt;{(){}}
-([([(&lt;({{(&lt;&lt;{[[]&lt;&gt;]({}())}{{[][]}&lt;()[]&gt;}&gt;&gt;)}})(&lt;{{&lt;({&lt;()[]&gt;([]{})}[{{}&lt;&gt;}[&lt;&gt;()]])&gt;&lt;[({&lt;&gt;()}{&lt;&gt;[
-&lt;(({{(&lt;(&lt;[{&lt;[{{}[]}[&lt;&gt;{}])(&lt;()&lt;&gt;&gt;({}{}))&gt;[&lt;[&lt;&gt;[]]{{}}&gt;[({}&lt;&gt;)[[]{}]]]}&lt;[[{[]&lt;&gt;}{[]&lt;&gt;}]&lt;(()()){&lt;
-{(&lt;(([{([&lt;({[[&lt;&gt;[]]{&lt;&gt;[]}]{{[]&lt;&gt;}{()}}})&lt;[&lt;[[]()][&lt;&gt;{}]&gt;{[&lt;&gt;{}]&lt;()&lt;&gt;&gt;}]&lt;(&lt;[]&gt;[[]()])([&lt;&gt;()](()&lt;&gt;))]&gt;&gt;])
-{{[([[&lt;&lt;([(&lt;{{{}[]}&lt;()[]&gt;}({[]{}}[[]{}])&gt;(&lt;{(){}}&lt;(){}&gt;&gt;&lt;[[]{}]&gt;))])&gt;{{&lt;&lt;{&lt;[()[]]&lt;[]&lt;&gt;&gt;&gt;}{{(()
-{{&lt;[{[&lt;([({&lt;[{[][]}&lt;&lt;&gt;()&gt;]{{[]{}}({}())}]({{[]&lt;&gt;}}(&lt;()&lt;&gt;&gt;(&lt;&gt;[])))}([&lt;[()()][[][]]&gt;((&lt;&gt;{}){()&lt;&gt;})]
-{[[{&lt;{&lt;&lt;{((&lt;&lt;&lt;&lt;&gt;&lt;&gt;&gt;&lt;[][]&gt;&gt;([()&lt;&gt;]&lt;{}[]&gt;)&gt;{((&lt;&gt;&lt;&gt;)({}()))([{}{}][&lt;&gt;])})&lt;({({}[])({}())}&lt;[()[]][{}&lt;&gt;]
-&lt;({{{(&lt;{({&lt;&lt;(&lt;[]&lt;&gt;&gt;{{}})&gt;[[({}&lt;&gt;)(()())]{[[]{}]({}{})&gt;]&gt;({&lt;&lt;()&lt;&gt;&gt;[&lt;&gt;[]]&gt;((()&lt;&gt;)([]{}))}[[([]&lt;&gt;)&lt;[]&lt;&gt;&gt;]{{{}&lt;&gt;}
-{&lt;[{([([{&lt;[{&lt;[&lt;&gt;&lt;&gt;]([]())&gt;((&lt;&gt;[])([][]))}]&gt;(({[&lt;[]&gt;[[]&lt;&gt;]]{{{}[]}{[]{}}}}){(&lt;{{}{}}([]&lt;&gt;)&gt;)})}
-(&lt;[{{&lt;([&lt;[({&lt;{{}{}}&gt;&lt;{{}&lt;&gt;}([]{})&gt;}&lt;&lt;[()()]{{}()}&gt;[[[]()]({}{})]&gt;)[[{&lt;()[]&gt;&lt;[]()&gt;}&lt;[&lt;&gt;()][(){}]&gt;]]]&lt;{(&lt;&lt;[]{}&gt;
-&lt;{([[&lt;{&lt;([({{[&lt;&gt;{}]({}[])](&lt;[][]&gt;{{}[]})}{{{&lt;&gt;[]}&lt;{}()&gt;}&lt;[{}[]]{{}()}&gt;})([&lt;[[][]]{&lt;&gt;()}&gt;[&lt;&lt;&gt;()&gt;({
-&lt;{[{(&lt;&lt;{[&lt;(&lt;{{()&lt;&gt;}{[]()}}[([][])&lt;{}[]&gt;]&gt;[[[{}&lt;&gt;}[()[]]][({}[]){()&lt;&gt;}]]){[&lt;[{}[]][[][]]&gt;(&lt;{}&gt;([][]))][[
-{[{&lt;([&lt;&lt;({&lt;&lt;(&lt;&lt;&gt;&lt;&gt;&gt;&lt;{}[]&gt;)[(&lt;&gt;()){[]{}}]&gt;(&lt;{{}&lt;&gt;}[[]&lt;&gt;]&gt;([{}{}]))&gt;}([{&lt;(()[])[()&lt;&gt;]&gt;{{()()}}}[[&lt;[][
-&lt;{(&lt;[{&lt;&lt;[[[({([]{})([]&lt;&gt;)}{([][])([][])})[[&lt;[]{}&gt;&lt;&lt;&gt;&lt;&gt;&gt;]&lt;[{}&lt;&gt;]({}[])&gt;]]&lt;{[[{}{}]({}[])]&lt;{[]&lt;&gt;}(()&lt;&gt;)&gt;}[({&lt;
-(&lt;[{([[[{[&lt;([&lt;{}[]&gt;][(&lt;&gt;[])(()&lt;&gt;)])&lt;[{[][]}([]())]&gt;&gt;][{([(&lt;&gt;())[()[]]])}({({()[]}[{}{}])}{[&lt;[]&lt;&gt;&gt;([]()
-&lt;({{[([[&lt;&lt;[(({{}}{{}()})&lt;&lt;()()&gt;&lt;&lt;&gt;&lt;&gt;&gt;&gt;)&lt;[&lt;{}[]&gt;&lt;()&lt;&gt;&gt;][&lt;&lt;&gt;{}]([]{})]&gt;]&gt;&gt;{&lt;((&lt;&lt;[]&gt;(())&gt;{{()&lt;&gt;}}
-[[[[&lt;{[[({[{{[()[]]([]())}}&lt;&lt;{{}&lt;&gt;}(&lt;&gt;)&gt;({{}{}}&lt;[][]&gt;)&gt;]&lt;{(&lt;&lt;&gt;()&gt;{(){}})[{()()}&lt;&lt;&gt;&gt;]}([{{}]&lt;{}&lt;&gt;&gt;][[()()](
-(([[&lt;(([{&lt;({&lt;&lt;()()&gt;&gt;{&lt;()&lt;&gt;&gt;&lt;{}{}&gt;}}{((&lt;&gt;()){()[]})&lt;([]{}){()[]}&gt;})&gt;(&lt;[[&lt;[]()&gt;{[][]&gt;][[[]]&lt;&lt;&gt;
-{[&lt;[({&lt;(&lt;&lt;[[((&lt;&gt;())(&lt;&gt;[])){(&lt;&gt;[])(&lt;&gt;[])}][({[]{}}{{}&lt;&gt;})[&lt;(){}&gt;((){})]]]&gt;&gt;[&lt;&lt;{&lt;&lt;()[]&gt;[[][]&gt;&gt;(
-{&lt;&lt;(&lt;([&lt;&lt;&lt;((({[][]}{&lt;&gt;&lt;&gt;})[{[][]}([]{})])&lt;[&lt;{}{}&gt;({}())][((){})[[]()]]&gt;)&lt;[{(()&lt;&gt;)(()[])}](&lt;[</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">read.ts</div>
-<div class="content">
-<pre class="prettyprint highlight"><code>import * as fs from 'fs';
-
-/**
- * Reads all lines from the given file.
- * @param file name of the file.
- * @param path alternative location if file is not found.
- * @returns lines of the file.
- */
-export function readLines(file: string, path: string) : string[] {
-    return readBlocks(file, path, '\r\n');
-}
-
-/**
- * Reads all blocks from the given file.
- * @param file name of the file.
- * @param path alternative location if file is not found.
- * @param separator separator that is to be used for separating blocks.
- * @returns blocks of the file.
- */
- export function readBlocks(file: string, path: string, separator: string) : string[] {
-    let input: string;
-
-    const path1 = path + '/' + file;
-
-    if (fs.existsSync(path1)) {
-        input = fs.readFileSync(path1,'utf8');
-    }
-    else {
-        input = fs.readFileSync(file,'utf8');
-    }
-
-    return input.split(separator);
-}</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">main.ts</div>
-<div class="content">
-<pre class="prettyprint highlight"><code>// Day 10: Syntax Scoring
-// Solution by Christoph Jobmann
-
-import { SyntaxChecker } from "./syntaxChecker";
-
-let checker = new SyntaxChecker();
-const scores = checker.getErrorScores();
-console.log(scores.reduce((sum, v) =&gt; sum + v, 0));
-
-console.log(checker.getMiddleCompletionScore());</code></pre>
-</div>
-</div>
-<a id="day11" />
-</div>
-</div>
-<div class="sect2">
-<h3 id="_day_11_typescript"><a class="anchor" href="#_day_11_typescript"></a><a class="link" href="#_day_11_typescript">Day 11: typescript</a></h3>
-<div class="paragraph">
-<p><span class="small">this documentation is autogenerated. Add a <code>README.adoc</code> to your solution to take over the control of this :-)</span></p>
-</div>
-<div class="sect3">
-<h4 id="_typescript_11"><a class="anchor" href="#_typescript_11"></a><a class="link" href="#_typescript_11">typescript</a></h4>
-<div class="listingblock">
 <div class="title">tsconfig.json</div>
 <div class="content">
 <pre class="prettyprint highlight"><code>{
@@ -7599,6 +7540,16 @@ console.log(checker.getMiddleCompletionScore());</code></pre>
 }</code></pre>
 </div>
 </div>
+<a id="day11" />
+</div>
+</div>
+<div class="sect2">
+<h3 id="_day_11_typescript"><a class="anchor" href="#_day_11_typescript"></a><a class="link" href="#_day_11_typescript">Day 11: typescript</a></h3>
+<div class="paragraph">
+<p><span class="small">this documentation is autogenerated. Add a <code>README.adoc</code> to your solution to take over the control of this :-)</span></p>
+</div>
+<div class="sect3">
+<h4 id="_typescript_11"><a class="anchor" href="#_typescript_11"></a><a class="link" href="#_typescript_11">typescript</a></h4>
 <div class="listingblock">
 <div class="title">flashAnalyzer.ts</div>
 <div class="content">
@@ -7690,36 +7641,6 @@ export class FlashAnalyzer {
 </div>
 </div>
 <div class="listingblock">
-<div class="title">input.txt</div>
-<div class="content">
-<pre class="prettyprint highlight"><code>4341347643
-5477728451
-2322733878
-5453762556
-2718123421
-4237886115
-5631617114
-2217667227
-4236581255
-4482627641</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">input1.txt</div>
-<div class="content">
-<pre class="prettyprint highlight"><code>5483143223
-2745854711
-5264556173
-6141336146
-6357385478
-4167524645
-2176841721
-6882881134
-4846848554
-5283751526</code></pre>
-</div>
-</div>
-<div class="listingblock">
 <div class="title">read.ts</div>
 <div class="content">
 <pre class="prettyprint highlight"><code>import * as fs from 'fs';
@@ -7770,6 +7691,85 @@ console.log(flashes);
 
 const untilFullFlash = new FlashAnalyzer().countStepsToFullFlash();
 console.log(untilFullFlash);</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">input.txt</div>
+<div class="content">
+<pre class="prettyprint highlight"><code>4341347643
+5477728451
+2322733878
+5453762556
+2718123421
+4237886115
+5631617114
+2217667227
+4236581255
+4482627641</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">input1.txt</div>
+<div class="content">
+<pre class="prettyprint highlight"><code>5483143223
+2745854711
+5264556173
+6141336146
+6357385478
+4167524645
+2176841721
+6882881134
+4846848554
+5283751526</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">tsconfig.json</div>
+<div class="content">
+<pre class="prettyprint highlight"><code>{
+  "compilerOptions": {
+    "target": "es2016",
+    "module": "commonjs",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "strict": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "baseUrl": "./",
+    "paths": {
+      "*": ["./dist"]
+    },
+    "typeRoots": ["node_modules/@types", "src/types"],
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  },
+  "exclude": []
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">package.json</div>
+<div class="content">
+<pre class="prettyprint highlight"><code>{
+  "name": "aoc2021",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "main": "ts-node main.ts"
+  },
+  "author": "Christoph Jobmann &lt;christoph.jobmann@deutschebahn.com&gt;",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^16.11.12",
+    "typescript": "^4.5.2"
+  },
+  "dependencies": {
+    "ts-node": "^10.4.0",
+    "tslint": "^5.20.1",
+    "typescript": "^3.9.10"
+  }
+}</code></pre>
 </div>
 </div>
 </div>
